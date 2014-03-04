@@ -1,50 +1,51 @@
 {
-    "path": "/Users/psteeleidem/development/github/raptorjs3/raptor-optimizer-require/package.json",
-    "name": "raptor-optimizer-require",
-    "description": "RaptorJS Optimizer plugin to support Node.js style module require in the browser",
-    "keywords": [
-        "less",
-        "raptor",
-        "optimizer",
-        "css"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/raptorjs/raptor-optimizer-require.git"
-    },
-    "scripts": {
-        "test": "node_modules/.bin/mocha --ui bdd --reporter spec  ./test"
-    },
-    "author": "Patrick Steele-Idem <pnidem@gmail.com>",
-    "contributors": [
-        "Patrick Steele-Idem <pnidem@gmail.com>",
-        "Phillip Gates-Idem <phillip.idem@gmail.com>"
-    ],
-    "maintainers": "Patrick Steele-Idem <pnidem@gmail.com>",
-    "dependencies": {
-        "less": "~1.7.0",
-        "raptor-modules": "~0.2.2-beta",
-        "process": "~0.6.0",
-        "detective": "~2.4.1",
-        "raptor-logging": "~0.2.0-beta",
-        "raptor-promises": "~0.2.0-beta",
-        "then-fs": "~1.0.4",
-        "raptor-util": "~0.2.0-beta",
-        "app-module-path": "~0.3.0-beta",
-        "event-stream": "~3.1.0"
-    },
-    "devDependencies": {
-        "mocha": "~1.15.1",
-        "chai": "~1.8.1",
-        "jshint": "~2.3.0",
-        "raptor-optimizer": "~0.2.6-beta"
-    },
-    "license": "Apache License v2.0",
-    "bin": {},
-    "main": "lib/raptor-optimizer-require.js",
-    "publishConfig": {
-        "registry": "https://registry.npmjs.org/"
-    },
-    "ebay": {},
-    "version": "0.1.1-beta"
+  "path": "/Users/psteeleidem/development/github/raptorjs3/raptor-optimizer-require/package.json",
+  "name": "raptor-optimizer-require",
+  "description": "RaptorJS Optimizer plugin to support Node.js style module require in the browser",
+  "keywords": [
+    "less",
+    "raptor",
+    "optimizer",
+    "css"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/raptorjs/raptor-optimizer-require.git"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha --ui bdd --reporter spec  ./test"
+  },
+  "author": "Patrick Steele-Idem <pnidem@gmail.com>",
+  "contributors": [
+    "Patrick Steele-Idem <pnidem@gmail.com>",
+    "Phillip Gates-Idem <phillip.idem@gmail.com>"
+  ],
+  "maintainers": "Patrick Steele-Idem <pnidem@gmail.com>",
+  "dependencies": {
+    "less": "~1.7.0",
+    "raptor-modules": "~0.2.2-beta",
+    "process": "~0.6.0",
+    "detective": "~2.4.1",
+    "raptor-logging": "~0.2.0-beta",
+    "raptor-promises": "~0.2.0-beta",
+    "then-fs": "~1.0.4",
+    "raptor-util": "~0.2.0-beta",
+    "app-module-path": "~0.3.0-beta",
+    "event-stream": "~3.1.0",
+    "raptor-ecma": "^0.2.0-beta"
+  },
+  "devDependencies": {
+    "mocha": "~1.15.1",
+    "chai": "~1.8.1",
+    "jshint": "~2.3.0",
+    "raptor-optimizer": "~0.2.6-beta"
+  },
+  "license": "Apache License v2.0",
+  "bin": {},
+  "main": "lib/raptor-optimizer-require.js",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "ebay": {},
+  "version": "0.1.1-beta"
 }
