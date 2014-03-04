@@ -1,0 +1,4 @@
+{
+    "main": "sub",
+    "browser": "./sub_browser.js"
+}
