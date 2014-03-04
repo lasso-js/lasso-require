@@ -8,6 +8,9 @@ var fs = require('fs');
 
 require('app-module-path').addPath(nodePath.join(__dirname, 'src'));
 
+var plugins = {};
+plugins[nodePath.join(__dirname, '../lib/raptor-optimizer-require')] = {};
+
 describe('raptor-optimizer' , function() {
 
     beforeEach(function(done) {
@@ -37,9 +40,7 @@ describe('raptor-optimizer' , function() {
 
         optimizer.create({
                 enabledExtensions: ['jquery', 'browser'],
-                plugins: {
-                    '../lib/raptor-optimizer-require': {}
-                }
+                plugins: plugins
             }, __dirname, __filename)
             .then(function(pageOptimizer) {
                 return pageOptimizer.optimizePage({
@@ -63,6 +64,53 @@ describe('raptor-optimizer' , function() {
                 fs.writeFileSync(nodePath.join(__dirname, 'resources/foo-bar-bundle.actual.js'), actual, {encoding: 'utf8'});
                 expect(actual).to.equal(
                     fs.readFileSync(nodePath.join(__dirname, 'resources/foo-bar-bundle.js'), {encoding: 'utf8'}));
+            })
+            .then(done)
+            .fail(done);
+    });
+
+    it('should bundle require dependencies correctly', function(done) {
+        var writer = require('./MockWriter').create({
+            outputDir: 'build',
+            checksumsEnabled: false
+        });
+        var optimizer = require('raptor-optimizer');
+
+        optimizer.create({
+                enabledExtensions: ['jquery', 'browser'],
+                plugins: plugins,
+                bundles: [
+                    {
+                        name: 'core',
+                        dependencies: [
+                            'raptor-modules/client'
+                        ]
+                    },
+                    {
+                        name: 'jquery',
+                        dependencies: [
+                            'require jquery'
+                        ]
+                    }
+                ]
+            }, nodePath.join(__dirname, 'test-project'))
+            .then(function(pageOptimizer) {
+                return pageOptimizer.optimizePage({
+                        pageName: "testPage",
+                        writer: writer,
+                        dependencies: [
+                            "require jquery",
+                            "require foo"
+                        ],
+                        from: nodePath.join(__dirname, 'test-project')
+                    });
+            })
+            .then(function(optimizedPage) {
+                expect(writer.getOutputPaths()).to.deep.equal([
+                        nodePath.join(__dirname, 'build/core.js'),
+                        nodePath.join(__dirname, 'build/jquery.js'),
+                        nodePath.join(__dirname, 'build/testPage.js')
+                    ]);
             })
             .then(done)
             .fail(done);
