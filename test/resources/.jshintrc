@@ -1,35 +1,12 @@
 {
     "predef": [
-        "jasmine",
-        "spyOn",
-        "it",
-        "xit",
-        "console",
-        "describe",
-        "xdescribe",
-        "beforeEach",
-        "before",
-        "after",
-        "waits",
-        "waitsFor",
-        "runs",
-        "raptor",
-        "$rset",
-        "$radd",
-        "$rget",
-        "$renv",
-        "$rwidgets",
-        "$",
-        "dust",
-        "__rhinoHelpers",
-        "Packages",
-        "JavaAdapter",
-        "unescape"
+        
     ],
 
     "globals": { 
         "define": true, 
-        "require": true
+        "require": true,
+        "$rmod"
     },
 
     "node" : true,
@@ -53,7 +30,7 @@
     "plusplus": false,
     "regexp": false,
     "undef": true,
-    "sub": false,
+    "sub": true,
     "white": false,
     "eqeqeq": false,
     "latedef": true,

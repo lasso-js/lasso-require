@@ -9,7 +9,7 @@ var fs = require('fs');
 
 require('../'); // Load this module just to make sure it works
 
-describe('raptor-modules/optimizer/Dependency_commonjs-remap' , function() {
+describe('raptor-optimizer-require/dependency-commonjs-remap' , function() {
 
     beforeEach(function(done) {
         for (var k in require.cache) {
@@ -22,7 +22,7 @@ describe('raptor-modules/optimizer/Dependency_commonjs-remap' , function() {
 
     it('should generate the correct remap code', function(done) {
 
-        var defDependency = require('../lib/Dependency_commonjs-remap');
+        var defDependency = require('../lib/dependency-commonjs-remap');
         defDependency.from = "/foo@1.0.0/lib/index";
         defDependency.to = "browser/index";
         var code = '';

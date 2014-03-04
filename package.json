@@ -22,11 +22,22 @@
   ],
   "maintainers": "Patrick Steele-Idem <pnidem@gmail.com>",
   "dependencies": {
-    "less": "~1.7.0"
+    "less": "~1.7.0",
+    "raptor-modules": "~0.2.2-beta",
+    "process": "~0.6.0",
+    "detective": "~2.4.1",
+    "raptor-logging": "~0.2.0-beta",
+    "raptor-promises": "~0.2.0-beta",
+    "then-fs": "~1.0.4",
+    "raptor-util": "~0.2.0-beta",
+    "app-module-path": "~0.3.0-beta",
+    "event-stream": "~3.1.0"
   },
   "devDependencies": {
     "mocha": "~1.15.1",
-    "chai": "~1.8.1"
+    "chai": "~1.8.1",
+    "jshint": "~2.3.0",
+    "raptor-optimizer": "~0.2.6-beta"
   },
   "license": "Apache License v2.0",
   "bin": {},

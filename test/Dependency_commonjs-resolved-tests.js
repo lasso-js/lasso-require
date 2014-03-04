@@ -9,7 +9,7 @@ var fs = require('fs');
 
 require('../'); // Load this module just to make sure it works
 
-describe('raptor-modules/optimizer/Dependency_commonjs-resolved' , function() {
+describe('raptor-optimizer-require/dependency-commonjs-resolved' , function() {
 
     beforeEach(function(done) {
         for (var k in require.cache) {
@@ -22,7 +22,7 @@ describe('raptor-modules/optimizer/Dependency_commonjs-resolved' , function() {
 
     it('should generate the correct main for an installed module', function(done) {
 
-        var resolvedDependency = require('../lib/Dependency_commonjs-resolved');
+        var resolvedDependency = require('../lib/dependency-commonjs-resolved');
         resolvedDependency.target = "baz";
         resolvedDependency.from = "/src";
         resolvedDependency.resolved = "/$/baz/lib/index";

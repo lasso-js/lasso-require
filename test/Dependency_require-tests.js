@@ -9,7 +9,9 @@ var fs = require('fs');
 
 require('../'); // Load this module just to make sure it works
 
-describe('raptor-modules/optimizer/Dependency_require' , function() {
+var clientOptimizerPackagePath = require.resolve('raptor-modules/client/optimizer.json');
+
+describe('raptor-optimizer-require/dependency-require' , function() {
 
     beforeEach(function(done) {
         for (var k in require.cache) {
@@ -21,14 +23,12 @@ describe('raptor-modules/optimizer/Dependency_require' , function() {
     });
 
     it('should resolve to the correct optimizer manifest for a "require" dependency that resolves to a root module', function(done) {
-
-
-        var requireDependency = require('../lib/Dependency_require');
+        var requireDependency = require('../lib/dependency-require');
         requireDependency.path = "bar";
         requireDependency.from = nodePath.join(__dirname, 'test-project');
         requireDependency.init();
 
-        requireDependency.getDependencies()
+        requireDependency.getDependencies({})
             .then(function(dependencies) {
                 var lookup = {};
 
@@ -40,7 +40,7 @@ describe('raptor-modules/optimizer/Dependency_require' , function() {
 
                 expect(lookup['package']).to.deep.equal({
                     type: 'package',
-                    path: nodePath.join(__dirname, '../../client/optimizer.json'),
+                    path: clientOptimizerPackagePath
                 });
 
                 expect(lookup['commonjs-dep']).to.deep.equal({
@@ -69,10 +69,10 @@ describe('raptor-modules/optimizer/Dependency_require' , function() {
 
     it('should resolve to the correct optimizer manifest for a "require" dependency with a resolved path', function(done) {
 
-        var requireDependency = require('../lib/Dependency_require');
+        var requireDependency = require('../lib/dependency-require');
         requireDependency.resolvedPath = nodePath.join(__dirname, 'test-project/node_modules/bar/lib/index.js');
         requireDependency.init();
-        requireDependency.getDependencies()
+        requireDependency.getDependencies({})
             .then(function(dependencies) {
                 var lookup = {};
 
@@ -92,7 +92,7 @@ describe('raptor-modules/optimizer/Dependency_require' , function() {
 
                 expect(lookup['package']).to.deep.equal({
                     type: 'package',
-                    path: nodePath.join(__dirname, '../../client/optimizer.json'),
+                    path: clientOptimizerPackagePath
                 });
 
                 expect(lookup['commonjs-def']).to.deep.equal({
@@ -122,12 +122,12 @@ describe('raptor-modules/optimizer/Dependency_require' , function() {
 
     it('should resolve to the correct optimizer manifest for a "require" dependency that resolves to a nested installed module', function(done) {
 
-        var requireDependency = require('../lib/Dependency_require');
+        var requireDependency = require('../lib/dependency-require');
         requireDependency.path = "baz";
         requireDependency.from = nodePath.join(__dirname, 'test-project/node_modules/bar');
         requireDependency.init();
 
-        requireDependency.getDependencies()
+        requireDependency.getDependencies({})
             .then(function(dependencies) {
                 var lookup = {};
 
@@ -139,7 +139,7 @@ describe('raptor-modules/optimizer/Dependency_require' , function() {
 
                 expect(lookup['package']).to.deep.equal({
                     type: 'package',
-                    path: nodePath.join(__dirname, '../../client/optimizer.json'),
+                    path: clientOptimizerPackagePath
                 });
 
                 expect(lookup['commonjs-dep']).to.deep.equal({
@@ -169,10 +169,10 @@ describe('raptor-modules/optimizer/Dependency_require' , function() {
 
     it('should resolve to the correct optimizer manifest for a "require" dependency with a resolved path and a non-string require in code', function(done) {
 
-        var requireDependency = require('../lib/Dependency_require');
+        var requireDependency = require('../lib/dependency-require');
         requireDependency.resolvedPath = nodePath.join(__dirname, 'test-project/node_modules/foo/lib/index.js');
         requireDependency.init();
-        requireDependency.getDependencies()
+        requireDependency.getDependencies({})
             .then(function(dependencies) {
                 var lookup = {};
 
@@ -192,7 +192,7 @@ describe('raptor-modules/optimizer/Dependency_require' , function() {
 
                 expect(lookup['package']).to.deep.equal({
                     type: 'package',
-                    path: nodePath.join(__dirname, '../../client/optimizer.json'),
+                    path: clientOptimizerPackagePath
                 });
 
                 expect(lookup['commonjs-def']).to.deep.equal({
@@ -215,12 +215,12 @@ describe('raptor-modules/optimizer/Dependency_require' , function() {
     });
 
     it('should resolve to the correct optimizer manifest for a "require" dependency that has a browser module override', function(done) {
-        var requireDependency = require('../lib/Dependency_require');
+        var requireDependency = require('../lib/dependency-require');
         requireDependency.path = "hello-world";
         requireDependency.from = nodePath.join(__dirname, 'test-project/browser-overrides/main');
         requireDependency.init();
 
-        requireDependency.getDependencies()
+        requireDependency.getDependencies({})
             .then(function(dependencies) {
                 var lookup = {};
 
@@ -232,7 +232,7 @@ describe('raptor-modules/optimizer/Dependency_require' , function() {
 
                 expect(lookup['package']).to.deep.equal({
                     type: 'package',
-                    path: nodePath.join(__dirname, '../../client/optimizer.json'),
+                    path: clientOptimizerPackagePath
                 });
 
                 expect(lookup['commonjs-dep']).to.deep.equal({
@@ -262,12 +262,12 @@ describe('raptor-modules/optimizer/Dependency_require' , function() {
     });
 
     it('should resolve to the correct optimizer manifest for a "require" dependency that has a browser file override', function(done) {
-        var requireDependency = require('../lib/Dependency_require');
+        var requireDependency = require('../lib/dependency-require');
         requireDependency.path = "./browser-overrides/main/index";
         requireDependency.from = nodePath.join(__dirname, 'test-project');
         requireDependency.init();
 
-        requireDependency.getDependencies()
+        requireDependency.getDependencies({})
             .then(function(dependencies) {
                 var lookup = {};
 
@@ -281,7 +281,7 @@ describe('raptor-modules/optimizer/Dependency_require' , function() {
 
                 expect(lookup['package']).to.deep.equal({
                     type: 'package',
-                    path: nodePath.join(__dirname, '../../client/optimizer.json'),
+                    path: clientOptimizerPackagePath
                 });
 
                 expect(lookup['commonjs-def']).to.deep.equal({
@@ -303,12 +303,12 @@ describe('raptor-modules/optimizer/Dependency_require' , function() {
     });
 
     it('should resolve to the correct optimizer manifest for a "require" dependency that has an associated -optimizer.json', function(done) {
-        var requireDependency = require('../lib/Dependency_require');
+        var requireDependency = require('../lib/dependency-require');
         requireDependency.path = "./src/with-package/foo/index";
         requireDependency.from = nodePath.join(__dirname, 'test-project');
         requireDependency.init();
 
-        requireDependency.getDependencies()
+        requireDependency.getDependencies({})
             .then(function(dependencies) {
                 var lookup = {};
 
@@ -327,7 +327,7 @@ describe('raptor-modules/optimizer/Dependency_require' , function() {
 
                 expect(pkgs[0]).to.deep.equal({
                     type: 'package',
-                    path: nodePath.join(__dirname, '../../client/optimizer.json'),
+                    path: clientOptimizerPackagePath
                 });
 
                 expect(pkgs[1]).to.deep.equal({
@@ -347,12 +347,12 @@ describe('raptor-modules/optimizer/Dependency_require' , function() {
     });
 
     it('should resolve to the correct optimizer manifest for a "require" dependency that has an associated optimizer.json in dir', function(done) {
-        var requireDependency = require('../lib/Dependency_require');
+        var requireDependency = require('../lib/dependency-require');
         requireDependency.path = "./src/with-package/bar/index";
         requireDependency.from = nodePath.join(__dirname, 'test-project');
         requireDependency.init();
 
-        requireDependency.getDependencies()
+        requireDependency.getDependencies({})
             .then(function(dependencies) {
                 var lookup = {};
 
@@ -372,7 +372,7 @@ describe('raptor-modules/optimizer/Dependency_require' , function() {
 
                 expect(pkgs[0]).to.deep.equal({
                     type: 'package',
-                    path: nodePath.join(__dirname, '../../client/optimizer.json'),
+                    path: clientOptimizerPackagePath
                 });
 
                 expect(pkgs[1]).to.deep.equal({

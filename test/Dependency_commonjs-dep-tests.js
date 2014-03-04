@@ -9,7 +9,7 @@ var fs = require('fs');
 
 require('../'); // Load this module just to make sure it works
 
-describe('raptor-modules/optimizer/Dependency_commonjs-dep' , function() {
+describe('raptor-optimizer-require/dependency-commonjs-dep' , function() {
 
     beforeEach(function(done) {
         for (var k in require.cache) {
@@ -22,7 +22,7 @@ describe('raptor-modules/optimizer/Dependency_commonjs-dep' , function() {
 
     it('should generate the correct main for an installed module', function(done) {
 
-        var defDependency = require('../lib/Dependency_commonjs-dep');
+        var defDependency = require('../lib/dependency-commonjs-dep');
         defDependency.parentPath = "/$/foo";
         defDependency.childName = "baz";
         defDependency.childVersion = "3.0.0";
