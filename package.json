@@ -1,5 +1,4 @@
 {
-    "path": "/Users/psteeleidem/development/github/raptorjs3/raptor-optimizer-require/package.json",
     "name": "raptor-optimizer-require",
     "description": "RaptorJS Optimizer plugin to support Node.js style module require in the browser",
     "keywords": [
