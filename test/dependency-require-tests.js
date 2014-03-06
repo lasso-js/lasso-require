@@ -32,7 +32,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
             .then(function(dependencies) {
                 var lookup = {};
 
-                expect(dependencies.length).to.equal(4);
+                expect(dependencies.length).to.equal(5);
 
                 dependencies.forEach(function(d) {
                     lookup[d.type] = d;
@@ -76,7 +76,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
             .then(function(dependencies) {
                 var lookup = {};
 
-                expect(dependencies.length).to.equal(4);
+                expect(dependencies.length).to.equal(5);
 
                 var requires = [];
 
@@ -131,7 +131,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
             .then(function(dependencies) {
                 var lookup = {};
 
-                expect(dependencies.length).to.equal(4);
+                expect(dependencies.length).to.equal(5);
 
                 dependencies.forEach(function(d) {
                     lookup[d.type] = d;
@@ -176,7 +176,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
             .then(function(dependencies) {
                 var lookup = {};
 
-                expect(dependencies.length).to.equal(3);
+                expect(dependencies.length).to.equal(4);
 
                 var requires = [];
 
@@ -224,7 +224,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
             .then(function(dependencies) {
                 var lookup = {};
 
-                expect(dependencies.length).to.equal(4);
+                expect(dependencies.length).to.equal(5);
 
                 dependencies.forEach(function(d) {
                     lookup[d.type] = d;
@@ -273,7 +273,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
 
                 // console.log('DEPENDENCIES: ', dependencies);
 
-                expect(dependencies.length).to.equal(3);
+                expect(dependencies.length).to.equal(4);
 
                 dependencies.forEach(function(d) {
                     lookup[d.type] = d;
@@ -312,7 +312,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
             .then(function(dependencies) {
                 var lookup = {};
 
-                expect(dependencies.length).to.equal(3);
+                expect(dependencies.length).to.equal(4);
                 var pkgs = [];
 
                 dependencies.forEach(function(d) {
@@ -356,7 +356,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
             .then(function(dependencies) {
                 var lookup = {};
 
-                expect(dependencies.length).to.equal(3);
+                expect(dependencies.length).to.equal(4);
 
                 var pkgs = [];
 
