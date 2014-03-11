@@ -76,6 +76,11 @@ describe('raptor-optimizer' , function() {
         });
         var optimizer = require('raptor-optimizer');
 
+        var plugins = {};
+        plugins[nodePath.join(__dirname, '../lib/raptor-optimizer-require')] = {
+            includeClient: true
+        };
+
         optimizer.create({
                 enabledExtensions: ['jquery', 'browser'],
                 plugins: plugins,
@@ -116,7 +121,7 @@ describe('raptor-optimizer' , function() {
             .fail(done);
     });
 
-    it.only('should allow for browserify-style transforms', function(done) {
+    it('should allow for browserify-style transforms', function(done) {
         var writer = require('./MockWriter').create({
             outputDir: 'build',
             checksumsEnabled: false

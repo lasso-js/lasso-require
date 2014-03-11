@@ -23,7 +23,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
     });
 
     it('should resolve to the correct optimizer manifest for a "require" dependency that resolves to a root module', function(done) {
-        var requireDependency = require('../lib/dependency-require');
+        var requireDependency = require('../lib/dependency-require').create();
         requireDependency.path = "bar";
         requireDependency.from = nodePath.join(__dirname, 'test-project');
         requireDependency.init();
@@ -69,7 +69,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
 
     it('should resolve to the correct optimizer manifest for a "require" dependency with a resolved path', function(done) {
 
-        var requireDependency = require('../lib/dependency-require');
+        var requireDependency = require('../lib/dependency-require').create();
         requireDependency.resolvedPath = nodePath.join(__dirname, 'test-project/node_modules/bar/lib/index.js');
         requireDependency.init();
         requireDependency.getDependencies({})
@@ -81,6 +81,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
                 var requires = [];
 
                 dependencies.forEach(function(d) {
+                    delete d._reader;
                     if (d.type === 'require') {
                         requires.push(d);
                     }
@@ -122,7 +123,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
 
     it('should resolve to the correct optimizer manifest for a "require" dependency that resolves to a nested installed module', function(done) {
 
-        var requireDependency = require('../lib/dependency-require');
+        var requireDependency = require('../lib/dependency-require').create();
         requireDependency.path = "baz";
         requireDependency.from = nodePath.join(__dirname, 'test-project/node_modules/bar');
         requireDependency.init();
@@ -169,7 +170,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
 
     it('should resolve to the correct optimizer manifest for a "require" dependency with a resolved path and a non-string require in code', function(done) {
 
-        var requireDependency = require('../lib/dependency-require');
+        var requireDependency = require('../lib/dependency-require').create();
         requireDependency.resolvedPath = nodePath.join(__dirname, 'test-project/node_modules/foo/lib/index.js');
         requireDependency.init();
         requireDependency.getDependencies({})
@@ -181,6 +182,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
                 var requires = [];
 
                 dependencies.forEach(function(d) {
+                    delete d._reader;
                     if (d.type === 'require') {
                         requires.push(d);
                     }
@@ -215,7 +217,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
     });
 
     it('should resolve to the correct optimizer manifest for a "require" dependency that has a browser module override', function(done) {
-        var requireDependency = require('../lib/dependency-require');
+        var requireDependency = require('../lib/dependency-require').create();
         requireDependency.path = "hello-world";
         requireDependency.from = nodePath.join(__dirname, 'test-project/browser-overrides/main');
         requireDependency.init();
@@ -262,7 +264,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
     });
 
     it('should resolve to the correct optimizer manifest for a "require" dependency that has a browser file override', function(done) {
-        var requireDependency = require('../lib/dependency-require');
+        var requireDependency = require('../lib/dependency-require').create();
         requireDependency.path = "./browser-overrides/main/index";
         requireDependency.from = nodePath.join(__dirname, 'test-project');
         requireDependency.init();
@@ -276,6 +278,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
                 expect(dependencies.length).to.equal(4);
 
                 dependencies.forEach(function(d) {
+                    delete d._reader;
                     lookup[d.type] = d;
                 });
 
@@ -303,7 +306,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
     });
 
     it('should resolve to the correct optimizer manifest for a "require" dependency that has an associated -optimizer.json', function(done) {
-        var requireDependency = require('../lib/dependency-require');
+        var requireDependency = require('../lib/dependency-require').create();
         requireDependency.path = "./src/with-package/foo/index";
         requireDependency.from = nodePath.join(__dirname, 'test-project');
         requireDependency.init();
@@ -316,6 +319,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
                 var pkgs = [];
 
                 dependencies.forEach(function(d) {
+                    delete d._reader;
                     if (d.type === 'package') {
                         pkgs.push(d);
                     }
@@ -347,7 +351,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
     });
 
     it('should resolve to the correct optimizer manifest for a "require" dependency that has an associated optimizer.json in dir', function(done) {
-        var requireDependency = require('../lib/dependency-require');
+        var requireDependency = require('../lib/dependency-require').create();
         requireDependency.path = "./src/with-package/bar/index";
         requireDependency.from = nodePath.join(__dirname, 'test-project');
         requireDependency.init();
@@ -361,6 +365,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
                 var pkgs = [];
 
                 dependencies.forEach(function(d) {
+                    delete d._reader;
                     if (d.type === 'package') {
                         pkgs.push(d);
                     }
