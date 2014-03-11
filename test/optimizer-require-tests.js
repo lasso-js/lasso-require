@@ -9,7 +9,9 @@ var fs = require('fs');
 require('app-module-path').addPath(nodePath.join(__dirname, 'src'));
 
 var plugins = {};
-plugins[nodePath.join(__dirname, '../lib/raptor-optimizer-require')] = {};
+plugins[nodePath.join(__dirname, '../lib/raptor-optimizer-require')] = {
+    includeClient: false
+};
 
 describe('raptor-optimizer' , function() {
 
@@ -35,8 +37,6 @@ describe('raptor-optimizer' , function() {
             checksumsEnabled: false
         });
         var optimizer = require('raptor-optimizer');
-
-        require('../lib/raptor-optimizer-require').INCLUDE_CLIENT = false;
 
         optimizer.create({
                 enabledExtensions: ['jquery', 'browser'],
@@ -111,6 +111,45 @@ describe('raptor-optimizer' , function() {
                         nodePath.join(__dirname, 'build/jquery.js'),
                         nodePath.join(__dirname, 'build/testPage.js')
                     ]);
+            })
+            .then(done)
+            .fail(done);
+    });
+
+    it.only('should allow for browserify-style transforms', function(done) {
+        var writer = require('./MockWriter').create({
+            outputDir: 'build',
+            checksumsEnabled: false
+        });
+        var optimizer = require('raptor-optimizer');
+
+        var plugins = {};
+        plugins[nodePath.join(__dirname, '../lib/raptor-optimizer-require')] = {
+            includeClient: false,
+            transforms: [
+                'deamdify'
+            ]
+        };
+
+        optimizer.create({
+                plugins: plugins
+            }, nodePath.join(__dirname, 'test-project'))
+            .then(function(pageOptimizer) {
+                return pageOptimizer.optimizePage({
+                        pageName: "testPage",
+                        writer: writer,
+                        dependencies: [
+                            "require ./amd-module"
+                        ],
+                        from: nodePath.join(__dirname, 'test-project')
+                    });
+            })
+            .then(function(optimizedPage) {
+
+                var actual = writer.getCodeForFilename('testPage.js');
+                fs.writeFileSync(nodePath.join(__dirname, 'resources/amd-module.actual.js'), actual, {encoding: 'utf8'});
+                expect(actual).to.equal(
+                    fs.readFileSync(nodePath.join(__dirname, 'resources/amd-module.expected.js'), {encoding: 'utf8'}));
             })
             .then(done)
             .fail(done);
