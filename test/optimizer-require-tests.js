@@ -10,10 +10,11 @@ require('app-module-path').addPath(nodePath.join(__dirname, 'src'));
 
 var plugins = {};
 plugins[nodePath.join(__dirname, '../lib/raptor-optimizer-require')] = {
-    includeClient: false
+    includeClient: false,
+    rootDir: nodePath.join(__dirname, 'test-project')
 };
 
-describe('raptor-optimizer' , function() {
+describe('raptor-optimizer-require' , function() {
 
     beforeEach(function(done) {
         for (var k in require.cache) {
@@ -78,7 +79,8 @@ describe('raptor-optimizer' , function() {
 
         var plugins = {};
         plugins[nodePath.join(__dirname, '../lib/raptor-optimizer-require')] = {
-            includeClient: true
+            includeClient: true,
+            rootDir: nodePath.join(__dirname, 'test-project')
         };
 
         optimizer.create({
@@ -133,7 +135,8 @@ describe('raptor-optimizer' , function() {
             includeClient: false,
             transforms: [
                 'deamdify'
-            ]
+            ],
+            rootDir: nodePath.join(__dirname, 'test-project')
         };
 
         optimizer.create({
