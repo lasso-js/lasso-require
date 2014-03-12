@@ -1,3 +1,5 @@
+var raptorLoader = require('raptor-loader');
+
 exports.test = function(input) {
     for (var i=0; i<input.length; i++) {
         if (true) {
@@ -7,7 +9,7 @@ exports.test = function(input) {
 
     require('bar');
 
-    require('raptor-loader').async(['./optimizer.json'], function(err) {
+    raptorLoader.async(['./optimizer.json'], function(err) {
         require('baz');
 
         require('raptor-loader').async(function(err) {
@@ -19,8 +21,8 @@ exports.test = function(input) {
         personProfile: function(callback) {
             require('raptor-loader').async(
                 [
-                    'require avatar',
-                    'require address'
+                    'require: avatar',
+                    'require: address'
                 ], callback);
         }
     }
