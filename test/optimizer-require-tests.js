@@ -64,7 +64,7 @@ describe('raptor-optimizer-require' , function() {
                 var actual = writer.getCodeForFilename('testPage.js');
                 fs.writeFileSync(nodePath.join(__dirname, 'resources/foo-bar-bundle.actual.js'), actual, {encoding: 'utf8'});
                 expect(actual).to.equal(
-                    fs.readFileSync(nodePath.join(__dirname, 'resources/foo-bar-bundle.js'), {encoding: 'utf8'}));
+                    fs.readFileSync(nodePath.join(__dirname, 'resources/foo-bar-bundle.expected.js'), {encoding: 'utf8'}));
             })
             .then(done)
             .fail(done);
