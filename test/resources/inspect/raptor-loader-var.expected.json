@@ -1,28 +1,22 @@
 {
-    "code": "var raptorLoader = require('raptor-loader');\nexports.test = function (input) {\n    raptorLoader.load(__async0, function (err) {\n        require('baz');\n        raptorLoader.load(__async1, function (err) {\n            require('cat');\n        });\n    });\n};",
+    "code": "var raptorLoader = require('raptor-loader');\nexports.test = function (input) {\n    raptorLoader.async('__async0', function (err) {\n        require('baz');\n        raptorLoader.async('__async1', function (err) {\n            require('cat');\n        });\n    });\n};",
     "requires": [
         "raptor-loader"
     ],
     "processGlobal": false,
-    "async": [
-        {
-            "varName": "__async0",
-            "dependencies": [
-                "./optimizer.json",
-                {
-                    "type": "require",
-                    "path": "baz"
-                }
-            ]
-        },
-        {
-            "varName": "__async1",
-            "dependencies": [
-                {
-                    "type": "require",
-                    "path": "cat"
-                }
-            ]
-        }
-    ]
+    "async": {
+        "__async0": [
+            "./optimizer.json",
+            {
+                "type": "require",
+                "path": "baz"
+            }
+        ],
+        "__async1": [
+            {
+                "type": "require",
+                "path": "cat"
+            }
+        ]
+    }
 }

@@ -1,37 +1,28 @@
 {
-    "code": "var raptorLoader = require('raptor-loader');\nexports.test = function (input) {\n    for (var i = 0; i < input.length; i++) {\n        if (true) {\n            require('foo');\n        }\n    }\n    require('bar');\n    raptorLoader.load(__async0, function (err) {\n        require('baz');\n        require('raptor-loader').load(__async1, function (err) {\n            require('cat');\n        });\n    });\n    var asyncLoaders = {\n            personProfile: function (callback) {\n                require('raptor-loader').load(__async2, callback);\n            }\n        };\n    function loadModule(name, callback) {\n        asyncLoaders[name](callback);\n    }\n};",
+    "code": "var raptorLoader = require('raptor-loader');\nexports.test = function (input) {\n    for (var i = 0; i < input.length; i++) {\n        if (true) {\n            require('foo');\n        }\n    }\n    require('bar');\n    raptorLoader.async('__async0', function (err) {\n        require('baz');\n        require('raptor-loader').async('__async1', function (err) {\n            require('cat');\n        });\n    });\n    var asyncLoaders = {\n            personProfile: function (callback) {\n                require('raptor-loader').async('__async2', callback);\n            }\n        };\n    function loadModule(name, callback) {\n        asyncLoaders[name](callback);\n    }\n};",
     "requires": [
         "raptor-loader",
         "foo",
         "bar"
     ],
     "processGlobal": false,
-    "async": [
-        {
-            "varName": "__async0",
-            "dependencies": [
-                "./optimizer.json",
-                {
-                    "type": "require",
-                    "path": "baz"
-                }
-            ]
-        },
-        {
-            "varName": "__async1",
-            "dependencies": [
-                {
-                    "type": "require",
-                    "path": "cat"
-                }
-            ]
-        },
-        {
-            "varName": "__async2",
-            "dependencies": [
-                "require: avatar",
-                "require: address"
-            ]
-        }
-    ]
+    "async": {
+        "__async0": [
+            "./optimizer.json",
+            {
+                "type": "require",
+                "path": "baz"
+            }
+        ],
+        "__async1": [
+            {
+                "type": "require",
+                "path": "cat"
+            }
+        ],
+        "__async2": [
+            "require: avatar",
+            "require: address"
+        ]
+    }
 }
