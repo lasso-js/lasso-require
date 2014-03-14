@@ -39,19 +39,18 @@ describe('raptor-optimizer-require' , function() {
         });
         var optimizer = require('raptor-optimizer');
 
-        optimizer.create({
+        var pageOptimizer = optimizer.create({
                 enabledExtensions: ['jquery', 'browser'],
                 plugins: plugins
-            }, __dirname, __filename)
-            .then(function(pageOptimizer) {
-                return pageOptimizer.optimizePage({
-                        pageName: "testPage",
-                        writer: writer,
-                        dependencies: [
-                            { "require": "foo" },
-                            { "require": "bar" }],
-                        from: nodePath.join(__dirname, 'test-project/index.js')
-                    });
+            }, __dirname, __filename);
+
+        pageOptimizer.optimizePage({
+                pageName: "testPage",
+                writer: writer,
+                dependencies: [
+                    { "require": "foo" },
+                    { "require": "bar" }],
+                from: nodePath.join(__dirname, 'test-project/index.js')
             })
             .then(function(optimizedPage) {
                 // console.log('writer: ', writer);
@@ -65,8 +64,8 @@ describe('raptor-optimizer-require' , function() {
                 fs.writeFileSync(nodePath.join(__dirname, 'resources/foo-bar-bundle.actual.js'), actual, {encoding: 'utf8'});
                 expect(actual).to.equal(
                     fs.readFileSync(nodePath.join(__dirname, 'resources/foo-bar-bundle.expected.js'), {encoding: 'utf8'}));
+                done();
             })
-            .then(done)
             .fail(done);
     });
 
@@ -83,7 +82,7 @@ describe('raptor-optimizer-require' , function() {
             rootDir: nodePath.join(__dirname, 'test-project')
         };
 
-        optimizer.create({
+        var pageOptimizer = optimizer.create({
                 enabledExtensions: ['jquery', 'browser'],
                 plugins: plugins,
                 bundles: [
@@ -100,17 +99,17 @@ describe('raptor-optimizer-require' , function() {
                         ]
                     }
                 ]
-            }, nodePath.join(__dirname, 'test-project'))
-            .then(function(pageOptimizer) {
-                return pageOptimizer.optimizePage({
-                        pageName: "testPage",
-                        writer: writer,
-                        dependencies: [
-                            "require jquery",
-                            "require foo"
-                        ],
-                        from: nodePath.join(__dirname, 'test-project')
-                    });
+            }, nodePath.join(__dirname, 'test-project'));
+
+
+        pageOptimizer.optimizePage({
+                pageName: "testPage",
+                writer: writer,
+                dependencies: [
+                    "require jquery",
+                    "require foo"
+                ],
+                from: nodePath.join(__dirname, 'test-project')
             })
             .then(function(optimizedPage) {
                 expect(writer.getOutputPaths()).to.deep.equal([
@@ -118,8 +117,8 @@ describe('raptor-optimizer-require' , function() {
                         nodePath.join(__dirname, 'build/jquery.js'),
                         nodePath.join(__dirname, 'build/testPage.js')
                     ]);
+                done();
             })
-            .then(done)
             .fail(done);
     });
 
@@ -139,18 +138,17 @@ describe('raptor-optimizer-require' , function() {
             rootDir: nodePath.join(__dirname, 'test-project')
         };
 
-        optimizer.create({
+        var pageOptimizer = optimizer.create({
                 plugins: plugins
-            }, nodePath.join(__dirname, 'test-project'))
-            .then(function(pageOptimizer) {
-                return pageOptimizer.optimizePage({
-                        pageName: "testPage",
-                        writer: writer,
-                        dependencies: [
-                            "require ./amd-module"
-                        ],
-                        from: nodePath.join(__dirname, 'test-project')
-                    });
+            }, nodePath.join(__dirname, 'test-project'));
+        
+        pageOptimizer.optimizePage({
+                pageName: "testPage",
+                writer: writer,
+                dependencies: [
+                    "require ./amd-module"
+                ],
+                from: nodePath.join(__dirname, 'test-project')
             })
             .then(function(optimizedPage) {
 
@@ -158,8 +156,8 @@ describe('raptor-optimizer-require' , function() {
                 fs.writeFileSync(nodePath.join(__dirname, 'resources/amd-module.actual.js'), actual, {encoding: 'utf8'});
                 expect(actual).to.equal(
                     fs.readFileSync(nodePath.join(__dirname, 'resources/amd-module.expected.js'), {encoding: 'utf8'}));
+                done();
             })
-            .then(done)
             .fail(done);
     });
 });
