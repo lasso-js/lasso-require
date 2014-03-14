@@ -9,6 +9,13 @@ var fs = require('fs');
 
 require('../'); // Load this module just to make sure it works
 
+function createUniqueIdFunc() {
+    var nextId = 0;
+    return function uniqueId() {
+        return nextId++;
+    };
+}
+
 describe('raptor-optimizer-require/inspect-module' , function() {
 
     beforeEach(function(done) {
@@ -23,7 +30,7 @@ describe('raptor-optimizer-require/inspect-module' , function() {
     it('should return the correct results for code with async dependencies', function() {
         var inspectModule = require('../lib/inspect-module');
         var src = fs.readFileSync(nodePath.join(__dirname, 'resources/inspect/simple.js'), {encoding: 'utf8'});
-        var result = inspectModule(src);
+        var result = inspectModule(src, createUniqueIdFunc());
         // console.log(JSON.stringify(result, null, 4));
         // console.log('RESULT CODE:\n' + result.code);
         // console.log('RESULT:', JSON.stringify(result, null, '   '));
@@ -34,7 +41,7 @@ describe('raptor-optimizer-require/inspect-module' , function() {
     it('should return the correct results for code when using var reference to raptor-loader', function() {
         var inspectModule = require('../lib/inspect-module');
         var src = fs.readFileSync(nodePath.join(__dirname, 'resources/inspect/raptor-loader-var.js'), {encoding: 'utf8'});
-        var result = inspectModule(src);
+        var result = inspectModule(src, createUniqueIdFunc());
         // console.log(JSON.stringify(result, null, 4));
         // console.log('RESULT CODE:\n' + result.code);
         // console.log('RESULT:', JSON.stringify(result, null, '   '));
@@ -44,28 +51,28 @@ describe('raptor-optimizer-require/inspect-module' , function() {
     it('should detect process correctly (1)', function() {
         var inspectModule = require('../lib/inspect-module');
         var src = fs.readFileSync(nodePath.join(__dirname, 'resources/inspect/process1.js'), {encoding: 'utf8'});
-        var result = inspectModule(src);
+        var result = inspectModule(src, createUniqueIdFunc());
         expect(result.processGlobal).to.equal(true);
     });
 
     it('should detect process correctly (2)', function() {
         var inspectModule = require('../lib/inspect-module');
         var src = fs.readFileSync(nodePath.join(__dirname, 'resources/inspect/process2.js'), {encoding: 'utf8'});
-        var result = inspectModule(src);
+        var result = inspectModule(src, createUniqueIdFunc());
         expect(result.processGlobal).to.equal(true);
     });
 
     it('should detect process correctly (3)', function() {
         var inspectModule = require('../lib/inspect-module');
         var src = fs.readFileSync(nodePath.join(__dirname, 'resources/inspect/process3.js'), {encoding: 'utf8'});
-        var result = inspectModule(src);
+        var result = inspectModule(src, createUniqueIdFunc());
         expect(result.processGlobal).to.equal(false);
     });
 
     it('should detect process correctly (4)', function() {
         var inspectModule = require('../lib/inspect-module');
         var src = fs.readFileSync(nodePath.join(__dirname, 'resources/inspect/process4.js'), {encoding: 'utf8'});
-        var result = inspectModule(src);
+        var result = inspectModule(src, createUniqueIdFunc());
         expect(result.processGlobal).to.equal(true);
     });
     

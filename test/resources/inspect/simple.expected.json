@@ -1,5 +1,5 @@
 {
-    "code": "var raptorLoader = require('raptor-loader');\nexports.test = function (input) {\n    for (var i = 0; i < input.length; i++) {\n        if (true) {\n            require('foo');\n        }\n    }\n    require('bar');\n    raptorLoader.async('__async0', function (err) {\n        require('baz');\n        require('raptor-loader').async('__async1', function (err) {\n            require('cat');\n        });\n    });\n    var asyncLoaders = {\n            personProfile: function (callback) {\n                require('raptor-loader').async('__async2', callback);\n            }\n        };\n    function loadModule(name, callback) {\n        asyncLoaders[name](callback);\n    }\n};",
+    "code": "var raptorLoader = require('raptor-loader');\nexports.test = function (input) {\n    for (var i = 0; i < input.length; i++) {\n        if (true) {\n            require('foo');\n        }\n    }\n    require('bar');\n    raptorLoader.async('_0', function (err) {\n        require('baz');\n        require('raptor-loader').async('_1', function (err) {\n            require('cat');\n        });\n    });\n    var asyncLoaders = {\n            personProfile: function (callback) {\n                require('raptor-loader').async('_2', callback);\n            }\n        };\n    function loadModule(name, callback) {\n        asyncLoaders[name](callback);\n    }\n};",
     "requires": [
         "raptor-loader",
         "foo",
@@ -7,20 +7,20 @@
     ],
     "processGlobal": false,
     "async": {
-        "__async0": [
+        "_0": [
             "./optimizer.json",
             {
                 "type": "require",
                 "path": "baz"
             }
         ],
-        "__async1": [
+        "_1": [
             {
                 "type": "require",
                 "path": "cat"
             }
         ],
-        "__async2": [
+        "_2": [
             "require: avatar",
             "require: address"
         ]
