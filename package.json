@@ -2,10 +2,11 @@
     "name": "raptor-optimizer-require",
     "description": "RaptorJS Optimizer plugin to support Node.js style module require in the browser",
     "keywords": [
-        "less",
-        "raptor",
-        "optimizer",
-        "css"
+        "raptor-optimizer",
+        "raptor-optimizer-plugin",
+        "require",
+        "commonjs",
+        "modules"
     ],
     "repository": {
         "type": "git",
