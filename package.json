@@ -27,7 +27,6 @@
         "detective": "~2.4.1",
         "raptor-logging": "^0.2.0-beta",
         "raptor-promises": "^0.2.0-beta",
-        "then-fs": "~1.0.4",
         "raptor-util": "^0.2.0-beta",
         "raptor-ecma": "^0.2.0-beta",
         "through": "^2.3.4",
