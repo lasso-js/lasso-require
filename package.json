@@ -40,7 +40,6 @@
         "mocha": "~1.15.1",
         "chai": "~1.8.1",
         "jshint": "~2.3.0",
-        "raptor-optimizer": "~0.2.6-beta",
         "deamdify": "^0.1.1"
     },
     "license": "Apache License v2.0",
