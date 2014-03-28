@@ -27,7 +27,21 @@ require('raptor-optimizer').configure({
 })
 ```
 
-The `raptor-optimizer-require` plugin introduces two new dependency types that you can use to target Node.js modules for the browser. These types are described below:
+The `raptor-optimizer-require` plugin introduces two new dependency types that you can use to target Node.js modules for the browser. There usage is shown in the following `optimizer.json` file:
+
+```json
+{
+    "dependencies": [
+        "require: jquery",
+        "require-run: ./main"
+    ]
+}
+```
+
+
+These new dependency types are described in more detail below.
+
+# Dependency Types
 
 ## require
 
