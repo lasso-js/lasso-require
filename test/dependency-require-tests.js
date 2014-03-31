@@ -91,12 +91,16 @@ describe('raptor-optimizer-require/dependency-require' , function() {
 
                 dependencies.forEach(function(d) {
                     delete d._reader;
+                    delete d._inspectedFile;
+                    
                     if (d.type === 'require') {
                         requires.push(d);
                     }
                     else {
                         lookup[d.type] = d;    
                     }
+
+
                     
                 });
 

@@ -22,7 +22,8 @@ describe('raptor-optimizer-require/dependency-commonjs-run' , function() {
 
     it('should generate the correct code for an installed module', function(done) {
 
-        var defDependency = require('../lib/dependency-commonjs-run');
+        var defDependency = require('../lib/dependency-commonjs-def');
+        defDependency.run = true;
         defDependency.path = "/";
         defDependency._file = nodePath.join(__dirname, 'test-project/node_modules/foo/lib/index.js');
         var code = '';
