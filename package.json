@@ -35,7 +35,8 @@
     "raptor-promises": "^0.2.2-beta",
     "raptor-util": "^0.2.3-beta",
     "resumer": "0.0.0",
-    "through": "^2.3.4"
+    "through": "^2.3.4",
+    "path-browserify": "0.0.0"
   },
   "devDependencies": {
     "mocha": "~1.15.1",
@@ -50,5 +51,8 @@
     "registry": "https://registry.npmjs.org/"
   },
   "ebay": {},
-  "version": "0.1.26-beta"
+  "version": "0.1.26-beta",
+  "browser": {
+    "path": "path-browserify"
+  }
 }
