@@ -40,12 +40,11 @@
     "devDependencies": {
         "mocha": "~1.15.1",
         "chai": "~1.8.1",
-        "jshint": "~2.3.0",
-        "deamdify": "^0.1.1"
+        "jshint": "~2.3.0"
     },
     "license": "Apache License v2.0",
     "bin": {},
-    "main": "lib/raptor-optimizer-require.js",
+    "main": "lib/raptor-optimizer-require-plugin.js",
     "publishConfig": {
         "registry": "https://registry.npmjs.org/"
     },
