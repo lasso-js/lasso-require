@@ -49,7 +49,7 @@ function createMockOptimizerContext() {
         },
 
         cache: {
-            getCacheByName: function(name) {
+            getCache: function(name) {
                 return MOCK_CACHE;
             }
         },
