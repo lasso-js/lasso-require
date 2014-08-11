@@ -62,7 +62,11 @@ function createMockOptimizerContext() {
             }
         },
 
-        attributes: {}
+        attributes: {},
+        phaseAttributes: {},
+        isAsyncBundlingPhase: function() {
+            return false;
+        }
     };
 }
 
