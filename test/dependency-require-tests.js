@@ -24,6 +24,10 @@ var MOCK_CACHE = {
     }
 };
 
+function mock_getAsyncPackageName() {
+    return undefined;
+}
+
 var mockOptimizer = {
     dependencies: {
         createDependency: function(d) {
@@ -34,12 +38,16 @@ var mockOptimizer = {
 
 function createRequireDependency() {
     var requireDependency = require('../lib/dependency-require').create({rootDir: nodePath.join(__dirname, 'test-project')}, mockOptimizer);
+    requireDependency.getAsyncPackageName = mock_getAsyncPackageName;
     return requireDependency;
 }
 
 function createMockOptimizerContext() {
     var nextId = 0;
     return {
+
+        getAsyncPackageName: mock_getAsyncPackageName,
+
         uniqueId: function() {
             return nextId++;
         },
@@ -87,6 +95,14 @@ describe('raptor-optimizer-require/dependency-require' , function() {
             dependencies.forEach(function(d) {
                 lookup[d.type] = d;
             });
+
+            // console.log(JSON.stringify(lookup['package'], null, ' '))
+
+            // console.log(JSON.stringify({
+            //     type: 'package',
+            //     path: clientOptimizerPackagePath
+            // }, null, ' '))
+
 
             expect(lookup['package']).to.deep.equal({
                 type: 'package',
