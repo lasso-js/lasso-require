@@ -8,6 +8,8 @@ var expect = require('chai').expect;
 
 require('../'); // Load this module just to make sure it works
 
+var MockOptimizerContext = require('./MockOptimizerContext');
+
 describe('raptor-optimizer-require/dependency-commonjs-def' , function() {
 
     beforeEach(function(done) {
@@ -25,7 +27,7 @@ describe('raptor-optimizer-require/dependency-commonjs-def' , function() {
         defDependency.path = '/foo@1.0.0/lib/index';
         defDependency._file = nodePath.join(__dirname, 'test-project/node_modules/foo/lib/index.js');
         var code = '';
-        defDependency.read()
+        defDependency.read(new MockOptimizerContext())
             .on('data', function(data) {
                 code += data;
             })
@@ -33,7 +35,8 @@ describe('raptor-optimizer-require/dependency-commonjs-def' , function() {
                 expect(code).to.equal('$rmod.def("/foo@1.0.0/lib/index", function(require, exports, module, __filename, __dirname) { exports.foo = "1.0.0";\nvar target = "baz";\nrequire(target);\n});');
                 done();
             })
-            .on('error', done);
+            .on('error', done)
+            .resume();
     });
 
 

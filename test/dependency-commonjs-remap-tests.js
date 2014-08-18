@@ -34,7 +34,8 @@ describe('raptor-optimizer-require/dependency-commonjs-remap' , function() {
                 expect(code).to.equal('$rmod.remap("/foo@1.0.0/lib/index", "browser/index");');
                 done();
             })
-            .on('error', done);
+            .on('error', done)
+            .resume();
     });
 
 

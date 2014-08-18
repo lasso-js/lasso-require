@@ -5,28 +5,11 @@ var chai = require('chai');
 chai.Assertion.includeStack = true;
 require('chai').should();
 var expect = require('chai').expect;
+var MockOptimizerContext = require('./MockOptimizerContext');
 
 require('../'); // Load this module just to make sure it works
 
 var clientOptimizerPackagePath = require.resolve('raptor-modules/client/optimizer.json');
-
-var MOCK_CACHE = {
-    get: function(key, options, callback) {
-        if (options.builder) {
-            options.builder(callback);
-        } else {
-            callback();
-        }
-    },
-
-    put: function(key, value, options) {
-
-    }
-};
-
-function mock_getAsyncPackageName() {
-    return undefined;
-}
 
 var mockOptimizer = {
     dependencies: {
@@ -38,36 +21,7 @@ var mockOptimizer = {
 
 function createRequireDependency() {
     var requireDependency = require('../lib/dependency-require').create({rootDir: nodePath.join(__dirname, 'test-project')}, mockOptimizer);
-    requireDependency.getAsyncPackageName = mock_getAsyncPackageName;
     return requireDependency;
-}
-
-function createMockOptimizerContext() {
-    var nextId = 0;
-    return {
-
-        getAsyncPackageName: mock_getAsyncPackageName,
-
-        uniqueId: function() {
-            return nextId++;
-        },
-
-        getFileLastModified: function(path, callback) {
-            callback(null, -1);
-        },
-
-        cache: {
-            getCache: function(name) {
-                return MOCK_CACHE;
-            }
-        },
-
-        attributes: {},
-        phaseAttributes: {},
-        isAsyncBundlingPhase: function() {
-            return false;
-        }
-    };
 }
 
 describe('raptor-optimizer-require/dependency-require' , function() {
@@ -87,7 +41,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
         requireDependency.from = nodePath.join(__dirname, 'test-project');
         requireDependency.init();
 
-        requireDependency.getDependencies(createMockOptimizerContext(), function(err, dependencies) {
+        requireDependency.getDependencies(new MockOptimizerContext(), function(err, dependencies) {
             if (err) {
                 return done(err);
             }
@@ -141,7 +95,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
         var requireDependency = createRequireDependency();
         requireDependency.resolvedPath = nodePath.join(__dirname, 'test-project/node_modules/bar/lib/index.js');
         requireDependency.init();
-        requireDependency.getDependencies(createMockOptimizerContext(), function(err, dependencies) {
+        requireDependency.getDependencies(new MockOptimizerContext(), function(err, dependencies) {
             if (err) {
                 return done(err);
             }
@@ -200,7 +154,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
         requireDependency.from = nodePath.join(__dirname, 'test-project/node_modules/bar');
         requireDependency.init();
 
-        requireDependency.getDependencies(createMockOptimizerContext(), function(err, dependencies) {
+        requireDependency.getDependencies(new MockOptimizerContext(), function(err, dependencies) {
             if (err) {
                 return done(err);
             }
@@ -246,7 +200,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
         var requireDependency = createRequireDependency();
         requireDependency.resolvedPath = nodePath.join(__dirname, 'test-project/node_modules/foo/lib/index.js');
         requireDependency.init();
-        requireDependency.getDependencies(createMockOptimizerContext(), function(err, dependencies) {
+        requireDependency.getDependencies(new MockOptimizerContext(), function(err, dependencies) {
             if (err) {
                 return done(err);
             }
@@ -296,7 +250,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
         requireDependency.from = nodePath.join(__dirname, 'test-project/browser-overrides/main');
         requireDependency.init();
 
-        requireDependency.getDependencies(createMockOptimizerContext(), function(err, dependencies) {
+        requireDependency.getDependencies(new MockOptimizerContext(), function(err, dependencies) {
             if (err) {
                 return done(err);
             }
@@ -344,7 +298,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
         requireDependency.from = nodePath.join(__dirname, 'test-project');
         requireDependency.init();
 
-        requireDependency.getDependencies(createMockOptimizerContext(), function(err, dependencies) {
+        requireDependency.getDependencies(new MockOptimizerContext(), function(err, dependencies) {
             if (err) {
                 return done(err);
             }
@@ -387,7 +341,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
         requireDependency.from = nodePath.join(__dirname, 'test-project');
         requireDependency.init();
 
-        requireDependency.getDependencies(createMockOptimizerContext(), function(err, dependencies) {
+        requireDependency.getDependencies(new MockOptimizerContext(), function(err, dependencies) {
             if (err) {
                 return done(err);
             }
@@ -433,7 +387,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
     //     requireDependency.from = nodePath.join(__dirname, 'test-project');
     //     requireDependency.init();
 
-    //     requireDependency.getDependencies(createMockOptimizerContext(), function(err, dependencies) {
+    //     requireDependency.getDependencies(new MockOptimizerContext(), function(err, dependencies) {
     //         if (err) {
     //             return done(err);
     //         }

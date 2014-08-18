@@ -35,7 +35,8 @@ describe('raptor-optimizer-require/dependency-commonjs-resolved' , function() {
                 expect(code).to.equal('$rmod.resolved("baz", "/src", "/$/baz/lib/index");');
                 done();
             })
-            .on('error', done);
+            .on('error', done)
+            .resume();
     });
 
 

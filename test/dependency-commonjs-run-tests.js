@@ -5,9 +5,10 @@ var chai = require('chai');
 chai.Assertion.includeStack = true;
 require('chai').should();
 var expect = require('chai').expect;
-var fs = require('fs');
+var MockOptimizerContext = require('./MockOptimizerContext');
 
 require('../'); // Load this module just to make sure it works
+
 
 describe('raptor-optimizer-require/dependency-commonjs-run' , function() {
 
@@ -24,10 +25,10 @@ describe('raptor-optimizer-require/dependency-commonjs-run' , function() {
 
         var defDependency = require('../lib/dependency-commonjs-def');
         defDependency.run = true;
-        defDependency.path = "/";
+        defDependency.path = '/';
         defDependency._file = nodePath.join(__dirname, 'test-project/node_modules/foo/lib/index.js');
         var code = '';
-        defDependency.read()
+        defDependency.read(new MockOptimizerContext())
             .on('data', function(data) {
                 code += data;
             })
@@ -35,7 +36,8 @@ describe('raptor-optimizer-require/dependency-commonjs-run' , function() {
                 expect(code).to.equal('$rmod.run("/", function(require, exports, module, __filename, __dirname) { exports.foo = "1.0.0";\nvar target = "baz";\nrequire(target);\n});');
                 done();
             })
-            .on('error', done);
+            .on('error', done)
+            .resume();
     });
 
 
