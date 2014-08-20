@@ -37,7 +37,7 @@ function MockOptimizerContext() {
         }
     };
 
-    this.dependencies = {
+    this.dependencyRegistry = {
         getRegisteredRequireExtension: function(ext) {
             return requireExtensions[ext];
         }, 
