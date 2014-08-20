@@ -30,6 +30,22 @@ module.exports = DeferredStream;
 function MockOptimizerContext() {
     this.attributes = {};
     this.phaseAttributes = {};
+    var requireExtensions = {
+        json: {
+            object: true,
+            reader: require('../lib/json-reader')
+        }
+    };
+
+    this.dependencies = {
+        getRegisteredRequireExtension: function(ext) {
+            return requireExtensions[ext];
+        }, 
+        getRequireReader: function(ext) {
+            var requireInfo = requireExtensions[ext];
+            return requireInfo ? requireInfo.reader : null;
+        }
+    };
 }
 
 var MOCK_CACHE = {

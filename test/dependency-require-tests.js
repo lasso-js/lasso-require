@@ -6,6 +6,7 @@ chai.Assertion.includeStack = true;
 require('chai').should();
 var expect = require('chai').expect;
 var MockOptimizerContext = require('./MockOptimizerContext');
+var extend = require('raptor-util/extend');
 
 require('../'); // Load this module just to make sure it works
 
@@ -19,9 +20,32 @@ var mockOptimizer = {
     }
 };
 
+function MockDependency() {
+
+}
+
+MockDependency.prototype = {
+    getParentManifestDir: function() {
+        return this.__dirname;
+    },
+
+    getParentManifestPath: function() {
+        return this.__filename;
+    }
+};
+
 function createRequireDependency() {
+    var d = new MockDependency();
     var requireDependency = require('../lib/dependency-require').create({rootDir: nodePath.join(__dirname, 'test-project')}, mockOptimizer);
-    return requireDependency;
+    extend(d, requireDependency);
+    return d;
+}
+
+function createDefDependency() {
+    var d = new MockDependency();
+    var def = require('../lib/dependency-commonjs-def');
+    extend(d, def);
+    return d;
 }
 
 describe('raptor-optimizer-require/dependency-require' , function() {
@@ -378,6 +402,61 @@ describe('raptor-optimizer-require/dependency-require' , function() {
             });
 
             done();
+        });
+    });
+
+    it('should support *.json requires', function(done) {
+
+        var context = new MockOptimizerContext();
+        var requireDependency = createRequireDependency();
+        requireDependency.path = './test.json';
+        requireDependency.__dirname = nodePath.join(__dirname, 'test-project/src');
+        requireDependency.__filename = nodePath.join(__dirname, 'test-project/src/optimizer.json');
+        requireDependency.init();
+        requireDependency.getDependencies(context, function(err, dependencies) {
+            if (err) {
+                return done(err);
+            }
+
+            var lookup = {};
+
+            expect(dependencies.length).to.equal(3);
+
+            var requires = [];
+
+            dependencies.forEach(function(d) {
+                delete d._reader;
+                delete d._inspectedFile;
+                
+                if (d.type === 'require') {
+                    requires.push(d);
+                }
+                else {
+                    lookup[d.type] = d;
+                }
+            });
+
+            expect(lookup['commonjs-def']).to.deep.equal({
+                type: 'commonjs-def',
+                path: '/src/test',
+                _file: nodePath.join(__dirname, 'test-project/src/test.json')
+            });
+
+            var defDependency = createDefDependency();
+            extend(defDependency, lookup['commonjs-def']);
+
+            var readStream = defDependency.read(context);
+            var str = '';
+            readStream.on('data', function(data) {
+                str += data;
+            });
+            readStream.on('end', function() {
+                expect(str).to.equal("$rmod.def(\"/src/test\", {\n    \"hello\": \"world\"\n});");
+                done();
+            });
+            readStream.resume();
+
+            
         });
     });
 
