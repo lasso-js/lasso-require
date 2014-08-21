@@ -28,8 +28,8 @@ util.inherits(DeferredStream, Readable);
 module.exports = DeferredStream;
 
 function MockOptimizerContext() {
-    this.attributes = {};
-    this.phaseAttributes = {};
+    this.data = {};
+    this.phaseData = {};
     var requireExtensions = {
         json: {
             object: true,
