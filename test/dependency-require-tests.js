@@ -43,7 +43,7 @@ function createRequireDependency() {
 
 function createDefDependency() {
     var d = new MockDependency();
-    var def = require('../lib/dependency-commonjs-def');
+    var def = require('../lib/dependency-define');
     extend(d, def);
     return d;
 }

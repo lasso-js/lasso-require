@@ -10,7 +10,7 @@ require('../'); // Load this module just to make sure it works
 
 var MockOptimizerContext = require('./MockOptimizerContext');
 
-describe('raptor-optimizer-require/dependency-commonjs-def' , function() {
+describe('raptor-optimizer-require/dependency-define' , function() {
 
     beforeEach(function(done) {
         for (var k in require.cache) {
@@ -23,7 +23,7 @@ describe('raptor-optimizer-require/dependency-commonjs-def' , function() {
 
     it('should generate the correct code for an installed module', function(done) {
 
-        var defDependency = require('../lib/dependency-commonjs-def');
+        var defDependency = require('../lib/dependency-define');
         defDependency.path = '/foo@1.0.0/lib/index';
         defDependency._file = nodePath.join(__dirname, 'test-project/node_modules/foo/lib/index.js');
         var code = '';

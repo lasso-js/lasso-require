@@ -7,7 +7,7 @@ var expect = require('chai').expect;
 
 require('../'); // Load this module just to make sure it works
 
-describe('raptor-optimizer-require/dependency-commonjs-main' , function() {
+describe('raptor-optimizer-require/dependency-main' , function() {
 
     beforeEach(function(done) {
         for (var k in require.cache) {
@@ -20,7 +20,7 @@ describe('raptor-optimizer-require/dependency-commonjs-main' , function() {
 
     it('should generate the correct main for an installed module', function(done) {
 
-        var defDependency = require('../lib/dependency-commonjs-main');
+        var defDependency = require('../lib/dependency-main');
         defDependency.dir = '/foo@1.0.0';
         defDependency.main = 'lib/index';
         var code = '';
