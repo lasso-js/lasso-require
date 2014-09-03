@@ -133,7 +133,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
             dependencies.forEach(function(d) {
                 delete d._reader;
                 delete d._inspectedFile;
-                
+
                 if (d.type === 'require') {
                     requires.push(d);
                 }
@@ -242,7 +242,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
                 else {
                     lookup[d.type] = d;
                 }
-                
+
             });
 
             expect(lookup['package']).to.deep.equal({
@@ -382,7 +382,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
                 else {
                     lookup[d.type] = d;
                 }
-                
+
             });
 
             expect(pkgs[0]).to.deep.equal({
@@ -427,7 +427,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
             dependencies.forEach(function(d) {
                 delete d._reader;
                 delete d._inspectedFile;
-                
+
                 if (d.type === 'require') {
                     requires.push(d);
                 }
@@ -456,7 +456,24 @@ describe('raptor-optimizer-require/dependency-require' , function() {
             });
             readStream.resume();
 
-            
+
+        });
+    });
+
+    it('should handle invalid requires to directories with no main', function(done) {
+
+        var context = new MockOptimizerContext();
+        var requireDependency = createRequireDependency();
+        requireDependency.path = './no-main';
+        requireDependency.__dirname = nodePath.join(__dirname, 'test-project/src');
+        requireDependency.__filename = nodePath.join(__dirname, 'test-project/src/optimizer.json');
+        requireDependency.init();
+        requireDependency.getDependencies(context, function(err, dependencies) {
+            if (!err) {
+                done('Expected error argument.');
+            } else {
+                done();
+            }
         });
     });
 
@@ -486,7 +503,7 @@ describe('raptor-optimizer-require/dependency-require' , function() {
     //             else {
     //                 lookup[d.type] = d;
     //             }
-                
+
     //         });
 
     //         expect(pkgs[0]).to.deep.equal({
@@ -509,4 +526,3 @@ describe('raptor-optimizer-require/dependency-require' , function() {
     //     });
     // });
 });
-
