@@ -51,5 +51,5 @@
     "browser": {
         "path": "path-browserify"
     },
-    "version": "0.1.40-beta"
+    "version": "0.1.41-beta"
 }
