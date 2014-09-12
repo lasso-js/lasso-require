@@ -17,7 +17,20 @@ function DeferredStream(startFn, options) {
     // When _read is called, we need to start pushing data
     self._read = function() {
         self._read = noop;
-        startFn.call(self);
+        var stream = startFn.call(self);
+        if (stream) {
+            stream
+                .on('data', function(data) {
+                    self.push(data);
+                })
+                .on('end', function() {
+                    self.push(null);
+                })
+                .on('error', function(err) {
+                    self.emit('error', err);
+                })
+                .resume();
+        }
     };
 
     return self;
@@ -40,7 +53,7 @@ function MockOptimizerContext() {
     this.dependencyRegistry = {
         getRegisteredRequireExtension: function(ext) {
             return requireExtensions[ext];
-        }, 
+        },
         getRequireReader: function(ext) {
             var requireInfo = requireExtensions[ext];
             return requireInfo ? requireInfo.reader : null;

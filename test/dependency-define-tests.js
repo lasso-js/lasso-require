@@ -18,6 +18,10 @@ describe('raptor-optimizer-require/dependency-define' , function() {
                 delete require.cache[k];
             }
         }
+
+        // require('raptor-logging').configureLoggers({
+        //     'raptor-optimizer-require': 'DEBUG'
+        // });
         done();
     });
 
@@ -41,4 +45,3 @@ describe('raptor-optimizer-require/dependency-define' , function() {
 
 
 });
-
