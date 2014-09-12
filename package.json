@@ -39,7 +39,6 @@
     },
     "devDependencies": {
         "chai": "~1.8.1",
-        "deamdify": "^0.1.1",
         "jshint": "~2.3.0",
         "mocha": "~1.15.1"
     },
