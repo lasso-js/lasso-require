@@ -147,16 +147,17 @@ describe('raptor-optimizer-require/dependency-require' , function() {
                 path: clientOptimizerPackagePath
             });
 
-            expect(lookup['commonjs-def']).to.deep.equal({
-                type: 'commonjs-def',
-                path: '/bar@2.0.0/lib/index',
-                _file: nodePath.join(__dirname, 'test-project/node_modules/bar/lib/index.js')
-            });
+            var actual = extend({}, lookup['commonjs-def']);
 
-            expect(lookup['commonjs-def']).to.deep.equal({
+            expect(actual._requireReader).to.be.a('function');
+
+            delete actual._requireReader;
+
+            expect(actual).to.deep.equal({
                 type: 'commonjs-def',
                 path: '/bar@2.0.0/lib/index',
-                _file: nodePath.join(__dirname, 'test-project/node_modules/bar/lib/index.js')
+                _file: nodePath.join(__dirname, 'test-project/node_modules/bar/lib/index.js'),
+                _requireLastModified: -1
             });
 
             expect(requires.length).to.equal(1);
@@ -250,16 +251,17 @@ describe('raptor-optimizer-require/dependency-require' , function() {
                 path: clientOptimizerPackagePath
             });
 
-            expect(lookup['commonjs-def']).to.deep.equal({
-                type: 'commonjs-def',
-                path: '/foo@1.0.0/lib/index',
-                _file: nodePath.join(__dirname, 'test-project/node_modules/foo/lib/index.js')
-            });
+            var actual = extend({}, lookup['commonjs-def']);
 
-            expect(lookup['commonjs-def']).to.deep.equal({
+            expect(actual._requireReader).to.be.a('function');
+
+            delete actual._requireReader;
+
+            expect(actual).to.deep.equal({
                 type: 'commonjs-def',
                 path: '/foo@1.0.0/lib/index',
-                _file: nodePath.join(__dirname, 'test-project/node_modules/foo/lib/index.js')
+                _file: nodePath.join(__dirname, 'test-project/node_modules/foo/lib/index.js'),
+                _requireLastModified: -1
             });
 
             expect(requires.length).to.equal(0);
@@ -342,10 +344,17 @@ describe('raptor-optimizer-require/dependency-require' , function() {
                 path: clientOptimizerPackagePath
             });
 
-            expect(lookup['commonjs-def']).to.deep.equal({
+            var actual = extend({}, lookup['commonjs-def']);
+
+            expect(actual._requireReader).to.be.a('function');
+
+            delete actual._requireReader;
+
+            expect(actual).to.deep.equal({
                 type: 'commonjs-def',
                 path: '/browser-overrides/main/browser/index_browser',
-                _file: nodePath.join(__dirname, 'test-project/browser-overrides/main/browser/index_browser.js')
+                _file: nodePath.join(__dirname, 'test-project/browser-overrides/main/browser/index_browser.js'),
+                _requireLastModified: -1
             });
 
             expect(lookup['commonjs-remap']).to.deep.equal({
@@ -395,10 +404,17 @@ describe('raptor-optimizer-require/dependency-require' , function() {
                 path: nodePath.join(__dirname, 'test-project/src/with-package/foo/optimizer.json')
             });
 
-            expect(lookup['commonjs-def']).to.deep.equal({
+            var actual = extend({}, lookup['commonjs-def']);
+
+            expect(actual._requireReader).to.be.a('function');
+
+            delete actual._requireReader;
+
+            expect(actual).to.deep.equal({
                 type: 'commonjs-def',
                 path: '/src/with-package/foo/index',
-                _file: nodePath.join(__dirname, 'test-project/src/with-package/foo/index.js')
+                _file: nodePath.join(__dirname, 'test-project/src/with-package/foo/index.js'),
+                _requireLastModified: -1
             });
 
             done();
@@ -436,10 +452,18 @@ describe('raptor-optimizer-require/dependency-require' , function() {
                 }
             });
 
-            expect(lookup['commonjs-def']).to.deep.equal({
+            var actual = extend({}, lookup['commonjs-def']);
+
+            expect(actual._requireReader).to.be.a('function');
+
+            delete actual._requireReader;
+
+            expect(actual).to.deep.equal({
                 type: 'commonjs-def',
                 path: '/src/test',
-                _file: nodePath.join(__dirname, 'test-project/src/test.json')
+                _file: nodePath.join(__dirname, 'test-project/src/test.json'),
+                object: true,
+                _requireLastModified: -1
             });
 
             var defDependency = createDefDependency();

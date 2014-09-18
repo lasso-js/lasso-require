@@ -30,6 +30,10 @@ describe('raptor-optimizer-require/dependency-define' , function() {
         var defDependency = require('../lib/dependency-define');
         defDependency.path = '/foo@1.0.0/lib/index';
         defDependency._file = nodePath.join(__dirname, 'test-project/node_modules/foo/lib/index.js');
+        defDependency._requireReader = function() {
+            return require('fs').createReadStream(defDependency._file, 'utf8');
+        };
+
         var code = '';
         defDependency.read(new MockOptimizerContext())
             .on('data', function(data) {
