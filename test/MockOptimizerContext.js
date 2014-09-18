@@ -1,11 +1,12 @@
 'use strict';
 
 var fs = require('fs');
-
+var nodePath = require('path');
 var nextId = 0;
 
 var Readable = require('stream').Readable;
 var util = require('util');
+var jsonReader = ('../lib/json-reader');
 
 function noop() {}
 
@@ -44,19 +45,37 @@ function MockOptimizerContext() {
     this.data = {};
     this.phaseData = {};
     var requireExtensions = {
+        js: {
+            object: false,
+            createReader: function(path, optimizerContext) {
+                return function() {
+                    return fs.createReadStream(path, 'utf8');
+                };
+            }
+        },
         json: {
             object: true,
-            reader: require('../lib/json-reader')
+            createReader: function(path, optimizerContext) {
+                return function() {
+                    return fs.createReadStream(path, 'utf8');
+                };
+            }
         }
     };
 
     this.dependencyRegistry = {
-        getRegisteredRequireExtension: function(ext) {
-            return requireExtensions[ext];
-        },
-        getRequireReader: function(ext) {
-            var requireInfo = requireExtensions[ext];
-            return requireInfo ? requireInfo.reader : null;
+        getRequireHandler: function(path, optimizerContext) {
+            var ext = nodePath.extname(path).substring(1);
+            var requireExt = requireExtensions[ext];
+            return {
+                object: requireExt.object === true,
+
+                reader: requireExt.createReader(path, optimizerContext),
+
+                lastModified: function(callback) {
+                    callback(null, -1);
+                }
+            };
         }
     };
 }
