@@ -72,7 +72,7 @@ function MockOptimizerContext() {
 
                 reader: requireExt.createReader(path, optimizerContext),
 
-                lastModified: function(callback) {
+                getLastModified: function(callback) {
                     callback(null, -1);
                 }
             };
