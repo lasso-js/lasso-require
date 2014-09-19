@@ -16,7 +16,7 @@ function createUniqueIdFunc() {
     };
 }
 
-describe('raptor-optimizer-require/inspect' , function() {
+describe('optimizer-require/inspect' , function() {
 
     beforeEach(function(done) {
         for (var k in require.cache) {

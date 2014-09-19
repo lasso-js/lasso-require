@@ -7,7 +7,7 @@ var expect = require('chai').expect;
 
 require('../'); // Load this module just to make sure it works
 
-describe('raptor-optimizer-require/dependency-dep' , function() {
+describe('optimizer-require/dependency-dep' , function() {
 
     beforeEach(function(done) {
         for (var k in require.cache) {

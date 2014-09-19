@@ -9,7 +9,7 @@ var fs = require('fs');
 
 require('../'); // Load this module just to make sure it works
 
-describe('raptor-optimizer-require/dependency-remap' , function() {
+describe('optimizer-require/dependency-remap' , function() {
 
     beforeEach(function(done) {
         for (var k in require.cache) {

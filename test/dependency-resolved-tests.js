@@ -9,7 +9,7 @@ var fs = require('fs');
 
 require('../'); // Load this module just to make sure it works
 
-describe('raptor-optimizer-require/dependency-resolved' , function() {
+describe('optimizer-require/dependency-resolved' , function() {
 
     beforeEach(function(done) {
         for (var k in require.cache) {

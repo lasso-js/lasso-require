@@ -1,14 +1,14 @@
-raptor-optimizer-require
+optimizer-require
 ========================
 
-Plugin for the [RaptorJS Optimizer](https://github.com/raptorjs3/raptor-optimizer) that adds support for transporting Node.js-style modules to the browser.
+Plugin for the [RaptorJS Optimizer](https://github.com/raptorjs3/optimizer) that adds support for transporting Node.js-style modules to the browser.
 
 # Installation
 
-This plugin is included as part of the `raptor-optimizer` module so it is not necessary to use `npm install` to add the module to your project. However, if you want to use a specific version of the `raptor-optimizer-require` plugin then you can install it using the following command:
+This plugin is included as part of the `optimizer` module so it is not necessary to use `npm install` to add the module to your project. However, if you want to use a specific version of the `optimizer-require` plugin then you can install it using the following command:
 
 ```
-npm install raptor-optimizer-require --save
+npm install optimizer-require --save
 ```
 
 # Usage
@@ -16,9 +16,9 @@ npm install raptor-optimizer-require --save
 This plugin is enabled by default, but if you want to provide your own configuration then you can do that using code similar to the following:
 
 ```javascript
-require('raptor-optimizer').configure({
+require('optimizer').configure({
     plugins: {
-        'raptor-optimizer-require': {
+        'optimizer-require': {
             transforms: [ // Browserify compatible transforms
                 'deamdify'
             ] // See https://github.com/substack/node-browserify/wiki/list-of-transforms
@@ -27,7 +27,7 @@ require('raptor-optimizer').configure({
 })
 ```
 
-The `raptor-optimizer-require` plugin introduces two new dependency types that you can use to target Node.js modules for the browser. There usage is shown in the following `optimizer.json` file:
+The `optimizer-require` plugin introduces two new dependency types that you can use to target Node.js modules for the browser. There usage is shown in the following `optimizer.json` file:
 
 ```json
 {
@@ -70,7 +70,7 @@ __Output Bundles:__
 After running the following command:
 
 ```bash
-raptor-optimizer require:./foo require:./bar --name test
+optimizer require:./foo require:./bar --name test
 ```
 
 The output written to `static/test.js` will be the following:
@@ -112,12 +112,12 @@ __Output Bundles:__
 After running the following command:
 
 ```bash
-raptor-optimizer require-run:./main --name test
+optimizer require-run:./main --name test
 ```
 
 Alternatively:
 ```bash
-raptor-optimizer --main main.js --name test
+optimizer --main main.js --name test
 ```
 
 The output written to `static/test.js` will be the following:

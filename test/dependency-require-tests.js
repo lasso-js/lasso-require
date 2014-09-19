@@ -48,7 +48,7 @@ function createDefDependency() {
     return d;
 }
 
-describe('raptor-optimizer-require/dependency-require' , function() {
+describe('optimizer-require/dependency-require' , function() {
 
     beforeEach(function(done) {
         for (var k in require.cache) {

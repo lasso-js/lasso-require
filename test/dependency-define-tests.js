@@ -10,7 +10,7 @@ require('../'); // Load this module just to make sure it works
 
 var MockOptimizerContext = require('./MockOptimizerContext');
 
-describe('raptor-optimizer-require/dependency-define' , function() {
+describe('optimizer-require/dependency-define' , function() {
 
     beforeEach(function(done) {
         for (var k in require.cache) {
@@ -20,7 +20,7 @@ describe('raptor-optimizer-require/dependency-define' , function() {
         }
 
         // require('raptor-logging').configureLoggers({
-        //     'raptor-optimizer-require': 'DEBUG'
+        //     'optimizer-require': 'DEBUG'
         // });
         done();
     });

@@ -1,16 +1,16 @@
 {
-    "name": "raptor-optimizer-require",
+    "name": "optimizer-require",
     "description": "RaptorJS Optimizer plugin to support Node.js style module require in the browser",
     "keywords": [
-        "raptor-optimizer",
-        "raptor-optimizer-plugin",
+        "optimizer",
+        "optimizer-plugin",
         "require",
         "commonjs",
         "modules"
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/raptorjs3/raptor-optimizer-require.git"
+        "url": "https://github.com/raptorjs3/optimizer-require.git"
     },
     "scripts": {
         "test": "node_modules/.bin/mocha --ui bdd --reporter spec ./test"
@@ -44,7 +44,7 @@
     },
     "license": "Apache License v2.0",
     "bin": {},
-    "main": "lib/raptor-optimizer-require-plugin.js",
+    "main": "lib/optimizer-require-plugin.js",
     "publishConfig": {
         "registry": "https://registry.npmjs.org/"
     },
@@ -52,5 +52,5 @@
     "browser": {
         "path": "path-browserify"
     },
-    "version": "1.0.4-beta"
+    "version": "1.1.0"
 }
