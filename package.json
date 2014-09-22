@@ -29,12 +29,12 @@
         "mkdirp": "^0.5.0",
         "path-browserify": "0.0.0",
         "process": "^0.6.0",
-        "raptor-loader": "^1.0.0-beta",
-        "raptor-logging": "^1.0.0-beta",
-        "raptor-modules": "^1.0.0-beta",
-        "raptor-polyfill": "^1.0.0-beta",
-        "raptor-promises": "^1.0.0-beta",
-        "raptor-util": "^1.0.0-beta",
+        "raptor-loader": "^1.0.0",
+        "raptor-logging": "^1.0.0",
+        "raptor-modules": "^1.0.0",
+        "raptor-polyfill": "^1.0.0",
+        "raptor-promises": "^1.0.0",
+        "raptor-util": "^1.0.0",
         "through": "^2.3.4"
     },
     "devDependencies": {
