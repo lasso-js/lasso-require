@@ -48,7 +48,7 @@ function createDefDependency() {
     return d;
 }
 
-describe('optimizer-require/dependency-require' , function() {
+xdescribe('optimizer-require/dependency-require' , function() {
 
     beforeEach(function(done) {
         for (var k in require.cache) {

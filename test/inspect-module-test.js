@@ -16,7 +16,7 @@ function createUniqueIdFunc() {
     };
 }
 
-describe('optimizer-require/inspect' , function() {
+xdescribe('optimizer-require/inspect' , function() {
 
     beforeEach(function(done) {
         for (var k in require.cache) {

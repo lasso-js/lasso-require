@@ -10,7 +10,7 @@ require('../'); // Load this module just to make sure it works
 
 var MockOptimizerContext = require('./MockOptimizerContext');
 
-describe('optimizer-require/dependency-define' , function() {
+xdescribe('optimizer-require/dependency-define' , function() {
 
     beforeEach(function(done) {
         for (var k in require.cache) {
