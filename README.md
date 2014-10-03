@@ -1,7 +1,7 @@
 optimizer-require
 ========================
 
-Plugin for the [RaptorJS Optimizer](https://github.com/raptorjs3/optimizer) that adds support for transporting Node.js-style modules to the browser.
+Plugin for the [RaptorJS Optimizer](https://github.com/raptorjs/optimizer) that adds support for transporting Node.js-style modules to the browser.
 
 # Installation
 
@@ -86,7 +86,7 @@ exports.sayHello = function() {
 }; });
 ```
 
-__NOTE:__ `$rmod` is a global introduced by the [client-side Node.js module loader](https://github.com/raptorjs3/raptor-modules/blob/master/client/lib/raptor-modules-client.js). It should never be used directly!. The code that declares `$rmod` is not shown in the output above for brevity.
+__NOTE:__ `$rmod` is a global introduced by the [client-side Node.js module loader](https://github.com/raptorjs/raptor-modules/blob/master/client/lib/raptor-modules-client.js). It should never be used directly!. The code that declares `$rmod` is not shown in the output above for brevity.
 
 ## require-run
 
