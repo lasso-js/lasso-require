@@ -58,7 +58,7 @@ exports.add = function(a, b) {
 
 _bar.js:_
 ```javascript
-var foo = require('./foo'); 
+var foo = require('./foo');
 
 exports.sayHello = function() {
     console.log('Hello World! 2+2=' + foo.add(2, 2));
@@ -79,7 +79,7 @@ The output written to `static/test.js` will be the following:
 $rmod.def("/foo", function(require, exports, module, __filename, __dirname) { exports.add = function(a, b) {
     return a + b;
 } });
-$rmod.def("/bar", function(require, exports, module, __filename, __dirname) { var foo = require('./foo'); 
+$rmod.def("/bar", function(require, exports, module, __filename, __dirname) { var foo = require('./foo');
 
 exports.sayHello = function() {
     console.log('Hello World! 2+2=' + foo.add(2, 2));
@@ -127,7 +127,7 @@ $rmod.def("/foo", function(require, exports, module, __filename, __dirname) { ex
     return a + b;
 } });
 
-$rmod.def("/bar", function(require, exports, module, __filename, __dirname) { var foo = require('./foo'); 
+$rmod.def("/bar", function(require, exports, module, __filename, __dirname) { var foo = require('./foo');
 
 exports.sayHello = function() {
     console.log('Hello World! 2+2=' + foo.add(2, 2));
@@ -136,3 +136,31 @@ exports.sayHello = function() {
 $rmod.run("/main", function(require, exports, module, __filename, __dirname) { require('./bar').sayHello(); });
 ```
 
+## Conditional Remap
+
+The `optimizer-require` supports the [package.json browser field](https://gist.github.com/defunctzombie/4339901) for remapping a JavaScript module to a different module during client-side bundling. For example:
+
+```json
+{
+    "browser": {
+        "./foo.js": "./foo-browser.js"
+    }
+}
+```
+
+The `optimizer-require` plugin also allows modules to be conditionally remapped based on the set of enabled flags by adding additional information an `optimizer.json` in the same directory as a module. For example:
+
+```json
+{
+    "dependencies": [
+        ...
+    ],
+    "requireRemap": [
+        {
+            "from": "./foo.js",
+            "to": "./foo-mobile.js",
+            "if-flag": "mobile"
+        }
+    ]
+}
+```
