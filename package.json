@@ -60,5 +60,5 @@
         "path": "path-browserify",
         "stream": "stream-browserify"
     },
-    "version": "1.1.12"
+    "version": "1.1.13"
 }
