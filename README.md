@@ -17,13 +17,14 @@ This plugin is enabled by default, but if you want to provide your own configura
 
 ```javascript
 require('optimizer').configure({
-    plugins: {
-        'optimizer-require': {
-            transforms: [ // Browserify compatible transforms
+    plugins: [
+        {
+            plugin: 'optimizer-require',
+            config: transforms: [ // Browserify compatible transforms
                 'deamdify'
-            ] // See https://github.com/substack/node-browserify/wiki/list-of-transforms
+            ]
         }
-    }
+    ]
 })
 ```
 
