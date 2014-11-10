@@ -20,9 +20,11 @@ require('optimizer').configure({
     plugins: [
         {
             plugin: 'optimizer-require',
-            config: transforms: [ // Browserify compatible transforms
-                'deamdify'
-            ]
+            config: {
+                transforms: [ // Browserify compatible transforms
+                    'deamdify'
+                ]
+            }
         }
     ]
 })
