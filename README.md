@@ -167,3 +167,5 @@ The `optimizer-require` plugin also allows modules to be conditionally remapped 
     ]
 }
 ```
+
+If the `mobile` flag is set during optimization and the `foo.js` module is required on the client (e.g., `require('./foo')`) then the returned module will be the exports for `foo-mobile.js` (not `foo.js`).
