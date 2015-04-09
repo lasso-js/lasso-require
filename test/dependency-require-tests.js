@@ -10,9 +10,9 @@ var extend = require('raptor-util/extend');
 
 require('../'); // Load this module just to make sure it works
 
-var clientOptimizerPackagePath = require.resolve('raptor-modules/client/browser.json');
+var clientLassoPackagePath = require.resolve('raptor-modules/client/browser.json');
 
-var mockOptimizer = {
+var mockLasso = {
     dependencies: {
         createDependency: function(d) {
             return d;
@@ -36,7 +36,7 @@ MockDependency.prototype = {
 
 function createRequireDependency() {
     var d = new MockDependency();
-    var requireDependency = require('../lib/dependency-require').create({rootDir: nodePath.join(__dirname, 'test-project')}, mockOptimizer);
+    var requireDependency = require('../lib/dependency-require').create({rootDir: nodePath.join(__dirname, 'test-project')}, mockLasso);
     extend(d, requireDependency);
     return d;
 }
@@ -82,13 +82,13 @@ xdescribe('lasso-require/dependency-require' , function() {
 
                 // console.log(JSON.stringify({
                 //     type: 'package',
-                //     path: clientOptimizerPackagePath
+                //     path: clientLassoPackagePath
                 // }, null, ' '))
 
 
                 expect(lookup['package']).to.deep.equal({
                     type: 'package',
-                    path: clientOptimizerPackagePath
+                    path: clientLassoPackagePath
                 });
 
                 expect(lookup['commonjs-dep']).to.deep.equal({
@@ -145,7 +145,7 @@ xdescribe('lasso-require/dependency-require' , function() {
 
                 expect(lookup['package']).to.deep.equal({
                     type: 'package',
-                    path: clientOptimizerPackagePath
+                    path: clientLassoPackagePath
                 });
 
                 var actual = extend({}, lookup['commonjs-def']);
@@ -196,7 +196,7 @@ xdescribe('lasso-require/dependency-require' , function() {
 
                 expect(lookup['package']).to.deep.equal({
                     type: 'package',
-                    path: clientOptimizerPackagePath
+                    path: clientLassoPackagePath
                 });
 
                 expect(lookup['commonjs-dep']).to.deep.equal({
@@ -251,7 +251,7 @@ xdescribe('lasso-require/dependency-require' , function() {
 
                 expect(lookup['package']).to.deep.equal({
                     type: 'package',
-                    path: clientOptimizerPackagePath
+                    path: clientLassoPackagePath
                 });
 
                 var actual = extend({}, lookup['commonjs-def']);
@@ -294,7 +294,7 @@ xdescribe('lasso-require/dependency-require' , function() {
 
                 expect(lookup['package']).to.deep.equal({
                     type: 'package',
-                    path: clientOptimizerPackagePath
+                    path: clientLassoPackagePath
                 });
 
                 expect(lookup['commonjs-dep']).to.deep.equal({
@@ -346,7 +346,7 @@ xdescribe('lasso-require/dependency-require' , function() {
 
                 expect(lookup['package']).to.deep.equal({
                     type: 'package',
-                    path: clientOptimizerPackagePath
+                    path: clientLassoPackagePath
                 });
 
                 var actual = extend({}, lookup['commonjs-def']);
@@ -404,7 +404,7 @@ xdescribe('lasso-require/dependency-require' , function() {
 
                 expect(pkgs[0]).to.deep.equal({
                     type: 'package',
-                    path: clientOptimizerPackagePath
+                    path: clientLassoPackagePath
                 });
 
                 expect(pkgs[1]).to.deep.equal({
@@ -543,7 +543,7 @@ xdescribe('lasso-require/dependency-require' , function() {
 
     //         expect(pkgs[0]).to.deep.equal({
     //             type: 'package',
-    //             path: clientOptimizerPackagePath
+    //             path: clientLassoPackagePath
     //         });
 
     //         expect(pkgs[1]).to.deep.equal({
