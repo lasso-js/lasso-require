@@ -1,7 +1,7 @@
 lasso-require
 ========================
 
-Plugin for the [RaptorJS Optimizer](https://github.com/raptorjs/lasso) that adds support for transporting Node.js-style modules to the browser.
+Plugin for the [Lasso.js](https://github.com/raptorjs/lasso) that adds support for transporting Node.js-style modules to the browser.
 
 # Installation
 
