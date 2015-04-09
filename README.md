@@ -1,14 +1,14 @@
-optimizer-require
+lasso-require
 ========================
 
-Plugin for the [RaptorJS Optimizer](https://github.com/raptorjs/optimizer) that adds support for transporting Node.js-style modules to the browser.
+Plugin for the [RaptorJS Optimizer](https://github.com/raptorjs/lasso) that adds support for transporting Node.js-style modules to the browser.
 
 # Installation
 
-This plugin is included as part of the `optimizer` module so it is not necessary to use `npm install` to add the module to your project. However, if you want to use a specific version of the `optimizer-require` plugin then you can install it using the following command:
+This plugin is included as part of the `lasso` module so it is not necessary to use `npm install` to add the module to your project. However, if you want to use a specific version of the `lasso-require` plugin then you can install it using the following command:
 
 ```
-npm install optimizer-require --save
+npm install lasso-require --save
 ```
 
 # Usage
@@ -16,10 +16,10 @@ npm install optimizer-require --save
 This plugin is enabled by default, but if you want to provide your own configuration then you can do that using code similar to the following:
 
 ```javascript
-require('optimizer').configure({
+require('lasso').configure({
     plugins: [
         {
-            plugin: 'optimizer-require',
+            plugin: 'lasso-require',
             config: {
                 transforms: [ // Browserify compatible transforms
                     'deamdify'
@@ -30,7 +30,7 @@ require('optimizer').configure({
 })
 ```
 
-The `optimizer-require` plugin introduces two new dependency types that you can use to target Node.js modules for the browser. There usage is shown in the following `browser.json` file:
+The `lasso-require` plugin introduces two new dependency types that you can use to target Node.js modules for the browser. There usage is shown in the following `browser.json` file:
 
 ```json
 {
@@ -73,7 +73,7 @@ __Output Bundles:__
 After running the following command:
 
 ```bash
-optimizer require:./foo require:./bar --name test
+lasso require:./foo require:./bar --name test
 ```
 
 The output written to `static/test.js` will be the following:
@@ -115,12 +115,12 @@ __Output Bundles:__
 After running the following command:
 
 ```bash
-optimizer require-run:./main --name test
+lasso require-run:./main --name test
 ```
 
 Alternatively:
 ```bash
-optimizer --main main.js --name test
+lasso --main main.js --name test
 ```
 
 The output written to `static/test.js` will be the following:
@@ -141,7 +141,7 @@ $rmod.run("/main", function(require, exports, module, __filename, __dirname) { r
 
 ## Conditional Remap
 
-The `optimizer-require` supports the [package.json browser field](https://gist.github.com/defunctzombie/4339901) for remapping a JavaScript module to a different module during client-side bundling. For example:
+The `lasso-require` supports the [package.json browser field](https://gist.github.com/defunctzombie/4339901) for remapping a JavaScript module to a different module during client-side bundling. For example:
 
 ```json
 {
@@ -151,7 +151,7 @@ The `optimizer-require` supports the [package.json browser field](https://gist.g
 }
 ```
 
-The `optimizer-require` plugin also allows modules to be conditionally remapped based on the set of enabled flags by adding additional information an `browser.json` in the same directory as a module. For example:
+The `lasso-require` plugin also allows modules to be conditionally remapped based on the set of enabled flags by adding additional information an `browser.json` in the same directory as a module. For example:
 
 ```json
 {

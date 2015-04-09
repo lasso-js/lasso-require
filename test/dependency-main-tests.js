@@ -7,7 +7,7 @@ var expect = require('chai').expect;
 
 require('../'); // Load this module just to make sure it works
 
-describe('optimizer-require/dependency-main' , function() {
+describe('lasso-require/dependency-main' , function() {
 
     beforeEach(function(done) {
         for (var k in require.cache) {

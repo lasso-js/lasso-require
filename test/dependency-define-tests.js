@@ -10,7 +10,7 @@ require('../'); // Load this module just to make sure it works
 
 var MockOptimizerContext = require('./MockOptimizerContext');
 
-xdescribe('optimizer-require/dependency-define' , function() {
+xdescribe('lasso-require/dependency-define' , function() {
 
     beforeEach(function(done) {
         for (var k in require.cache) {
@@ -20,7 +20,7 @@ xdescribe('optimizer-require/dependency-define' , function() {
         }
 
         // require('raptor-logging').configureLoggers({
-        //     'optimizer-require': 'DEBUG'
+        //     'lasso-require': 'DEBUG'
         // });
         done();
     });

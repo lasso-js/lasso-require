@@ -10,7 +10,7 @@ var MockOptimizerContext = require('./MockOptimizerContext');
 require('../'); // Load this module just to make sure it works
 
 
-describe('optimizer-require/dependency-run' , function() {
+describe('lasso-require/dependency-run' , function() {
 
     beforeEach(function(done) {
         for (var k in require.cache) {

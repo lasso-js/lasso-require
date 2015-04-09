@@ -47,7 +47,7 @@ function MockOptimizerContext() {
     var requireExtensions = {
         js: {
             object: false,
-            createReader: function(path, optimizerContext) {
+            createReader: function(path, lassoContext) {
                 return function() {
                     return fs.createReadStream(path, 'utf8');
                 };
@@ -55,7 +55,7 @@ function MockOptimizerContext() {
         },
         json: {
             object: true,
-            createReader: function(path, optimizerContext) {
+            createReader: function(path, lassoContext) {
                 return function() {
                     return fs.createReadStream(path, 'utf8');
                 };
@@ -64,13 +64,13 @@ function MockOptimizerContext() {
     };
 
     this.dependencyRegistry = {
-        getRequireHandler: function(path, optimizerContext) {
+        getRequireHandler: function(path, lassoContext) {
             var ext = nodePath.extname(path).substring(1);
             var requireExt = requireExtensions[ext];
             return {
                 object: requireExt.object === true,
 
-                reader: requireExt.createReader(path, optimizerContext),
+                reader: requireExt.createReader(path, lassoContext),
 
                 getLastModified: function(callback) {
                     callback(null, -1);

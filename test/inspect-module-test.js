@@ -16,7 +16,7 @@ function createUniqueIdFunc() {
     };
 }
 
-xdescribe('optimizer-require/inspect' , function() {
+xdescribe('lasso-require/inspect' , function() {
 
     beforeEach(function(done) {
         for (var k in require.cache) {

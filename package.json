@@ -1,16 +1,16 @@
 {
-    "name": "optimizer-require",
+    "name": "lasso-require",
     "description": "RaptorJS Optimizer plugin to support Node.js style module require in the browser",
     "keywords": [
-        "optimizer",
-        "optimizer-plugin",
+        "lasso",
+        "lasso-plugin",
         "require",
         "commonjs",
         "modules"
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/raptorjs/optimizer-require.git"
+        "url": "https://github.com/raptorjs/lasso-require.git"
     },
     "scripts": {
         "test": "node_modules/.bin/mocha --ui bdd --reporter spec ./test"
@@ -51,7 +51,7 @@
     },
     "license": "Apache License v2.0",
     "bin": {},
-    "main": "lib/optimizer-require-plugin.js",
+    "main": "lib/lasso-require-plugin.js",
     "publishConfig": {
         "registry": "https://registry.npmjs.org/"
     },
