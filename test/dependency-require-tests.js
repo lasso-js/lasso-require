@@ -10,7 +10,7 @@ var extend = require('raptor-util/extend');
 
 require('../'); // Load this module just to make sure it works
 
-var clientOptimizerPackagePath = require.resolve('raptor-modules/client/optimizer.json');
+var clientOptimizerPackagePath = require.resolve('raptor-modules/client/browser.json');
 
 var mockOptimizer = {
     dependencies: {
@@ -376,7 +376,7 @@ xdescribe('optimizer-require/dependency-require' , function() {
 
     });
 
-    it('should resolve to the correct optimizer manifest for a "require" dependency that has an associated optimizer.json', function(done) {
+    it('should resolve to the correct optimizer manifest for a "require" dependency that has an associated browser.json', function(done) {
         var optimizerContext = new MockOptimizerContext();
         var requireDependency = createRequireDependency();
         requireDependency.path = './src/with-package/foo/index';
@@ -409,7 +409,7 @@ xdescribe('optimizer-require/dependency-require' , function() {
 
                 expect(pkgs[1]).to.deep.equal({
                     type: 'package',
-                    path: nodePath.join(__dirname, 'test-project/src/with-package/foo/optimizer.json')
+                    path: nodePath.join(__dirname, 'test-project/src/with-package/foo/browser.json')
                 });
 
                 var actual = extend({}, lookup['commonjs-def']);
@@ -436,7 +436,7 @@ xdescribe('optimizer-require/dependency-require' , function() {
         var requireDependency = createRequireDependency();
         requireDependency.path = './test.json';
         requireDependency.__dirname = nodePath.join(__dirname, 'test-project/src');
-        requireDependency.__filename = nodePath.join(__dirname, 'test-project/src/optimizer.json');
+        requireDependency.__filename = nodePath.join(__dirname, 'test-project/src/browser.json');
         requireDependency.init(optimizerContext, function(err) {
             requireDependency.getDependencies(optimizerContext, function(err, dependencies) {
                 if (err) {
@@ -499,7 +499,7 @@ xdescribe('optimizer-require/dependency-require' , function() {
         var requireDependency = createRequireDependency();
         requireDependency.path = './no-main';
         requireDependency.__dirname = nodePath.join(__dirname, 'test-project/src');
-        requireDependency.__filename = nodePath.join(__dirname, 'test-project/src/optimizer.json');
+        requireDependency.__filename = nodePath.join(__dirname, 'test-project/src/browser.json');
         requireDependency.init(optimizerContext, function(err) {
             requireDependency.getDependencies(optimizerContext, function(err, dependencies) {
                 if (!err) {
@@ -512,7 +512,7 @@ xdescribe('optimizer-require/dependency-require' , function() {
 
     });
 
-    // it.only('should resolve to the correct optimizer manifest for a "require" dependency that has an associated -optimizer.json in dir', function(done) {
+    // it.only('should resolve to the correct optimizer manifest for a "require" dependency that has an associated -browser.json in dir', function(done) {
     //     var requireDependency = createRequireDependency();
     //     requireDependency.path = './src/with-package/bar/index';
     //     requireDependency.from = nodePath.join(__dirname, 'test-project');
@@ -548,7 +548,7 @@ xdescribe('optimizer-require/dependency-require' , function() {
 
     //         expect(pkgs[1]).to.deep.equal({
     //             type: 'package',
-    //             path: nodePath.join(__dirname, 'test-project/src/with-package/bar/index-optimizer.json')
+    //             path: nodePath.join(__dirname, 'test-project/src/with-package/bar/index-browser.json')
     //         });
 
     //         expect(lookup['commonjs-def']).to.deep.equal({

@@ -9,7 +9,7 @@ exports.test = function(input) {
 
     require('bar');
 
-    raptorLoader.async(['./optimizer.json'], function(err) {
+    raptorLoader.async(['./browser.json'], function(err) {
         require('baz');
 
         require('raptor-loader').async(function(err) {

@@ -8,7 +8,7 @@
     "processGlobal": false,
     "async": {
         "_0": [
-            "./optimizer.json",
+            "./browser.json",
             {
                 "type": "require",
                 "path": "baz"

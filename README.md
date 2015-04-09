@@ -30,7 +30,7 @@ require('optimizer').configure({
 })
 ```
 
-The `optimizer-require` plugin introduces two new dependency types that you can use to target Node.js modules for the browser. There usage is shown in the following `optimizer.json` file:
+The `optimizer-require` plugin introduces two new dependency types that you can use to target Node.js modules for the browser. There usage is shown in the following `browser.json` file:
 
 ```json
 {
@@ -151,7 +151,7 @@ The `optimizer-require` supports the [package.json browser field](https://gist.g
 }
 ```
 
-The `optimizer-require` plugin also allows modules to be conditionally remapped based on the set of enabled flags by adding additional information an `optimizer.json` in the same directory as a module. For example:
+The `optimizer-require` plugin also allows modules to be conditionally remapped based on the set of enabled flags by adding additional information an `browser.json` in the same directory as a module. For example:
 
 ```json
 {
