@@ -41,7 +41,7 @@ util.inherits(DeferredStream, Readable);
 
 module.exports = DeferredStream;
 
-function MockOptimizerContext() {
+function MockLassoContext() {
     this.data = {};
     this.phaseData = {};
     var requireExtensions = {
@@ -94,7 +94,7 @@ var MOCK_CACHE = {
     }
 };
 
-MockOptimizerContext.prototype = {
+MockLassoContext.prototype = {
     uniqueId: function() {
         return nextId++;
     },
@@ -124,4 +124,4 @@ MockOptimizerContext.prototype = {
     }
 };
 
-module.exports = MockOptimizerContext;
+module.exports = MockLassoContext;

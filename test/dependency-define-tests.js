@@ -8,7 +8,7 @@ var expect = require('chai').expect;
 
 require('../'); // Load this module just to make sure it works
 
-var MockOptimizerContext = require('./MockOptimizerContext');
+var MockLassoContext = require('./MockLassoContext');
 
 xdescribe('lasso-require/dependency-define' , function() {
 
@@ -35,7 +35,7 @@ xdescribe('lasso-require/dependency-define' , function() {
         };
 
         var code = '';
-        defDependency.read(new MockOptimizerContext())
+        defDependency.read(new MockLassoContext())
             .on('data', function(data) {
                 code += data;
             })

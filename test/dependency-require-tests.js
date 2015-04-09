@@ -5,7 +5,7 @@ var chai = require('chai');
 chai.Assertion.includeStack = true;
 require('chai').should();
 var expect = require('chai').expect;
-var MockOptimizerContext = require('./MockOptimizerContext');
+var MockLassoContext = require('./MockLassoContext');
 var extend = require('raptor-util/extend');
 
 require('../'); // Load this module just to make sure it works
@@ -60,7 +60,7 @@ xdescribe('lasso-require/dependency-require' , function() {
     });
 
     it('should resolve to the correct lasso manifest for a "require" dependency that resolves to a root module', function(done) {
-        var lassoContext = new MockOptimizerContext();
+        var lassoContext = new MockLassoContext();
         var requireDependency = createRequireDependency();
         requireDependency.path = 'bar';
         requireDependency.from = nodePath.join(__dirname, 'test-project');
@@ -116,7 +116,7 @@ xdescribe('lasso-require/dependency-require' , function() {
     });
 
     it('should resolve to the correct lasso manifest for a "require" dependency with a resolved path', function(done) {
-        var lassoContext = new MockOptimizerContext();
+        var lassoContext = new MockLassoContext();
         var requireDependency = createRequireDependency();
         requireDependency.resolvedPath = nodePath.join(__dirname, 'test-project/node_modules/bar/lib/index.js');
         requireDependency.init(lassoContext, function(err) {
@@ -176,7 +176,7 @@ xdescribe('lasso-require/dependency-require' , function() {
     });
 
     it('should resolve to the correct lasso manifest for a "require" dependency that resolves to a nested installed module', function(done) {
-        var lassoContext = new MockOptimizerContext();
+        var lassoContext = new MockLassoContext();
         var requireDependency = createRequireDependency();
         requireDependency.path = 'baz';
         requireDependency.from = nodePath.join(__dirname, 'test-project/node_modules/bar');
@@ -224,7 +224,7 @@ xdescribe('lasso-require/dependency-require' , function() {
     });
 
     it('should resolve to the correct lasso manifest for a "require" dependency with a resolved path and a non-string require in code', function(done) {
-        var lassoContext = new MockOptimizerContext();
+        var lassoContext = new MockLassoContext();
         var requireDependency = createRequireDependency();
         requireDependency.resolvedPath = nodePath.join(__dirname, 'test-project/node_modules/foo/lib/index.js');
         requireDependency.init(lassoContext, function(err) {
@@ -275,7 +275,7 @@ xdescribe('lasso-require/dependency-require' , function() {
     });
 
     it('should resolve to the correct lasso manifest for a "require" dependency that has a browser module override', function(done) {
-        var lassoContext = new MockOptimizerContext();
+        var lassoContext = new MockLassoContext();
         var requireDependency = createRequireDependency();
         requireDependency.path = 'hello-world';
         requireDependency.from = nodePath.join(__dirname, 'test-project/browser-overrides/main');
@@ -324,7 +324,7 @@ xdescribe('lasso-require/dependency-require' , function() {
     });
 
     it('should resolve to the correct lasso manifest for a "require" dependency that has a browser file override', function(done) {
-        var lassoContext = new MockOptimizerContext();
+        var lassoContext = new MockLassoContext();
         var requireDependency = createRequireDependency();
         requireDependency.path = './browser-overrides/main/index';
         requireDependency.from = nodePath.join(__dirname, 'test-project');
@@ -377,7 +377,7 @@ xdescribe('lasso-require/dependency-require' , function() {
     });
 
     it('should resolve to the correct lasso manifest for a "require" dependency that has an associated browser.json', function(done) {
-        var lassoContext = new MockOptimizerContext();
+        var lassoContext = new MockLassoContext();
         var requireDependency = createRequireDependency();
         requireDependency.path = './src/with-package/foo/index';
         requireDependency.from = nodePath.join(__dirname, 'test-project');
@@ -432,7 +432,7 @@ xdescribe('lasso-require/dependency-require' , function() {
 
     it('should support *.json requires', function(done) {
 
-        var lassoContext = new MockOptimizerContext();
+        var lassoContext = new MockLassoContext();
         var requireDependency = createRequireDependency();
         requireDependency.path = './test.json';
         requireDependency.__dirname = nodePath.join(__dirname, 'test-project/src');
@@ -495,7 +495,7 @@ xdescribe('lasso-require/dependency-require' , function() {
     });
 
     it('should handle invalid requires to directories with no main', function(done) {
-        var lassoContext = new MockOptimizerContext();
+        var lassoContext = new MockLassoContext();
         var requireDependency = createRequireDependency();
         requireDependency.path = './no-main';
         requireDependency.__dirname = nodePath.join(__dirname, 'test-project/src');

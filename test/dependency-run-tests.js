@@ -5,7 +5,7 @@ var chai = require('chai');
 chai.Assertion.includeStack = true;
 require('chai').should();
 var expect = require('chai').expect;
-var MockOptimizerContext = require('./MockOptimizerContext');
+var MockLassoContext = require('./MockLassoContext');
 
 require('../'); // Load this module just to make sure it works
 
@@ -29,7 +29,7 @@ describe('lasso-require/dependency-run' , function() {
         runDependency.wait = false;
 
         var code = '';
-        runDependency.read(new MockOptimizerContext())
+        runDependency.read(new MockLassoContext())
             .on('data', function(data) {
                 code += data;
             })
@@ -49,7 +49,7 @@ describe('lasso-require/dependency-run' , function() {
         runDependency.wait = true;
 
         var code = '';
-        runDependency.read(new MockOptimizerContext())
+        runDependency.read(new MockLassoContext())
             .on('data', function(data) {
                 code += data;
             })
