@@ -1,6 +1,6 @@
 {
     "name": "lasso-require",
-    "description": "RaptorJS Optimizer plugin to support Node.js style module require in the browser",
+    "description": "Lasso.js plugin to support Node.js style module require in the browser",
     "keywords": [
         "lasso",
         "lasso-plugin",
