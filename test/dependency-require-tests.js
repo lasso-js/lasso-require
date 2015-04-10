@@ -10,7 +10,7 @@ var extend = require('raptor-util/extend');
 
 require('../'); // Load this module just to make sure it works
 
-var clientLassoPackagePath = require.resolve('raptor-modules/client/browser.json');
+var clientLassoPackagePath = require.resolve('raptor-modules/client/optimizer.json');
 
 var mockLasso = {
     dependencies: {
