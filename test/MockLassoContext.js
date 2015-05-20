@@ -49,7 +49,7 @@ function MockLassoContext() {
             object: false,
             createReader: function(path, lassoContext) {
                 return function() {
-                    return fs.createReadStream(path, 'utf8');
+                    return fs.createReadStream(path, {encoding: 'utf8'});
                 };
             }
         },
@@ -57,7 +57,7 @@ function MockLassoContext() {
             object: true,
             createReader: function(path, lassoContext) {
                 return function() {
-                    return fs.createReadStream(path, 'utf8');
+                    return fs.createReadStream(path, {encoding: 'utf8'});
                 };
             }
         }

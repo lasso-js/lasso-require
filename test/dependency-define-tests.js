@@ -31,7 +31,7 @@ xdescribe('lasso-require/dependency-define' , function() {
         defDependency.path = '/foo@1.0.0/lib/index';
         defDependency._file = nodePath.join(__dirname, 'test-project/node_modules/foo/lib/index.js');
         defDependency._requireReader = function() {
-            return require('fs').createReadStream(defDependency._file, 'utf8');
+            return require('fs').createReadStream(defDependency._file, {encoding: 'utf8'});
         };
 
         var code = '';
