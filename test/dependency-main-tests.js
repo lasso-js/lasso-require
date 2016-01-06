@@ -20,7 +20,7 @@ describe('lasso-require/dependency-main' , function() {
 
     it('should generate the correct main for an installed module', function(done) {
 
-        var defDependency = require('../lib/dependency-main');
+        var defDependency = require('../lib/dependency-main').create({});
         defDependency.dir = '/foo@1.0.0';
         defDependency.main = 'lib/index';
         var code = '';

@@ -20,7 +20,7 @@ describe('lasso-require/dependency-dep' , function() {
 
     it('should generate the correct main for an installed module', function(done) {
 
-        var defDependency = require('../lib/dependency-dep');
+        var defDependency = require('../lib/dependency-dep').create({});
         defDependency.parentPath = '/$/foo';
         defDependency.childName = 'baz';
         defDependency.childVersion = '3.0.0';

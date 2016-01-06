@@ -23,7 +23,8 @@ describe('lasso-require/dependency-run' , function() {
 
     it('should generate the correct code to run a module and not wait', function(done) {
 
-        var runDependency = require('../lib/dependency-run');
+        var runDependency = require('../lib/dependency-run').create({});
+
         runDependency.path = '/';
         runDependency._file = nodePath.join(__dirname, 'test-project/node_modules/foo/lib/index.js');
         runDependency.wait = false;
@@ -43,7 +44,7 @@ describe('lasso-require/dependency-run' , function() {
 
     it('should generate the correct code to run a module and wait', function(done) {
 
-        var runDependency = require('../lib/dependency-run');
+        var runDependency = require('../lib/dependency-run').create({});
         runDependency.path = '/';
         runDependency._file = nodePath.join(__dirname, 'test-project/node_modules/foo/lib/index.js');
         runDependency.wait = true;

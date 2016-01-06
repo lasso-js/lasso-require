@@ -27,7 +27,7 @@ xdescribe('lasso-require/dependency-define' , function() {
 
     it('should generate the correct code for an installed module', function(done) {
 
-        var defDependency = require('../lib/dependency-define');
+        var defDependency = require('../lib/dependency-define').create({});
         defDependency.path = '/foo@1.0.0/lib/index';
         defDependency._file = nodePath.join(__dirname, 'test-project/node_modules/foo/lib/index.js');
         defDependency._requireReader = function() {

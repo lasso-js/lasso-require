@@ -22,7 +22,7 @@ describe('lasso-require/dependency-remap' , function() {
 
     it('should generate the correct remap code', function(done) {
 
-        var defDependency = require('../lib/dependency-remap');
+        var defDependency = require('../lib/dependency-remap').create({});
         defDependency.from = "/foo@1.0.0/lib/index";
         defDependency.to = "browser/index";
         var code = '';

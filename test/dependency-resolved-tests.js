@@ -22,7 +22,7 @@ describe('lasso-require/dependency-resolved' , function() {
 
     it('should generate the correct main for an installed module', function(done) {
 
-        var resolvedDependency = require('../lib/dependency-resolved');
+        var resolvedDependency = require('../lib/dependency-resolved').create({});
         resolvedDependency.target = "baz";
         resolvedDependency.from = "/src";
         resolvedDependency.resolved = "/$/baz/lib/index";
