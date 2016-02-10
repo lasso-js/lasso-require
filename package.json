@@ -62,5 +62,5 @@
         "path": "path-browserify",
         "stream": "stream-browserify"
     },
-    "version": "1.4.8"
+    "version": "1.4.9"
 }
