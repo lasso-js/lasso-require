@@ -28,8 +28,8 @@
     "buffer-browserify": "^0.2.2",
     "clone": "^0.1.19",
     "escodegen": "^1.6.0",
-    "esprima": "^1.2.4",
-    "estraverse": "^1.9.1",
+    "esprima": "^2.7.2",
+    "estraverse": "^4.1.1",
     "events": "^1.0.2",
     "mkdirp": "^0.5.0",
     "path-browserify": "0.0.0",
@@ -51,7 +51,7 @@
     "jshint": "~2.3.0",
     "mocha": "~1.15.1"
   },
-  "license": "Apache License v2.0",
+  "license": "Apache-2.0",
   "bin": {},
   "main": "lib/lasso-require-plugin.js",
   "publishConfig": {
