@@ -1,0 +1,1 @@
+$rmod.main("/test/fixtures/dep-require/autotest/main-index/bar", "");

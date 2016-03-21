@@ -1,0 +1,34 @@
+[
+    {
+        "type": "commonjs-runtime"
+    },
+    {
+        "type": "commonjs-ready",
+        "inline": "end"
+    },
+    {
+        "type": "commonjs-installed",
+        "parentPath": "/test/fixtures/dep-require/autotest/require-installed",
+        "childName": "installed-bar",
+        "childVersion": "1.2.0"
+    },
+    {
+        "type": "commonjs-main",
+        "dir": "/installed-bar@1.2.0",
+        "main": "",
+        "_sourceFile": "/test/fixtures/dep-require/autotest/require-installed/node_modules/installed-bar/index.js"
+    },
+    {
+        "type": "commonjs-def",
+        "path": "/installed-bar@1.2.0/index",
+        "file": "/test/fixtures/dep-require/autotest/require-installed/node_modules/installed-bar/index.js",
+        "inspected": {
+            "requires": [],
+            "processGlobal": false,
+            "asyncBlocks": [],
+            "lastModified": -1,
+            "allRequires": []
+        },
+        "requireLastModified": -1
+    }
+]

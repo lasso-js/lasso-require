@@ -1,0 +1,93 @@
+[
+    {
+        "type": "commonjs-runtime"
+    },
+    {
+        "type": "commonjs-ready",
+        "inline": "end"
+    },
+    {
+        "type": "commonjs-main",
+        "dir": "/bar",
+        "main": "",
+        "_sourceFile": "/test/fixtures/dep-require/autotest/main-index/bar/index.js"
+    },
+    {
+        "type": "require",
+        "path": "./bar",
+        "from": "/test/fixtures/dep-require/autotest/main-index",
+        "resolved": {
+            "path": "/test/fixtures/dep-require/autotest/main-index/bar/index.js",
+            "meta": [
+                {
+                    "type": "main",
+                    "dir": "/test/fixtures/dep-require/autotest/main-index/bar",
+                    "main": "/test/fixtures/dep-require/autotest/main-index/bar/index.js"
+                }
+            ],
+            "clientLogicalPath": "/bar/index",
+            "clientRealPath": "/bar/index"
+        }
+    },
+    {
+        "type": "commonjs-def",
+        "path": "/foo",
+        "file": "/test/fixtures/dep-require/autotest/main-index/foo.js",
+        "inspected": {
+            "requires": [
+                {
+                    "path": "./bar",
+                    "range": [
+                        0,
+                        17
+                    ],
+                    "argRange": [
+                        8,
+                        15
+                    ],
+                    "resolved": {
+                        "path": "/test/fixtures/dep-require/autotest/main-index/bar/index.js",
+                        "meta": [
+                            {
+                                "type": "main",
+                                "dir": "/test/fixtures/dep-require/autotest/main-index/bar",
+                                "main": "/test/fixtures/dep-require/autotest/main-index/bar/index.js"
+                            }
+                        ],
+                        "clientLogicalPath": "/bar/index",
+                        "clientRealPath": "/bar/index"
+                    }
+                }
+            ],
+            "processGlobal": false,
+            "asyncBlocks": [],
+            "allRequires": [
+                {
+                    "path": "./bar",
+                    "range": [
+                        0,
+                        17
+                    ],
+                    "argRange": [
+                        8,
+                        15
+                    ],
+                    "resolved": {
+                        "path": "/test/fixtures/dep-require/autotest/main-index/bar/index.js",
+                        "meta": [
+                            {
+                                "type": "main",
+                                "dir": "/test/fixtures/dep-require/autotest/main-index/bar",
+                                "main": "/test/fixtures/dep-require/autotest/main-index/bar/index.js"
+                            }
+                        ],
+                        "clientLogicalPath": "/bar/index",
+                        "clientRealPath": "/bar/index"
+                    }
+                }
+            ],
+            "lastModified": -1
+        },
+        "requireLastModified": -1
+    }
+]

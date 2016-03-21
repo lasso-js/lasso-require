@@ -1,0 +1,1 @@
+$rmod.run("/foo");

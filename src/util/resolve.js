@@ -1,0 +1,114 @@
+var parseRequire = require('./parseRequire');
+var nodePath = require('path');
+var getRequireRemapFromDir = require('./getRequireRemapFromDir');
+var lassoResolveFrom = require('lasso-resolve-from');
+var ok = require('assert').ok;
+
+var _normalizePath = nodePath.sep === '/' ?
+    function _normalizePathUnix(path) {
+        // nothing to do for non-Windows platform
+        return path;
+    } :
+    function _normalizePathWindows(path) {
+        // replace back-slash with forward-slash
+        return path.replace(/[\\]/g, '/');
+    };
+
+var resolveCache = {};
+
+exports.createResolver = function(builtins, getClientPathInfo) {
+    function resolveRequire(targetModule, fromDir, lassoContext) {
+        ok(targetModule, '"targetModule" is required');
+        ok(typeof targetModule === 'string', '"targetModule" should be a string');
+        ok(typeof fromDir === 'string', '"fromDir" should be a string');
+
+        var parsedRequire = parseRequire(targetModule);
+
+        // Normalize the path by making sure the path separator is always forward slash
+        // (normalize does nothing on non-Windows platform)
+        targetModule = _normalizePath(parsedRequire.path);
+
+        var dependencyType = parsedRequire.type;
+        var conditionalRemaps = lassoContext ? getRequireRemapFromDir(fromDir, lassoContext) : null;
+
+        var resolveOptions = {
+            includeMeta: true
+        };
+
+        if (conditionalRemaps) {
+            resolveOptions.remaps = conditionalRemaps;
+        }
+
+        var resolvedInfo = lassoResolveFrom(fromDir, targetModule, resolveOptions);
+
+        var clientPathInfo;
+
+        if (resolvedInfo) {
+            clientPathInfo = getClientPathInfo(resolvedInfo.path);
+        } else {
+            if (targetModule.charAt(0) === '.') {
+                return null;
+            }
+
+            var resolvedBuiltin = builtins[targetModule];
+
+            if (resolvedBuiltin) {
+                resolvedInfo = {
+                    path: resolvedBuiltin,
+                    meta: [
+                        {
+                            type: 'builtin',
+                            name: targetModule,
+                            target: resolvedBuiltin
+                        }
+                    ]
+                };
+
+                var builtinRealPath = getClientPathInfo(resolvedBuiltin, { makeRoot: true }).realPath;
+                clientPathInfo = {
+                    logicalPath: builtinRealPath,
+                    realPath: builtinRealPath
+                };
+            }
+        }
+
+        if (resolvedInfo) {
+
+            var result = {
+                path: resolvedInfo.path,
+                meta: resolvedInfo.meta,
+                clientLogicalPath: clientPathInfo.logicalPath,
+                clientRealPath: clientPathInfo.realPath
+            };
+
+            if (resolvedInfo.voidRemap) {
+                result.voidRemap = true;
+            }
+
+            if (dependencyType) {
+                result.type = dependencyType;
+            }
+
+            return result;
+        } else {
+            return undefined;
+        }
+    }
+
+    function resolveRequireCached(targetModule, fromDir, lassoContext) {
+        var key = targetModule + '@' + fromDir;
+
+        var result = resolveCache[key];
+        if (result === undefined) {
+            result = resolveRequire(targetModule, fromDir, lassoContext);
+            resolveCache[key] = result || null;
+        }
+
+        return result || undefined;
+    }
+
+    return {
+        resolveRequire,
+        resolveRequireCached
+    };
+};

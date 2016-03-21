@@ -1,0 +1,69 @@
+[
+    {
+        "type": "commonjs-runtime"
+    },
+    {
+        "type": "commonjs-ready",
+        "inline": "end"
+    },
+    {
+        "type": "require",
+        "path": "./bar",
+        "from": "/test/fixtures/dep-require/autotest/transitive",
+        "resolved": {
+            "path": "/test/fixtures/dep-require/autotest/transitive/bar.js",
+            "meta": [],
+            "clientLogicalPath": "/bar",
+            "clientRealPath": "/bar"
+        }
+    },
+    {
+        "type": "commonjs-def",
+        "path": "/foo",
+        "file": "/test/fixtures/dep-require/autotest/transitive/foo.js",
+        "inspected": {
+            "requires": [
+                {
+                    "path": "./bar",
+                    "range": [
+                        0,
+                        17
+                    ],
+                    "argRange": [
+                        8,
+                        15
+                    ],
+                    "resolved": {
+                        "path": "/test/fixtures/dep-require/autotest/transitive/bar.js",
+                        "meta": [],
+                        "clientLogicalPath": "/bar",
+                        "clientRealPath": "/bar"
+                    }
+                }
+            ],
+            "processGlobal": false,
+            "asyncBlocks": [],
+            "lastModified": -1,
+            "allRequires": [
+                {
+                    "path": "./bar",
+                    "range": [
+                        0,
+                        17
+                    ],
+                    "argRange": [
+                        8,
+                        15
+                    ],
+                    "resolved": {
+                        "path": "/test/fixtures/dep-require/autotest/transitive/bar.js",
+                        "meta": [],
+                        "clientLogicalPath": "/bar",
+                        "clientRealPath": "/bar"
+                    }
+                }
+            ]
+        },
+        "requireLastModified": -1
+    }
+]

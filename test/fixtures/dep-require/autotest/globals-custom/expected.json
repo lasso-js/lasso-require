@@ -1,0 +1,37 @@
+[
+    {
+        "type": "commonjs-runtime"
+    },
+    {
+        "type": "commonjs-ready",
+        "inline": "end"
+    },
+    {
+        "type": "commonjs-installed",
+        "parentPath": "/test/fixtures/dep-require/autotest/globals-custom",
+        "childName": "foo",
+        "childVersion": "1.2.0"
+    },
+    {
+        "type": "commonjs-main",
+        "dir": "/foo@1.2.0",
+        "main": "",
+        "_sourceFile": "/test/fixtures/dep-require/autotest/globals-custom/node_modules/foo/index.js"
+    },
+    {
+        "type": "commonjs-def",
+        "path": "/foo@1.2.0/index",
+        "file": "/test/fixtures/dep-require/autotest/globals-custom/node_modules/foo/index.js",
+        "globals": [
+            "FOO"
+        ],
+        "inspected": {
+            "requires": [],
+            "processGlobal": false,
+            "asyncBlocks": [],
+            "lastModified": -1,
+            "allRequires": []
+        },
+        "requireLastModified": -1
+    }
+]

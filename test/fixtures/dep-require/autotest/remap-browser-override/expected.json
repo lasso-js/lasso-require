@@ -1,0 +1,27 @@
+[
+    {
+        "type": "commonjs-runtime"
+    },
+    {
+        "type": "commonjs-ready",
+        "inline": "end"
+    },
+    {
+        "type": "commonjs-remap",
+        "from": "/foo",
+        "to": "/foo-browser"
+    },
+    {
+        "type": "commonjs-def",
+        "path": "/foo-browser",
+        "file": "/test/fixtures/dep-require/autotest/remap-browser-override/foo-browser.js",
+        "inspected": {
+            "requires": [],
+            "processGlobal": false,
+            "asyncBlocks": [],
+            "allRequires": [],
+            "lastModified": -1
+        },
+        "requireLastModified": -1
+    }
+]
