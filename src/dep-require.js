@@ -52,18 +52,6 @@ function create(config, lasso) {
         type: 'commonjs-runtime'
     }, __dirname);
 
-    var processDependency = null;
-    function getProcessDependency() {
-        if (!processDependency) {
-            processDependency = lasso.dependencies.createDependency({
-                    type: 'require',
-                    path: 'process',
-                    from: __dirname
-                }, __dirname);
-        }
-        return processDependency;
-    }
-
     function handleMetaRemap(metaEntry, deduper) {
         var from = metaEntry.from;
         var to = metaEntry.to;
@@ -102,9 +90,10 @@ function create(config, lasso) {
             let key = deduper.installedKey(parentPath, childName, childVersion);
 
             if (!deduper.hasInstalled(key)) {
+                var clientParentPath = getClientPathInfo(parentPath).logicalPath;
                 deduper.addDependency(key, {
                     type: 'commonjs-installed',
-                    parentPath: parentPath,
+                    parentPath: clientParentPath,
                     childName: childName,
                     childVersion: childVersion
                 });
@@ -114,11 +103,15 @@ function create(config, lasso) {
             let key = deduper.searchPathKey(searchPath);
             if (!deduper.hasSearchPath(key)) {
                 var searchPathInfo = getClientPathInfo(searchPath);
-
+                var clientSearchPath = searchPathInfo.logicalPath;
+                if (!clientSearchPath.endsWith('/')) {
+                    // Search paths should always end with a forward slash
+                    clientSearchPath += '/';
+                }
                 // This is a non-standard standard search path entry
                 deduper.addDependency(key, {
                     type: 'commonjs-search-path',
-                    path: searchPathInfo.logicalPath
+                    path: clientSearchPath
                 });
             }
         }
@@ -383,11 +376,19 @@ function create(config, lasso) {
                     var requires = inspectResult.requires;
 
                     if (inspectResult.processGlobal) {
-                        deduper.addProcess(getProcessDependency());
+                        let processPath = 'process';
+                        let requireKey = deduper.requireKey(processPath, dirname);
+
+                        if (!deduper.hasRequire(requireKey)) {
+                            deduper.addDependency(requireKey, {
+                                type: 'require',
+                                path: processPath,
+                                from: dirname
+                            });
+                        }
+
                         additionalVars = [VAR_REQUIRE_PROCESS];
                     }
-
-
 
                     ok(inspectResult.createReadStream, 'createReadStream expected after inspectResult');
                     ok(inspectResult.lastModified, 'lastModified expected after inspectResult');
