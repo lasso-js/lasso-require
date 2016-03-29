@@ -22,7 +22,7 @@ exports.create = function(config, lasso) {
         },
 
         read: function(context) {
-            return transport.addSearchPathsCode(this.paths, {
+            return transport.codeGenerators.searchPath(this.paths, {
                 modulesRuntimeGlobal: config.modulesRuntimeGlobal
             });
         },
