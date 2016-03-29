@@ -74,6 +74,8 @@ function buildPluginConfig(userConfig, defaultProjectRoot) {
 
             console.log(module.id, 'Loading babel preset:', new Error().stack);
 
+            delete babelConfig.extensions;
+
             if (!babelConfig.presets) {
                 babelConfig.presets = [require('babel-preset-es2015')];
             }
