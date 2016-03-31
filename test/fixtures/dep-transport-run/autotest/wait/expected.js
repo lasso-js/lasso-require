@@ -1,1 +1,1 @@
-$rmod.run("/foo");
+$_mod.run("/foo");

@@ -1,1 +1,1 @@
-$rmod.ready();
+$_mod.ready();

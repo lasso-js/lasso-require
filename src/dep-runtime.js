@@ -3,7 +3,7 @@ var fs = require('fs');
 
 var lassoModulesClientMainPath =  require.resolve('lasso-modules-client');
 var FS_READ_OPTIONS = {encoding: 'utf8'};
-var rmod_regex = /\$rmod/g;
+var modGlobalVarRegex = /\$_mod/g;
 
 exports.create = function(config, lasso) {
     var modulesRuntimeGlobal = config.modulesRuntimeGlobal;
@@ -20,7 +20,7 @@ exports.create = function(config, lasso) {
                 }
 
                 if (modulesRuntimeGlobal) {
-                    contents = contents.replace(rmod_regex, modulesRuntimeGlobal);
+                    contents = contents.replace(modGlobalVarRegex, modulesRuntimeGlobal);
                 }
 
                 callback(null, contents);

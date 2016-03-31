@@ -1,1 +1,1 @@
-$rmod.run("/foo",{"wait":false});
+$_mod.run("/foo",{"wait":false});

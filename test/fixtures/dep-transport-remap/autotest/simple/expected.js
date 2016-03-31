@@ -1,1 +1,1 @@
-$rmod.remap("/foo", "/foo-browser");
+$_mod.remap("/foo", "/foo-browser");
