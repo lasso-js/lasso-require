@@ -41,7 +41,7 @@ function create(config, lasso) {
     config = config || {};
     var globals = config.globals;
     var resolver = config.resolver;
-    var getClientPathInfo = config.getClientPathInfo;
+    var getClientPath = config.getClientPath;
 
     var readyDependency = lasso.dependencies.createDependency({
         type: 'commonjs-ready',
@@ -58,13 +58,13 @@ function create(config, lasso) {
 
         var remapKey = deduper.remapKey(from, to);
         if (!deduper.hasRemap(remapKey)) {
-            var fromPath = getClientPathInfo(from).logicalPath;
+            var fromPath = getClientPath(from);
             var toPath;
 
             if (to === false) {
                 toPath = false;
             } else {
-                toPath = getClientPathInfo(to).logicalPath;
+                toPath = getClientPath(to);
             }
 
             deduper.addDependency(remapKey, {
@@ -90,7 +90,7 @@ function create(config, lasso) {
             let key = deduper.installedKey(parentPath, childName, childVersion);
 
             if (!deduper.hasInstalled(key)) {
-                var clientParentPath = getClientPathInfo(parentPath).logicalPath;
+                var clientParentPath = getClientPath(parentPath);
                 deduper.addDependency(key, {
                     type: 'commonjs-installed',
                     parentPath: clientParentPath,
@@ -102,8 +102,7 @@ function create(config, lasso) {
         } else {
             let key = deduper.searchPathKey(searchPath);
             if (!deduper.hasSearchPath(key)) {
-                var searchPathInfo = getClientPathInfo(searchPath);
-                var clientSearchPath = searchPathInfo.logicalPath;
+                var clientSearchPath = getClientPath(searchPath);
                 if (!clientSearchPath.endsWith('/')) {
                     // Search paths should always end with a forward slash
                     clientSearchPath += '/';
@@ -124,16 +123,12 @@ function create(config, lasso) {
         var key = deduper.mainKey(dir, main);
 
         if (!deduper.hasMain(key)) {
-            var dirClientPathInfo = getClientPathInfo(metaEntry.dir);
-            // var mainClientPathInfo = getClientPathInfo(metaEntry.main);
-            //
-            // var relativePath = nodePath.relative(dirClientPathInfo.clientRealPath, mainClientPathInfo.clientRealPath);
-
+            var dirClientPath = getClientPath(metaEntry.dir);
             var relativePath = normalizeMain(metaEntry.dir, metaEntry.main);
 
             deduper.addDependency(key, {
                 type: 'commonjs-main',
-                dir: dirClientPathInfo.realPath,
+                dir: dirClientPath,
                 main: relativePath,
                 _sourceFile: metaEntry.main
             });
@@ -147,12 +142,12 @@ function create(config, lasso) {
         var key = deduper.builtinKey(name, target);
 
         if (!deduper.hasBuiltin(key)) {
-            var targetClientPathInfo = getClientPathInfo(metaEntry.target);
+            var targetClientPath = getClientPath(metaEntry.target);
 
             deduper.addDependency(key, {
                 type: 'commonjs-builtin',
                 name: name,
-                target: targetClientPathInfo.realPath,
+                target: targetClientPath,
                 _sourceFile: metaEntry.target
             });
         }
@@ -440,12 +435,12 @@ function create(config, lasso) {
                         });
                     }
 
-                    var defKey = deduper.defKey(resolved.clientRealPath);
+                    var defKey = deduper.defKey(resolved.clientPath);
 
                     if (!deduper.hasDef(defKey)) {
                         var defDependency = {
                             type: 'commonjs-def',
-                            path: resolved.clientRealPath,
+                            path: resolved.clientPath,
                             file: resolved.path
                         };
 
@@ -475,12 +470,12 @@ function create(config, lasso) {
                     // Do we also need to add dependency to run the dependency?
                     if (run === true) {
 
-                        var runKey = deduper.runKey(resolved.clientLogicalPath, wait);
+                        var runKey = deduper.runKey(resolved.clientPath, wait);
 
                         if (!deduper.hasRun(runKey)) {
                             var runDependency = {
                                 type: 'commonjs-run',
-                                path: resolved.clientLogicalPath,
+                                path: resolved.clientPath,
                                 wait: wait,
                                 file: resolved.path
                             };

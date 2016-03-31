@@ -8,7 +8,7 @@
     },
     {
         "type": "commonjs-main",
-        "dir": "/bar",
+        "dir": "/autotest$0/bar",
         "main": "",
         "_sourceFile": "/test/fixtures/dep-require/autotest/main-index/bar/index.js"
     },
@@ -25,13 +25,12 @@
                     "main": "/test/fixtures/dep-require/autotest/main-index/bar/index.js"
                 }
             ],
-            "clientLogicalPath": "/bar/index",
-            "clientRealPath": "/bar/index"
+            "clientPath": "/autotest$0/bar/index"
         }
     },
     {
         "type": "commonjs-def",
-        "path": "/foo",
+        "path": "/autotest$0/foo",
         "file": "/test/fixtures/dep-require/autotest/main-index/foo.js",
         "inspected": {
             "requires": [
@@ -54,13 +53,13 @@
                                 "main": "/test/fixtures/dep-require/autotest/main-index/bar/index.js"
                             }
                         ],
-                        "clientLogicalPath": "/bar/index",
-                        "clientRealPath": "/bar/index"
+                        "clientPath": "/autotest$0/bar/index"
                     }
                 }
             ],
             "processGlobal": false,
             "asyncBlocks": [],
+            "lastModified": -1,
             "allRequires": [
                 {
                     "path": "./bar",
@@ -81,12 +80,10 @@
                                 "main": "/test/fixtures/dep-require/autotest/main-index/bar/index.js"
                             }
                         ],
-                        "clientLogicalPath": "/bar/index",
-                        "clientRealPath": "/bar/index"
+                        "clientPath": "/autotest$0/bar/index"
                     }
                 }
-            ],
-            "lastModified": -1
+            ]
         },
         "requireLastModified": -1
     }

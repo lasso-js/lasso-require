@@ -39,7 +39,7 @@ function preresolvePath(require, stringTransformer) {
 
     if (shouldPreresolvePath(require.path)) {
         stringTransformer.comment(require.argRange);
-        stringTransformer.insert(require.argRange[0], '\'' + resolved.clientLogicalPath + '\'');
+        stringTransformer.insert(require.argRange[0], '\'' + resolved.clientPath + '\'');
     }
 }
 
@@ -89,6 +89,7 @@ function transformRequires(code, inspected, asyncBlocks, lassoContext) {
     }
 
     if (asyncBlocks && asyncBlocks.length) {
+
         asyncBlocks.forEach(transformAsyncCall);
     }
 
@@ -118,7 +119,7 @@ exports.create = function(config, lasso) {
         read: function(lassoContext) {
             var requireCreateReadStream = this.requireCreateReadStream;
             var requireInspected = this.inspected;
-            var requireAsyncBlocks = this._requireAsyncBlocks;
+            var asyncBlocks = this.asyncBlocks;
 
             var isObject = this.object;
             var globals = this.globals;
@@ -135,7 +136,7 @@ exports.create = function(config, lasso) {
                             modulesRuntimeGlobal: config.modulesRuntimeGlobal
                         });
                     } else {
-                        var transformedCode = transformRequires(code, requireInspected, requireAsyncBlocks, lassoContext);
+                        var transformedCode = transformRequires(code, requireInspected, asyncBlocks, lassoContext);
 
                         var defCode = transport.codeGenerators.define(
                             path,
@@ -152,15 +153,15 @@ exports.create = function(config, lasso) {
         },
 
         getLastModified: function(lassoContext, callback) {
-            callback(null, this._requireLastModified);
+            callback(null, this.requireLastModified);
         },
 
         getUnbundledTargetPrefix: function(lassoContext) {
             return config.unbundledTargetPrefix;
         },
 
-        getSourceFile: function() {
-            return this.file;
+        getUnbundledTarget(lassoContext) {
+            return this.path;
         },
 
         calculateKey: function() {

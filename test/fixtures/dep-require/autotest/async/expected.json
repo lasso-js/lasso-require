@@ -1,0 +1,198 @@
+{
+    "dependencies": [
+        {
+            "type": "commonjs-runtime"
+        },
+        {
+            "type": "commonjs-ready",
+            "inline": "end"
+        },
+        {
+            "type": "commonjs-installed",
+            "parentPath": "/lasso-require$2.0.0",
+            "childName": "raptor-loader",
+            "childVersion": "1.0.5"
+        },
+        {
+            "type": "commonjs-main",
+            "dir": "/raptor-loader$1.0.5",
+            "main": "lib/raptor-loader",
+            "_sourceFile": "/node_modules/raptor-loader/lib/raptor-loader.js"
+        },
+        {
+            "type": "require",
+            "path": "raptor-loader",
+            "from": "/test/fixtures/dep-require/autotest/async",
+            "resolved": {
+                "path": "/node_modules/raptor-loader/lib/raptor-loader.js",
+                "meta": [
+                    {
+                        "type": "installed",
+                        "packageName": "raptor-loader",
+                        "searchPath": "/node_modules"
+                    },
+                    {
+                        "type": "main",
+                        "dir": "/node_modules/raptor-loader",
+                        "main": "/node_modules/raptor-loader/lib/raptor-loader.js"
+                    }
+                ],
+                "clientPath": "/raptor-loader$1.0.5/lib/raptor-loader"
+            }
+        },
+        {
+            "type": "commonjs-def",
+            "path": "/autotest$0/foo",
+            "file": "/test/fixtures/dep-require/autotest/async/foo.js",
+            "inspected": {
+                "requires": [
+                    {
+                        "path": "raptor-loader",
+                        "argRange": [
+                            8,
+                            23
+                        ],
+                        "resolved": {
+                            "path": "/node_modules/raptor-loader/lib/raptor-loader.js",
+                            "meta": [
+                                {
+                                    "type": "installed",
+                                    "packageName": "raptor-loader",
+                                    "searchPath": "/node_modules"
+                                },
+                                {
+                                    "type": "main",
+                                    "dir": "/node_modules/raptor-loader",
+                                    "main": "/node_modules/raptor-loader/lib/raptor-loader.js"
+                                }
+                            ],
+                            "clientPath": "/raptor-loader$1.0.5/lib/raptor-loader"
+                        }
+                    }
+                ],
+                "processGlobal": false,
+                "asyncBlocks": [
+                    {
+                        "requires": [
+                            {
+                                "path": "./bar",
+                                "range": [
+                                    58,
+                                    74
+                                ],
+                                "argRange": [
+                                    66,
+                                    73
+                                ],
+                                "resolved": {
+                                    "path": "/test/fixtures/dep-require/autotest/async/bar.js",
+                                    "meta": [],
+                                    "clientPath": "/autotest$0/bar"
+                                }
+                            }
+                        ],
+                        "dependencies": [
+                            {
+                                "type": "require",
+                                "path": "./bar"
+                            }
+                        ],
+                        "firstArgRange": [
+                            31,
+                            97
+                        ],
+                        "hasInlineDependencies": false,
+                        "name": "_0"
+                    }
+                ],
+                "lastModified": -1,
+                "allRequires": [
+                    {
+                        "path": "raptor-loader",
+                        "argRange": [
+                            8,
+                            23
+                        ],
+                        "resolved": {
+                            "path": "/node_modules/raptor-loader/lib/raptor-loader.js",
+                            "meta": [
+                                {
+                                    "type": "installed",
+                                    "packageName": "raptor-loader",
+                                    "searchPath": "/node_modules"
+                                },
+                                {
+                                    "type": "main",
+                                    "dir": "/node_modules/raptor-loader",
+                                    "main": "/node_modules/raptor-loader/lib/raptor-loader.js"
+                                }
+                            ],
+                            "clientPath": "/raptor-loader$1.0.5/lib/raptor-loader"
+                        }
+                    },
+                    {
+                        "path": "./bar",
+                        "range": [
+                            58,
+                            74
+                        ],
+                        "argRange": [
+                            66,
+                            73
+                        ],
+                        "resolved": {
+                            "path": "/test/fixtures/dep-require/autotest/async/bar.js",
+                            "meta": [],
+                            "clientPath": "/autotest$0/bar"
+                        }
+                    }
+                ]
+            },
+            "asyncBlocks": [
+                {
+                    "requires": [
+                        {
+                            "path": "./bar",
+                            "range": [
+                                58,
+                                74
+                            ],
+                            "argRange": [
+                                66,
+                                73
+                            ],
+                            "resolved": {
+                                "path": "/test/fixtures/dep-require/autotest/async/bar.js",
+                                "meta": [],
+                                "clientPath": "/autotest$0/bar"
+                            }
+                        }
+                    ],
+                    "dependencies": [
+                        {
+                            "type": "require",
+                            "path": "./bar"
+                        }
+                    ],
+                    "firstArgRange": [
+                        31,
+                        97
+                    ],
+                    "hasInlineDependencies": false,
+                    "name": "_0"
+                }
+            ],
+            "requireLastModified": -1
+        }
+    ],
+    "async": {
+        "_0": [
+            {
+                "type": "require",
+                "path": "./bar"
+            }
+        ]
+    },
+    "dirname": "/test/fixtures/dep-require/autotest/async",
+    "filename": "/test/fixtures/dep-require/autotest/async/foo.js"
+}

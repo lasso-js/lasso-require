@@ -44,16 +44,15 @@ exports.create = function(config, lasso) {
         },
 
         getUnbundledTarget: function() {
-            var ext = nodePath.extname(this._file);
-            var fileNameNoExt = this._file;
-            if (ext) {
-                fileNameNoExt = fileNameNoExt.substring(0, fileNameNoExt.length - ext.length);
-            }
-            return fileNameNoExt + '-run';
-        },
+            var bundleName = this.path;
 
-        getSourceFile: function() {
-            return this.file;
+            var ext = nodePath.extname(bundleName);
+
+            if (ext) {
+                bundleName = bundleName.substring(0, bundleName.length - ext.length);
+            }
+
+            return bundleName + '-run' + ext;
         },
 
         calculateKey: function() {

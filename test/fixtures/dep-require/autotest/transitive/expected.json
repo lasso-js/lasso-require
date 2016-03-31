@@ -13,13 +13,12 @@
         "resolved": {
             "path": "/test/fixtures/dep-require/autotest/transitive/bar.js",
             "meta": [],
-            "clientLogicalPath": "/bar",
-            "clientRealPath": "/bar"
+            "clientPath": "/autotest$0/bar"
         }
     },
     {
         "type": "commonjs-def",
-        "path": "/foo",
+        "path": "/autotest$0/foo",
         "file": "/test/fixtures/dep-require/autotest/transitive/foo.js",
         "inspected": {
             "requires": [
@@ -36,8 +35,7 @@
                     "resolved": {
                         "path": "/test/fixtures/dep-require/autotest/transitive/bar.js",
                         "meta": [],
-                        "clientLogicalPath": "/bar",
-                        "clientRealPath": "/bar"
+                        "clientPath": "/autotest$0/bar"
                     }
                 }
             ],
@@ -58,8 +56,7 @@
                     "resolved": {
                         "path": "/test/fixtures/dep-require/autotest/transitive/bar.js",
                         "meta": [],
-                        "clientLogicalPath": "/bar",
-                        "clientRealPath": "/bar"
+                        "clientPath": "/autotest$0/bar"
                     }
                 }
             ]

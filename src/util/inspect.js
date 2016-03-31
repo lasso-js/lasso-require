@@ -177,8 +177,6 @@ module.exports = function inspect(src) {
 
             var requirePath;
 
-
-
             if (isRequire(node) || isRequireResolve(node)) {
                 requirePath = node.arguments[0].value;
 
@@ -242,6 +240,13 @@ module.exports = function inspect(src) {
                 asyncScopeStack.pop();
             }
         }
+    });
+
+    asyncBlocks = asyncBlocks.map((asyncBlock) => {
+        delete asyncBlock.node;
+        delete asyncBlock.args;
+        delete asyncBlock.callbackNode;
+        return asyncBlock;
     });
 
     return {

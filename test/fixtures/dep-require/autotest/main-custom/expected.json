@@ -8,7 +8,7 @@
     },
     {
         "type": "commonjs-main",
-        "dir": "/bar",
+        "dir": "/autotest$0/bar",
         "main": "bar",
         "_sourceFile": "/test/fixtures/dep-require/autotest/main-custom/bar/bar.js"
     },
@@ -25,13 +25,12 @@
                     "main": "/test/fixtures/dep-require/autotest/main-custom/bar/bar.js"
                 }
             ],
-            "clientLogicalPath": "/bar/bar",
-            "clientRealPath": "/bar/bar"
+            "clientPath": "/autotest$0/bar/bar"
         }
     },
     {
         "type": "commonjs-def",
-        "path": "/foo",
+        "path": "/autotest$0/foo",
         "file": "/test/fixtures/dep-require/autotest/main-custom/foo.js",
         "inspected": {
             "requires": [
@@ -54,8 +53,7 @@
                                 "main": "/test/fixtures/dep-require/autotest/main-custom/bar/bar.js"
                             }
                         ],
-                        "clientLogicalPath": "/bar/bar",
-                        "clientRealPath": "/bar/bar"
+                        "clientPath": "/autotest$0/bar/bar"
                     }
                 }
             ],
@@ -82,8 +80,7 @@
                                 "main": "/test/fixtures/dep-require/autotest/main-custom/bar/bar.js"
                             }
                         ],
-                        "clientLogicalPath": "/bar/bar",
-                        "clientRealPath": "/bar/bar"
+                        "clientPath": "/autotest$0/bar/bar"
                     }
                 }
             ]

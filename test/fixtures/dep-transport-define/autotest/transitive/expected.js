@@ -1,2 +1,2 @@
-$rmod.def("/foo", function(require, exports, module, __filename, __dirname) { require('/bar'/*'./bar'*/);
+$rmod.def("/autotest$0/foo", function(require, exports, module, __filename, __dirname) { require('/autotest$0/bar'/*'./bar'*/);
 });

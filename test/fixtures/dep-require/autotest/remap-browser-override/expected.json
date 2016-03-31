@@ -8,19 +8,19 @@
     },
     {
         "type": "commonjs-remap",
-        "from": "/foo",
-        "to": "/foo-browser"
+        "from": "/autotest$0/foo",
+        "to": "/autotest$0/foo-browser"
     },
     {
         "type": "commonjs-def",
-        "path": "/foo-browser",
+        "path": "/autotest$0/foo-browser",
         "file": "/test/fixtures/dep-require/autotest/remap-browser-override/foo-browser.js",
         "inspected": {
             "requires": [],
             "processGlobal": false,
             "asyncBlocks": [],
-            "allRequires": [],
-            "lastModified": -1
+            "lastModified": -1,
+            "allRequires": []
         },
         "requireLastModified": -1
     }

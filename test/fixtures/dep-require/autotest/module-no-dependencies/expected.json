@@ -8,14 +8,14 @@
     },
     {
         "type": "commonjs-def",
-        "path": "/foo",
+        "path": "/autotest$0/foo",
         "file": "/test/fixtures/dep-require/autotest/module-no-dependencies/foo.js",
         "inspected": {
             "requires": [],
             "processGlobal": false,
             "asyncBlocks": [],
-            "allRequires": [],
-            "lastModified": -1
+            "lastModified": -1,
+            "allRequires": []
         },
         "requireLastModified": -1
     }

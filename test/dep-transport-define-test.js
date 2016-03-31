@@ -35,6 +35,10 @@ describe('lasso-require/dep-transport-define' , function() {
                     return dependency.getDependencies(lassoContext);
                 })
                 .then((dependencies) => {
+                    if (dependencies.dependencies) {
+                        dependencies = dependencies.dependencies;
+                    }
+                    
                     for (var i=0; i<dependencies.length; i++) {
                         var d = dependencies[i];
                         if (d.type === 'commonjs-def') {

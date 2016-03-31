@@ -8,14 +8,14 @@
     },
     {
         "type": "commonjs-def",
-        "path": "/bar",
+        "path": "/autotest$0/bar",
         "file": "/test/fixtures/dep-require/autotest/transitive-resolved/bar.js",
         "inspected": {
             "requires": [],
             "processGlobal": false,
             "asyncBlocks": [],
-            "allRequires": [],
-            "lastModified": -1
+            "lastModified": -1,
+            "allRequires": []
         },
         "requireLastModified": -1
     }

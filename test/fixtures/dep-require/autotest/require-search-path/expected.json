@@ -8,24 +8,24 @@
     },
     {
         "type": "commonjs-search-path",
-        "path": "/app-modules"
+        "path": "/require-search-path$0/app-modules/"
     },
     {
         "type": "commonjs-main",
-        "dir": "/app-modules/bar",
+        "dir": "/installed-bar$1.2.0",
         "main": "",
         "_sourceFile": "/test/fixtures/dep-require/autotest/require-search-path/app-modules/bar/index.js"
     },
     {
         "type": "commonjs-def",
-        "path": "/app-modules/bar/index",
+        "path": "/installed-bar$1.2.0/index",
         "file": "/test/fixtures/dep-require/autotest/require-search-path/app-modules/bar/index.js",
         "inspected": {
             "requires": [],
             "processGlobal": false,
             "asyncBlocks": [],
-            "allRequires": [],
-            "lastModified": -1
+            "lastModified": -1,
+            "allRequires": []
         },
         "requireLastModified": -1
     }

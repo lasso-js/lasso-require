@@ -7,6 +7,7 @@ var defaultGlobals = {
     'jquery': ['$', 'jQuery']
 };
 var lassoModulesClientTransport = require('lasso-modules-client/transport');
+var getClientPath = lassoModulesClientTransport.getClientPath;
 
 function resolveGlobals(config, resolver) {
     var globals = config.globals;
@@ -43,15 +44,9 @@ function buildPluginConfig(userConfig, defaultProjectRoot) {
     config.runImmediately = config.runImmediately === true;
     config.builtins = builtins.getBuiltins(config.builtins);
 
-    var getClientPathInfoOptions = { root: config.rootDir };
+    config.getClientPath = getClientPath;
 
-    function getClientPathInfo(path) {
-        return lassoModulesClientTransport.getClientPathInfo(path, getClientPathInfoOptions);
-    }
-
-    config.getClientPathInfo = getClientPathInfo;
-
-    var resolver =  config.resolver = resolve.createResolver(config.builtins, getClientPathInfo);
+    var resolver =  config.resolver = resolve.createResolver(config.builtins, getClientPath);
 
     var babelConfig = {
     };

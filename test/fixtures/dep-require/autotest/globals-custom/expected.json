@@ -8,19 +8,19 @@
     },
     {
         "type": "commonjs-installed",
-        "parentPath": "/test/fixtures/dep-require/autotest/globals-custom",
+        "parentPath": "/autotest$0",
         "childName": "foo",
         "childVersion": "1.2.0"
     },
     {
         "type": "commonjs-main",
-        "dir": "/foo@1.2.0",
+        "dir": "/foo$1.2.0",
         "main": "",
         "_sourceFile": "/test/fixtures/dep-require/autotest/globals-custom/node_modules/foo/index.js"
     },
     {
         "type": "commonjs-def",
-        "path": "/foo@1.2.0/index",
+        "path": "/foo$1.2.0/index",
         "file": "/test/fixtures/dep-require/autotest/globals-custom/node_modules/foo/index.js",
         "globals": [
             "FOO"

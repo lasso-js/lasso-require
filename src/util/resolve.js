@@ -16,7 +16,7 @@ var _normalizePath = nodePath.sep === '/' ?
 
 var resolveCache = {};
 
-exports.createResolver = function(builtins, getClientPathInfo) {
+exports.createResolver = function(builtins, getClientPath) {
     function resolveRequire(targetModule, fromDir, lassoContext) {
         ok(targetModule, '"targetModule" is required');
         ok(typeof targetModule === 'string', '"targetModule" should be a string');
@@ -41,10 +41,10 @@ exports.createResolver = function(builtins, getClientPathInfo) {
 
         var resolvedInfo = lassoResolveFrom(fromDir, targetModule, resolveOptions);
 
-        var clientPathInfo;
+        var clientPath;
 
         if (resolvedInfo) {
-            clientPathInfo = getClientPathInfo(resolvedInfo.path);
+            clientPath = getClientPath(resolvedInfo.path);
         } else {
             if (targetModule.charAt(0) === '.') {
                 return null;
@@ -64,11 +64,7 @@ exports.createResolver = function(builtins, getClientPathInfo) {
                     ]
                 };
 
-                var builtinRealPath = getClientPathInfo(resolvedBuiltin, { makeRoot: true }).realPath;
-                clientPathInfo = {
-                    logicalPath: builtinRealPath,
-                    realPath: builtinRealPath
-                };
+                clientPath = getClientPath(resolvedBuiltin);
             }
         }
 
@@ -77,8 +73,7 @@ exports.createResolver = function(builtins, getClientPathInfo) {
             var result = {
                 path: resolvedInfo.path,
                 meta: resolvedInfo.meta,
-                clientLogicalPath: clientPathInfo.logicalPath,
-                clientRealPath: clientPathInfo.realPath
+                clientPath: clientPath
             };
 
             if (resolvedInfo.voidRemap) {

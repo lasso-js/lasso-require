@@ -167,3 +167,5 @@ module.exports = exports = function plugin(lasso, userConfig) {
         }
     });
 };
+
+module.exports.getClientPath = require('lasso-modules-client/transport').getClientPath;

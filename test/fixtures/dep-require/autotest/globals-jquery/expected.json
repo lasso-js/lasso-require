@@ -8,19 +8,19 @@
     },
     {
         "type": "commonjs-installed",
-        "parentPath": "/test/fixtures/dep-require/autotest/globals-jquery",
+        "parentPath": "/autotest$0",
         "childName": "jquery",
         "childVersion": "1.2.0"
     },
     {
         "type": "commonjs-main",
-        "dir": "/jquery@1.2.0",
+        "dir": "/jquery$1.2.0",
         "main": "",
         "_sourceFile": "/test/fixtures/dep-require/autotest/globals-jquery/node_modules/jquery/index.js"
     },
     {
         "type": "commonjs-def",
-        "path": "/jquery@1.2.0/index",
+        "path": "/jquery$1.2.0/index",
         "file": "/test/fixtures/dep-require/autotest/globals-jquery/node_modules/jquery/index.js",
         "globals": [
             "$",
