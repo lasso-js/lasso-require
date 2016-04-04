@@ -9,7 +9,7 @@
         },
         {
             "type": "commonjs-installed",
-            "parentPath": "/lasso-require$2.0.0",
+            "parentPath": "/autotest$0",
             "childName": "raptor-loader",
             "childVersion": "1.0.5"
         },
@@ -29,7 +29,8 @@
                     {
                         "type": "installed",
                         "packageName": "raptor-loader",
-                        "searchPath": "/node_modules"
+                        "searchPath": "/node_modules",
+                        "fromDir": "/test/fixtures/dep-require/autotest/async"
                     },
                     {
                         "type": "main",
@@ -48,6 +49,10 @@
                 "requires": [
                     {
                         "path": "raptor-loader",
+                        "range": [
+                            0,
+                            30
+                        ],
                         "argRange": [
                             8,
                             23
@@ -58,7 +63,8 @@
                                 {
                                     "type": "installed",
                                     "packageName": "raptor-loader",
-                                    "searchPath": "/node_modules"
+                                    "searchPath": "/node_modules",
+                                    "fromDir": "/test/fixtures/dep-require/autotest/async"
                                 },
                                 {
                                     "type": "main",
@@ -70,7 +76,7 @@
                         }
                     }
                 ],
-                "processGlobal": false,
+                "foundGlobals": {},
                 "asyncBlocks": [
                     {
                         "requires": [
@@ -109,6 +115,10 @@
                 "allRequires": [
                     {
                         "path": "raptor-loader",
+                        "range": [
+                            0,
+                            30
+                        ],
                         "argRange": [
                             8,
                             23
@@ -119,7 +129,8 @@
                                 {
                                     "type": "installed",
                                     "packageName": "raptor-loader",
-                                    "searchPath": "/node_modules"
+                                    "searchPath": "/node_modules",
+                                    "fromDir": "/test/fixtures/dep-require/autotest/async"
                                 },
                                 {
                                     "type": "main",

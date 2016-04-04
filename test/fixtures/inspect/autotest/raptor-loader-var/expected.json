@@ -12,7 +12,7 @@
             ]
         }
     ],
-    "processGlobal": false,
+    "foundGlobals": {},
     "asyncBlocks": [
         {
             "requires": [

@@ -57,7 +57,7 @@
                     }
                 }
             ],
-            "processGlobal": false,
+            "foundGlobals": {},
             "asyncBlocks": [],
             "lastModified": -1,
             "allRequires": [

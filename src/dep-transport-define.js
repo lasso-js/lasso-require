@@ -57,9 +57,10 @@ function transformRequires(code, inspected, asyncBlocks, lassoContext) {
         ok(require.resolved, '"require.resolved" expected');
 
         if (require.resolved.voidRemap) {
-
-            stringTransformer.comment(require.range);
-            stringTransformer.insert(require.range[0], '{}');
+            if (require.range) {
+                stringTransformer.comment(require.range);
+                stringTransformer.insert(require.range[0], '{}');
+            }
             return;
         }
 
@@ -120,11 +121,14 @@ exports.create = function(config, lasso) {
             var requireCreateReadStream = this.requireCreateReadStream;
             var requireInspected = this.inspected;
             var asyncBlocks = this.asyncBlocks;
-
             var isObject = this.object;
             var globals = this.globals;
             var path = this.path;
             var additionalVars = this._additionalVars;
+
+            ok(requireCreateReadStream, '"requireCreateReadStream" is required');
+            ok(requireInspected, '"requireInspected" is required');
+            ok(path, '"path" is required');
 
             var stream = requireCreateReadStream();
 

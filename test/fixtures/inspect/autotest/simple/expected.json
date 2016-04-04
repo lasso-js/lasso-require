@@ -30,6 +30,6 @@
             ]
         }
     ],
-    "processGlobal": false,
+    "foundGlobals": {},
     "asyncBlocks": []
 }

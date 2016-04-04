@@ -12,7 +12,7 @@
         "file": "/test/fixtures/dep-require/autotest/transitive-resolved/bar.js",
         "inspected": {
             "requires": [],
-            "processGlobal": false,
+            "foundGlobals": {},
             "asyncBlocks": [],
             "lastModified": -1,
             "allRequires": []

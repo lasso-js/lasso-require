@@ -95,6 +95,12 @@ class MockLassoContext {
                         return Promise.resolve(-1);
                     }
                 };
+            },
+
+            getRequireExtensionNames() {
+                return Object.keys(requireExtensions).map((ext) => {
+                    return '.' + ext;
+                });
             }
         };
 

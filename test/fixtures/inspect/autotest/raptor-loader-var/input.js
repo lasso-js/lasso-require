@@ -9,4 +9,4 @@ exports.test = function(input) {
             require('cat');
         });
     });
-}
+};

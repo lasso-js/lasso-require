@@ -1,1 +1,2 @@
-var process = 'process';
+var process = {};
+process.nextTick();

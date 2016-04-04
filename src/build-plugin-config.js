@@ -8,8 +8,9 @@ var defaultGlobals = {
 };
 var lassoModulesClientTransport = require('lasso-modules-client/transport');
 var getClientPath = lassoModulesClientTransport.getClientPath;
+var lassoResolveFrom = require('lasso-resolve-from');
 
-function resolveGlobals(config, resolver) {
+function resolveGlobals(config) {
     var globals = config.globals;
     if (globals) {
         globals = extend({}, config.globals);
@@ -18,15 +19,11 @@ function resolveGlobals(config, resolver) {
     }
 
     Object.keys(defaultGlobals).forEach(function(moduleName) {
-        var varName = defaultGlobals[moduleName];
-        var resolved;
-
-        try {
-            resolved = resolver.resolveRequire(moduleName, config.rootDir);
-        } catch(e) { }
+        var varNames = defaultGlobals[moduleName];
+        var resolved = lassoResolveFrom(config.rootDir, moduleName);
 
         if (resolved) {
-            globals[resolved.path] = varName;
+            globals[resolved.path] = varNames;
         }
 
     });
@@ -38,6 +35,8 @@ function buildPluginConfig(userConfig, defaultProjectRoot) {
     var config = userConfig ? extend({}, userConfig) : {};
 
     config.rootDir = config.rootDir || defaultProjectRoot || process.cwd();
+
+
 
     ok(config.rootDir, '"rootDir" is required');
 

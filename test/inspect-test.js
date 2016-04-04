@@ -14,7 +14,7 @@ describe('lasso-require/util/inspect' , function() {
 
             var inputPath = nodePath.join(dir, 'input.js');
             var inputSrc = fs.readFileSync(inputPath, { encoding: 'utf8' });
-            var inspected = inspect(inputSrc);
+            var inspected = inspect(inputSrc, { allowShortcircuit: false });
             return done(null, inspected);
         },
         {

@@ -3,10 +3,6 @@
         "type": "commonjs-runtime"
     },
     {
-        "type": "commonjs-ready",
-        "inline": "end"
-    },
-    {
         "type": "commonjs-installed",
         "parentPath": "/autotest$0",
         "childName": "jquery",
@@ -19,6 +15,10 @@
         "_sourceFile": "/test/fixtures/dep-require/autotest/globals-jquery/node_modules/jquery/index.js"
     },
     {
+        "type": "commonjs-ready",
+        "inline": "end"
+    },
+    {
         "type": "commonjs-def",
         "path": "/jquery$1.2.0/index",
         "file": "/test/fixtures/dep-require/autotest/globals-jquery/node_modules/jquery/index.js",
@@ -28,7 +28,7 @@
         ],
         "inspected": {
             "requires": [],
-            "processGlobal": false,
+            "foundGlobals": {},
             "asyncBlocks": [],
             "lastModified": -1,
             "allRequires": []

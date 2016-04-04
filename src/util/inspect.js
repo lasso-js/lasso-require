@@ -1,3 +1,5 @@
+'use strict';
+
 var esprima = require('esprima');
 var estraverse = require('estraverse');
 var ok = require('assert').ok;
@@ -6,7 +8,7 @@ var parseOpts = {
     range: true
 };
 
-var shortCircuitRegExp = /require\(|require\.resolve\(|.async\(|#async|process/;
+var shortCircuitRegExp = /require\(|require\.resolve\(|.async\(|#async|process|Buffer/;
 
 function isRequire(node) {
     return node.type === 'CallExpression' &&
@@ -111,31 +113,72 @@ function parseAsyncNode(node, scope) {
     };
 }
 
-function isProcessGlobalReference(node, scope) {
+function recordGlobalsHelper(node, scope, foundGlobals) {
+    var id;
 
-
-    if (scope.process === 'process') {
-        return false; // There is a local "process" variable in the scope
+    if (!node || node.type !== 'Identifier') {
+        return;
     }
 
-    if (node.type === 'Identifier' &&
-        node.name === 'process') {
-        return true;
-    } else if (node.type === 'MemberExpression' &&
-        node.object.type === 'Identifier' &&
-        node.object.name === 'process') {
-        return true;
+    id = node.name;
+
+    if (id === 'require' ||
+        id === 'exports' ||
+        id === 'module' ||
+        id === 'arguments' ||
+        id === '__dirname' ||
+        id === '__filename') {
+        // We don't require about these "globals"
+        return;
+    }
+
+    if (!scope[id]) {
+        foundGlobals[id] = true;
+    }
+
+}
+
+function recordGlobals(node, parentNode, scope, foundGlobals) {
+
+    if (node.type === 'Identifier') {
+        if (parentNode.type === 'MemberExpression' ||
+            parentNode.type === 'Property' ||
+            parentNode.type === 'VariableDeclarator' ||
+            parentNode.type === 'FunctionDeclaration' ||
+            parentNode.type === 'FunctionExpression') {
+            return;
+        }
+        recordGlobalsHelper(node, scope, foundGlobals);
+    } else if (node.type === 'MemberExpression') {
+        if (parentNode !== 'MemberExpression') {
+            recordGlobalsHelper(node.object, scope, foundGlobals);
+        }
+    } else if (node.type === 'Property') {
+        recordGlobalsHelper(node.value, scope, foundGlobals);
+    } else if (node.type === 'VariableDeclarator') {
+        recordGlobalsHelper(node.init, scope, foundGlobals);
+    } else if (node.type === 'FunctionDeclaration' || node.type === 'FunctionExpression') {
+        if (node.type === 'FunctionDeclaration' && node.id) {
+            delete foundGlobals[node.id.name];
+        }
+
+        // Skip the params and the function ID and just look at the body nodes
+        node.body.body.forEach((bodyNode) => {
+            recordGlobalsHelper(bodyNode, scope, foundGlobals);
+        });
     }
 }
 
-module.exports = function inspect(src) {
+module.exports = function inspect(src, options) {
     ok(src != null, 'src is requried');
 
-    if (shortCircuitRegExp.test(src) === false) {
+    var allowShortcircuit = !options || options.allowShortcircuit !== false;
+
+    if (allowShortcircuit && shortCircuitRegExp.test(src) === false) {
         // Nothing of interest so nothing to do
         return {
             requires: [],
-            processGlobal: false,
+            foundGlobals: {},
             asyncBlocks: []
         };
     }
@@ -146,7 +189,7 @@ module.exports = function inspect(src) {
     var asyncStack = [];
     var curAsyncInfo = null;
     var asyncBlocks = [];
-    var processGlobal = false;
+    var foundGlobals = {};
 
     var ast;
     try {
@@ -156,24 +199,31 @@ module.exports = function inspect(src) {
     }
 
     ast = estraverse.traverse(ast, {
-        enter: function(node, parent) {
+        enter: function(node, parentNode) {
+            var scope = scopeStack[scopeStack.length-1];
+
             if (node.type === 'VariableDeclaration') {
                 node.declarations.forEach(function(varDecl) {
                     if (varDecl.init && isRequireFor(varDecl.init, 'raptor-loader')) {
-                        scopeStack[scopeStack.length-1][varDecl.id.name] = 'raptor-loader';
-                    }
-
-                    if (varDecl.id.name === 'process') {
-                        scopeStack[scopeStack.length-1][varDecl.id.name] = 'process';
+                        scope[varDecl.id.name] = 'raptor-loader';
+                    } else {
+                        scope[varDecl.id.name] = true;
                     }
                 });
-            } else if (node.type === 'FunctionExpression') {
-                scopeStack.push(Object.create(scopeStack[scopeStack.length-1]));
+            } else if (node.type === 'FunctionExpression' || node.type === 'FunctionDeclaration') {
+                scope = Object.create(scope);
+                node.params.forEach((param) => {
+                    scope[param.name] = true;
+                });
+
+                if (node.type === 'FunctionDeclaration') {
+                    scopeStack[scopeStack.length-1][node.id.name] = true;
+                }
+
+                scopeStack.push(scope);
             }
 
-            if (isProcessGlobalReference(node, scopeStack[scopeStack.length-1])) {
-                processGlobal = true;
-            }
+            recordGlobals(node, parentNode, scope, foundGlobals);
 
             var requirePath;
 
@@ -182,10 +232,14 @@ module.exports = function inspect(src) {
 
                 var range;
 
-                if (parent.type === 'ExpressionStatement') {
-                    range = parent.range;
-                } else if (parent.type === 'VariableDeclarator') {
-                    range = parent.init && parent.init.range;
+                if (parentNode.type === 'ExpressionStatement') {
+                    range = parentNode.range;
+                } else if (parentNode.type === 'VariableDeclarator') {
+                    range = parentNode.init && parentNode.init.range;
+                } else if (parentNode.type === 'MemberExpression') {
+                    range = parentNode.range;
+                } else if (parentNode.type === 'AssignmentExpression') {
+                    range = parentNode.right.range;
                 }
 
                 var firstArgRange = node.arguments[0].range;
@@ -229,8 +283,8 @@ module.exports = function inspect(src) {
             }
         },
 
-        leave: function(node, parent) {
-            if (node.type === 'FunctionExpression') {
+        leave: function(node, parentNode) {
+            if (node.type === 'FunctionExpression' || node.type === 'FunctionDeclaration') {
                 scopeStack.pop();
             }
 
@@ -251,7 +305,7 @@ module.exports = function inspect(src) {
 
     return {
         requires: requires,
-        processGlobal: processGlobal,
+        foundGlobals: foundGlobals,
         asyncBlocks: asyncBlocks
     };
 };

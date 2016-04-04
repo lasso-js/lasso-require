@@ -3,11 +3,14 @@
 var nodePath = require('path');
 var ok = require('assert').ok;
 var equal = require('assert').equal;
-var VAR_REQUIRE_PROCESS = 'process=require("process")';
+const VAR_REQUIRE_PROCESS = 'process=require("process")';
+const VAR_REQUIRE_BUFFER = 'Buffer=require("buffer").Buffer';
+
 var inspectCache = require('./inspect-cache');
 var Deduper = require('./util/Deduper');
 var normalizeMain = require('lasso-modules-client/transport').normalizeMain;
 var lassoCachingFS = require('lasso-caching-fs');
+var lassoPackageRoot = require('lasso-package-root');
 
 function buildAsyncInfo(path, asyncBlocks, lassoContext) {
     if (asyncBlocks.length === 0) {
@@ -78,12 +81,13 @@ function create(config, lasso) {
     function handleMetaInstalled(metaEntry, deduper) {
         var packageName = metaEntry.packageName;
         var searchPath = metaEntry.searchPath;
+        var fromDir = metaEntry.fromDir;
         var basename = nodePath.basename(searchPath);
 
         if (basename === 'node_modules') {
-            var parentPath = nodePath.dirname(searchPath);
-            var childName = packageName;
 
+            var childName = packageName;
+            var parentPath = lassoPackageRoot.getRootDir(fromDir);
             var pkg = lassoCachingFS.readPackageSync(nodePath.join(searchPath, packageName, 'package.json'));
             var childVersion = (pkg && pkg.version) || '0';
 
@@ -91,6 +95,7 @@ function create(config, lasso) {
 
             if (!deduper.hasInstalled(key)) {
                 var clientParentPath = getClientPath(parentPath);
+
                 deduper.addDependency(key, {
                     type: 'commonjs-installed',
                     parentPath: clientParentPath,
@@ -216,6 +221,10 @@ function create(config, lasso) {
 
         },
 
+        toString: function() {
+            return '[require: ' + this.path + ']';
+        },
+
         calculateKey() {
             // This is a unique key that prevents the same dependency from being
             // added to the dependency graph repeatedly
@@ -285,6 +294,10 @@ function create(config, lasso) {
                 deduper.addRuntime(runtimeDependency);
             }
 
+            if (this.meta) {
+                handleMeta(this.meta, deduper);
+            }
+
             if (!lassoContext.isAsyncBundlingPhase()) {
                 // Add a dependency that will trigger all of the deferred
                 // run modules to run once all of the code has been loaded
@@ -324,9 +337,7 @@ function create(config, lasso) {
 
             var dirname = nodePath.dirname(resolved.path);
 
-            if (this.meta) {
-                handleMeta(this.meta, deduper);
-            }
+
 
             return Promise.resolve()
                 .then(() => {
@@ -370,19 +381,35 @@ function create(config, lasso) {
                     // the requires that were read from inspection (may remain undefined if no inspection result)
                     var requires = inspectResult.requires;
 
-                    if (inspectResult.processGlobal) {
-                        let processPath = 'process';
-                        let requireKey = deduper.requireKey(processPath, dirname);
+                    if (inspectResult.foundGlobals && (inspectResult.foundGlobals.process || inspectResult.foundGlobals.Buffer)) {
+                        additionalVars = [];
+                        var addGlobalVar = (path, varCode) => {
 
-                        if (!deduper.hasRequire(requireKey)) {
-                            deduper.addDependency(requireKey, {
-                                type: 'require',
-                                path: processPath,
-                                from: dirname
-                            });
+                            let resolved = config.resolver.resolveRequire(path, dirname, lassoContext);
+                            if (resolved.meta) {
+                                handleMeta(resolved.meta, deduper);
+                            }
+
+                            var requireKey = deduper.requireKey(path, dirname);
+
+                            if (!deduper.hasRequire(requireKey)) {
+                                deduper.addDependency(requireKey, {
+                                    type: 'require',
+                                    path: path,
+                                    from: dirname
+                                });
+                            }
+
+                            additionalVars.push(varCode);
+                        };
+
+                        if (inspectResult.foundGlobals.process) {
+                            addGlobalVar('process', VAR_REQUIRE_PROCESS);
                         }
 
-                        additionalVars = [VAR_REQUIRE_PROCESS];
+                        if (inspectResult.foundGlobals.Buffer) {
+                            addGlobalVar('buffer', VAR_REQUIRE_BUFFER);
+                        }
                     }
 
                     ok(inspectResult.createReadStream, 'createReadStream expected after inspectResult');
@@ -390,8 +417,6 @@ function create(config, lasso) {
                     equal(typeof inspectResult.lastModified, 'number', 'lastModified should be a number');
 
                     var defGlobals = globals ? globals[this.resolved.path] : null;
-
-
 
                     // Also check if the directory has an browser.json and if so we should include that as well
                     var lassoJsonPath = nodePath.join(dirname, 'browser.json');
@@ -403,6 +428,7 @@ function create(config, lasso) {
                     } else {
                         lassoJsonPath = nodePath.join(dirname, 'optimizer.json');
                         if (lassoContext.cachingFs.existsSync(lassoJsonPath)) {
+                            // TODO Show a deprecation warning here
                             dependencies.push({
                                 type: 'package',
                                 path: lassoJsonPath

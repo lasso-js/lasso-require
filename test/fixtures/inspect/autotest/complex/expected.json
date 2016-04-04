@@ -35,13 +35,17 @@
         },
         {
             "path": "raptor-loader",
+            "range": [
+                475,
+                505
+            ],
             "argRange": [
                 483,
                 498
             ]
         }
     ],
-    "processGlobal": false,
+    "foundGlobals": {},
     "asyncBlocks": [
         {
             "requires": [

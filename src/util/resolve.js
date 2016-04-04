@@ -35,6 +35,8 @@ exports.createResolver = function(builtins, getClientPath) {
             includeMeta: true
         };
 
+        resolveOptions.extensions = lassoContext.dependencyRegistry.getRequireExtensionNames();
+
         if (conditionalRemaps) {
             resolveOptions.remaps = conditionalRemaps;
         }
