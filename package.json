@@ -10,12 +10,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/lasso-js/lasso-require.git"
+    "url": "git+https://github.com/lasso-js/lasso-require.git"
   },
   "scripts": {
     "test": "npm run mocha && npm run jshint",
-    "mocha": "node_modules/.bin/mocha --ui bdd --reporter spec ./test",
-    "jshint": "node_modules/.bin/jshint src/"
+    "mocha": "mocha --ui bdd --reporter spec ./test",
+    "jshint": "jshint src/"
   },
   "author": "Patrick Steele-Idem <pnidem@gmail.com>",
   "contributors": [
@@ -62,5 +62,12 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "bugs": {
+    "url": "https://github.com/lasso-js/lasso-require/issues"
+  },
+  "homepage": "https://github.com/lasso-js/lasso-require#readme",
+  "directories": {
+    "test": "test"
+  }
 }
