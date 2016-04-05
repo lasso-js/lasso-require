@@ -22,7 +22,6 @@ var requireRunRegExp = /^require-run\s*:\s*(.*)$/;
  */
 function getBabel() {
     if (!babel) {
-        console.log(module.id, 'Loading babel');
         babel = require('babel-core');
     }
     return babel;

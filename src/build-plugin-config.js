@@ -66,8 +66,6 @@ function buildPluginConfig(userConfig, defaultProjectRoot) {
         if (!babelConfigFinalized) {
             babelConfigFinalized = true;
 
-            console.log(module.id, 'Loading babel preset:', new Error().stack);
-
             delete babelConfig.extensions;
 
             if (!babelConfig.presets) {
