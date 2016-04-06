@@ -66,7 +66,7 @@ function transformRequires(code, inspected, asyncBlocks, lassoContext) {
 
         var resolved = require.resolved;
 
-        if (!resolved.isDir && (resolved.dependencyType || !lassoContext.dependencyRegistry.getRequireHandler(resolved.path, lassoContext))) {
+        if (!resolved.isDir && (resolved.type || !lassoContext.dependencyRegistry.getRequireHandler(resolved.path, lassoContext))) {
             if (require.range) {
                 stringTransformer.comment(require.range);
             }
@@ -170,6 +170,10 @@ exports.create = function(config, lasso) {
 
         calculateKey: function() {
             return 'modules-define:' + this.path;
+        },
+
+        toString() {
+            return `[commonjs-def: path="${this.path}"]`;
         }
     };
 };
