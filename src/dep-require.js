@@ -416,7 +416,7 @@ function create(config, lasso) {
                     ok(inspectResult.lastModified, 'lastModified expected after inspectResult');
                     equal(typeof inspectResult.lastModified, 'number', 'lastModified should be a number');
 
-                    var defGlobals = globals ? globals[this.resolved.path] : null;
+                    var globalVars = globals ? globals[this.resolved.path] : null;
 
                     // Also check if the directory has an browser.json and if so we should include that as well
                     var lassoJsonPath = nodePath.join(dirname, 'browser.json');
@@ -479,8 +479,8 @@ function create(config, lasso) {
                             defDependency.object = true;
                         }
 
-                        if (defGlobals) {
-                            defDependency.globals = defGlobals;
+                        if (globalVars) {
+                            defDependency.globals = globalVars;
                         }
 
                         // Pass along the createReadStream and the lastModified to the def dependency
