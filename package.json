@@ -33,6 +33,7 @@
     "esprima": "^2.7.2",
     "estraverse": "^4.1.1",
     "events": "^1.0.2",
+    "ignore": "^3.1.1",
     "lasso-caching-fs": "^1.0.0",
     "lasso-modules-client": "^1.0.0",
     "lasso-package-root": "^1.0.0",

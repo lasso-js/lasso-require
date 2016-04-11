@@ -9,6 +9,8 @@ var defaultGlobals = {
 var lassoModulesClientTransport = require('lasso-modules-client/transport');
 var getClientPath = lassoModulesClientTransport.getClientPath;
 var lassoResolveFrom = require('lasso-resolve-from');
+var ignore = require('ignore');
+var nodePath = require('path');
 
 function resolveGlobals(config) {
     var globals = {};
@@ -53,6 +55,32 @@ function buildPluginConfig(userConfig, defaultProjectRoot) {
     if (userConfig.babel) {
         extend(babelConfig, userConfig.babel);
     }
+
+    var babelPaths = babelConfig.paths;
+    delete babelConfig.paths;
+    
+    var babelIgnoreFilter = babelPaths && ignore().add(babelPaths
+        .map(function(path) { // add the root dir first
+            return nodePath.join(config.rootDir, path);
+        })
+        .map(function(path) { // remove the root dir and make it relative
+            return nodePath.relative(config.rootDir, path);
+        })
+    );
+
+    function isPathWhitelistedForBabel(path) {
+        if (!babelIgnoreFilter) {
+            // Return true if no path filter is present
+            return true;
+        }
+
+        var ignored = babelIgnoreFilter.filter(nodePath.relative(config.rootDir, path));
+        return !ignored.length; // Inverse the value as it is a ignore pattern
+    }
+
+    config.isPathWhitelistedForBabel = isPathWhitelistedForBabel;
+
+
 
     babelConfig.extensions = babelConfig.extensions || ['es6'];
 

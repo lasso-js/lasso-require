@@ -90,7 +90,11 @@ module.exports = exports = function plugin(lasso, userConfig) {
 
         lasso.dependencies.registerRequireExtension(babelExtension, {
             read: function(path, lassoContext, callback) {
-                babelTransformFile(path, callback);
+                if (config.isPathWhitelistedForBabel(path)) {
+                    babelTransformFile(path, callback);
+                } else {
+                    return fs.createReadStream(path, { encoding: 'utf8' });
+                }
             },
 
             getLastModified: function(path, lassoContext, callback) {
