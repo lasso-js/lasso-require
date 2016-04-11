@@ -12,6 +12,12 @@ var normalizeMain = require('lasso-modules-client/transport').normalizeMain;
 var lassoCachingFS = require('lasso-caching-fs');
 var lassoPackageRoot = require('lasso-package-root');
 
+const NEGATIVE_ONE_PROMISE = Promise.resolve(-1);
+
+var getLastModified_noCache = () => {
+    return NEGATIVE_ONE_PROMISE;
+};
+
 function buildAsyncInfo(path, asyncBlocks, lassoContext) {
     if (asyncBlocks.length === 0) {
         return null;
@@ -185,28 +191,49 @@ function create(config, lasso) {
             from: 'string',
             run: 'boolean',
             wait: 'boolean',
-            resolved: 'object'
+            resolved: 'object',
+            virtualModule: 'object',
+            requireHandler: 'object'
         },
 
         init: function(lassoContext) {
-            if (!this.path) {
+            if (!this.path && !this.virtualModule) {
                 let error = new Error('Invalid "require" dependency. "path" property is required');
                 console.error(module.id, error.stack, this);
                 throw error;
             }
 
             if (!this.resolved) {
-                var from = this.from || this.getParentManifestDir();
-                var path = this.path;
+                var virtualModule = this.virtualModule;
 
-                var fromFile = this.getParentManifestPath();
-                this.resolved = resolver.resolveRequireCached(path, from, lassoContext);
+                if (virtualModule) {
+                    let path = virtualModule.path;
+                    ok(path, '"path" is required for a virtual module');
 
-                if (!this.resolved) {
-                    throw new Error('Module not found: ' + path + ' (from "' + from + '" and referenced in ' + fromFile + ')');
+                    this.path = path;
+                    if (!this.from) {
+                        this.from = nodePath.dirname(virtualModule.path);
+                    }
+
+                    var clientPath = virtualModule.clientPath || getClientPath(path);
+
+                    this.resolved = {
+                        path,
+                        clientPath
+                    };
+                } else if (this.path) {
+                    let from = this.from || this.getParentManifestDir();
+                    let path = this.path;
+
+                    let fromFile = this.getParentManifestPath();
+                    this.resolved = resolver.resolveRequireCached(path, from, lassoContext);
+
+                    if (!this.resolved) {
+                        throw new Error('Module not found: ' + path + ' (from "' + from + '" and referenced in ' + fromFile + ')');
+                    }
+
+                    this.meta = this.resolved.meta;
                 }
-
-                this.meta = this.resolved.meta;
             }
 
             if (this.run === true) {
@@ -243,26 +270,50 @@ function create(config, lasso) {
             return nodePath.dirname(this.resolved.path);
         },
 
-        getRequireHandler: function(resolved, lassoContext) {
-            // Use the file extension to get the information for the require
-            var extension = nodePath.extname(resolved.path);
-            if (extension) {
-                extension = extension.substring(1); // Remove the leading dot
-            }
-
-            var requireHandler = lassoContext.dependencyRegistry.getRequireHandler(resolved.path, lassoContext);
+        getRequireHandler: function(lassoContext) {
+            var resolved = this.resolved;
+            var requireHandler = this.requireHandler;
 
             if (!requireHandler) {
-                return null;
+                var virtualModule = this.virtualModule;
+                if (virtualModule) {
+                    let createReadStream = function() {
+                        return lassoContext.createReadStream((callback) => {
+                            if (virtualModule.createReadStream) {
+                                return virtualModule.createReadStream(lassoContext);
+                            } else {
+                                return virtualModule.read(lassoContext, callback);
+                            }
+                        });
+                    };
+
+                    requireHandler = {
+                        createReadStream: createReadStream,
+                        getLastModified: virtualModule.getLastModified || getLastModified_noCache,
+                        object: virtualModule.object
+                    };
+                }
             }
 
-            var createReadStream = requireHandler.createReadStream;
-            var getLastModified = requireHandler.getLastModified;
-            var object = requireHandler.object === true;
+            if (!requireHandler) {
+                // Use the file extension to get the information for the require
+                var extension = nodePath.extname(resolved.path);
+                if (extension) {
+                    extension = extension.substring(1); // Remove the leading dot
+                }
+
+                requireHandler = lassoContext.dependencyRegistry.getRequireHandler(resolved.path, lassoContext);
+
+                if (!requireHandler) {
+                    return null;
+                }
+            }
+
 
             var transforms = config.transforms;
 
             var transformedReader;
+            var createReadStream = requireHandler.createReadStream;
 
             if (transforms) {
                 transformedReader = function () {
@@ -275,8 +326,8 @@ function create(config, lasso) {
 
             return {
                 createReadStream: transformedReader,
-                getLastModified: getLastModified,
-                object: object
+                getLastModified: requireHandler.getLastModified,
+                object: requireHandler.object === true
             };
         },
 
@@ -327,7 +378,7 @@ function create(config, lasso) {
                 ];
             }
 
-            requireHandler = this.getRequireHandler(resolved, lassoContext);
+            requireHandler = this.getRequireHandler(lassoContext);
 
             if (!requireHandler) {
                 // This is not really a dependency that compiles down to a CommonJS module
@@ -336,8 +387,6 @@ function create(config, lasso) {
             }
 
             var dirname = nodePath.dirname(resolved.path);
-
-
 
             return Promise.resolve()
                 .then(() => {
@@ -495,7 +544,6 @@ function create(config, lasso) {
 
                     // Do we also need to add dependency to run the dependency?
                     if (run === true) {
-
                         var runKey = deduper.runKey(resolved.clientPath, wait);
 
                         if (!deduper.hasRun(runKey)) {
