@@ -113,6 +113,74 @@ class MockLassoContext {
         };
     }
 
+    /**
+     * Converts a "reader" function to a function that *always* returns a stream.
+     * The actual reader function may return a promise, a String, a stream or it may use a callback.
+     */
+    createReadStream(func) {
+        var stream = new DeferredStream(function() {
+            // this function will be called when it is time to start reading data
+            var finished = false;
+
+            var callback = (err, value) => {
+                if (finished) {
+                    return;
+                }
+
+                if (err) {
+                    stream.emit('error', err);
+                    return;
+                }
+
+                if (value == null) {
+                    stream.push(null);
+                    finished = true;
+                } else {
+                    if (typeof value === 'string') {
+                        stream.push(value);
+                        stream.push(null);
+                        finished = true;
+                    } else if (typeof value.pipe === 'function') {
+                        // Looks like a stream...
+                        value.pipe(this);
+                        finished = true;
+                    } else if (typeof value.then === 'function') {
+                        // Looks like a promise...
+                        value
+                            .then((value) => {
+                                callback(null, value);
+                            })
+                            .catch(callback);
+                    } else {
+                        // Hopefully a Buffer
+                        stream.push(value);
+                        stream.push(null);
+                        finished = true;
+                    }
+                }
+            };
+
+            var result = func(callback);
+
+            if (!finished) {
+                // callback was not invoked
+                if (result === null) {
+                    callback(null, null);
+                } else if (result === undefined) {
+                    // waiting on callback
+                } else if (result && typeof result.pipe === 'function') {
+                    finished = true;
+                    return result;
+                } else {
+                    callback(null, result);
+                    // A stream was returned, so we will return it
+                }
+            }
+        });
+
+        return stream;
+    }
+
     mockEnableCachingForCache(cacheName) {
         this.mockCaches[cacheName] = new MockMemoryCache();
     }
