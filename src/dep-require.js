@@ -290,6 +290,14 @@ function create(config, lasso) {
                     requireHandler = {
                         createReadStream: createReadStream,
                         getLastModified: virtualModule.getLastModified || getLastModified_noCache,
+
+                        // A virtual module can provide a `getDefaultBundleName`
+                        // function that will be associated with the module
+                        // definition and modudle run dependencies.
+                        // This allows virtual require modules to be put
+                        // into a bundle.
+                        getDefaultBundleName: virtualModule.getDefaultBundleName,
+
                         object: virtualModule.object
                     };
                 }
@@ -327,6 +335,7 @@ function create(config, lasso) {
             return {
                 createReadStream: transformedReader,
                 getLastModified: requireHandler.getLastModified,
+                getDefaultBundleName: requireHandler.getDefaultBundleName,
                 object: requireHandler.object === true
             };
         },
@@ -516,8 +525,15 @@ function create(config, lasso) {
                         var defDependency = {
                             type: 'commonjs-def',
                             path: resolved.clientPath,
-                            file: resolved.path
+                            file: resolved.path,
                         };
+
+                        if (requireHandler.getDefaultBundleName) {
+                            // A `virtualModule` object provided a
+                            // `getDefaultBundleName` that we will use to
+                            // create the define dependency.
+                            defDependency.getDefaultBundleName = requireHandler.getDefaultBundleName;
+                        }
 
                         if (additionalVars) {
                             defDependency._additionalVars = additionalVars;
@@ -553,6 +569,13 @@ function create(config, lasso) {
                                 wait: wait,
                                 file: resolved.path
                             };
+
+                            if (requireHandler.getDefaultBundleName) {
+                                // A `virtualModule` object provided a
+                                // `getDefaultBundleName` that we will use to
+                                // create the run dependency.
+                                runDependency.getDefaultBundleName = requireHandler.getDefaultBundleName;
+                            }
 
                             if (wait === false) {
                                 runDependency.wait = false;
