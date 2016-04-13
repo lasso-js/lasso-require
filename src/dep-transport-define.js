@@ -47,7 +47,7 @@ function transformRequires(code, inspected, asyncBlocks, lassoContext) {
     // We have two goals with this function:
     // 1) Comment out all non-JavaScript module requires
     //    require('./test.css'); --> /*require('./test.css');*/
-    // 2) Update the first argument for all require('raptor-loader').async(...) calls
+    // 2) Update the first argument for all require('lasso-loader').async(...) calls
     //
     // In addition, we want to *maintain line numbers* for the transformed code to be nice!
 

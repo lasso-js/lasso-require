@@ -1,4 +1,4 @@
-var raptorLoader = require('raptor-loader');
+var raptorLoader = require('lasso-loader');
 
 exports.test = function(input) {
 

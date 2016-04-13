@@ -10,35 +10,35 @@
         {
             "type": "commonjs-installed",
             "parentPath": "/autotest$0",
-            "childName": "raptor-loader",
-            "childVersion": "1.0.5"
+            "childName": "lasso-loader",
+            "childVersion": "2.0.0"
         },
         {
             "type": "commonjs-main",
-            "dir": "/raptor-loader$1.0.5",
-            "main": "lib/raptor-loader",
-            "_sourceFile": "/node_modules/raptor-loader/lib/raptor-loader.js"
+            "dir": "/lasso-loader$2.0.0",
+            "main": "src/index",
+            "_sourceFile": "/node_modules/lasso-loader/src/index.js"
         },
         {
             "type": "require",
-            "path": "raptor-loader",
+            "path": "lasso-loader",
             "from": "/test/fixtures/dep-require/autotest/async",
             "resolved": {
-                "path": "/node_modules/raptor-loader/lib/raptor-loader.js",
+                "path": "/node_modules/lasso-loader/src/index.js",
                 "meta": [
                     {
                         "type": "installed",
-                        "packageName": "raptor-loader",
+                        "packageName": "lasso-loader",
                         "searchPath": "/node_modules",
                         "fromDir": "/test/fixtures/dep-require/autotest/async"
                     },
                     {
                         "type": "main",
-                        "dir": "/node_modules/raptor-loader",
-                        "main": "/node_modules/raptor-loader/lib/raptor-loader.js"
+                        "dir": "/node_modules/lasso-loader",
+                        "main": "/node_modules/lasso-loader/src/index.js"
                     }
                 ],
-                "clientPath": "/raptor-loader$1.0.5/lib/raptor-loader"
+                "clientPath": "/lasso-loader$2.0.0/src/index"
             }
         },
         {
@@ -48,31 +48,31 @@
             "inspected": {
                 "requires": [
                     {
-                        "path": "raptor-loader",
+                        "path": "lasso-loader",
                         "range": [
                             0,
-                            30
+                            29
                         ],
                         "argRange": [
                             8,
-                            23
+                            22
                         ],
                         "resolved": {
-                            "path": "/node_modules/raptor-loader/lib/raptor-loader.js",
+                            "path": "/node_modules/lasso-loader/src/index.js",
                             "meta": [
                                 {
                                     "type": "installed",
-                                    "packageName": "raptor-loader",
+                                    "packageName": "lasso-loader",
                                     "searchPath": "/node_modules",
                                     "fromDir": "/test/fixtures/dep-require/autotest/async"
                                 },
                                 {
                                     "type": "main",
-                                    "dir": "/node_modules/raptor-loader",
-                                    "main": "/node_modules/raptor-loader/lib/raptor-loader.js"
+                                    "dir": "/node_modules/lasso-loader",
+                                    "main": "/node_modules/lasso-loader/src/index.js"
                                 }
                             ],
-                            "clientPath": "/raptor-loader$1.0.5/lib/raptor-loader"
+                            "clientPath": "/lasso-loader$2.0.0/src/index"
                         }
                     }
                 ],
@@ -83,12 +83,12 @@
                             {
                                 "path": "./bar",
                                 "range": [
-                                    58,
-                                    74
+                                    57,
+                                    73
                                 ],
                                 "argRange": [
-                                    66,
-                                    73
+                                    65,
+                                    72
                                 ],
                                 "resolved": {
                                     "path": "/test/fixtures/dep-require/autotest/async/bar.js",
@@ -104,8 +104,8 @@
                             }
                         ],
                         "firstArgRange": [
-                            31,
-                            97
+                            30,
+                            96
                         ],
                         "hasInlineDependencies": false,
                         "name": "_0"
@@ -114,42 +114,42 @@
                 "lastModified": -1,
                 "allRequires": [
                     {
-                        "path": "raptor-loader",
+                        "path": "lasso-loader",
                         "range": [
                             0,
-                            30
+                            29
                         ],
                         "argRange": [
                             8,
-                            23
+                            22
                         ],
                         "resolved": {
-                            "path": "/node_modules/raptor-loader/lib/raptor-loader.js",
+                            "path": "/node_modules/lasso-loader/src/index.js",
                             "meta": [
                                 {
                                     "type": "installed",
-                                    "packageName": "raptor-loader",
+                                    "packageName": "lasso-loader",
                                     "searchPath": "/node_modules",
                                     "fromDir": "/test/fixtures/dep-require/autotest/async"
                                 },
                                 {
                                     "type": "main",
-                                    "dir": "/node_modules/raptor-loader",
-                                    "main": "/node_modules/raptor-loader/lib/raptor-loader.js"
+                                    "dir": "/node_modules/lasso-loader",
+                                    "main": "/node_modules/lasso-loader/src/index.js"
                                 }
                             ],
-                            "clientPath": "/raptor-loader$1.0.5/lib/raptor-loader"
+                            "clientPath": "/lasso-loader$2.0.0/src/index"
                         }
                     },
                     {
                         "path": "./bar",
                         "range": [
-                            58,
-                            74
+                            57,
+                            73
                         ],
                         "argRange": [
-                            66,
-                            73
+                            65,
+                            72
                         ],
                         "resolved": {
                             "path": "/test/fixtures/dep-require/autotest/async/bar.js",
@@ -165,12 +165,12 @@
                         {
                             "path": "./bar",
                             "range": [
-                                58,
-                                74
+                                57,
+                                73
                             ],
                             "argRange": [
-                                66,
-                                73
+                                65,
+                                72
                             ],
                             "resolved": {
                                 "path": "/test/fixtures/dep-require/autotest/async/bar.js",
@@ -186,8 +186,8 @@
                         }
                     ],
                     "firstArgRange": [
-                        31,
-                        97
+                        30,
+                        96
                     ],
                     "hasInlineDependencies": false,
                     "name": "_0"

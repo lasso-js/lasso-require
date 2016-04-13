@@ -17,16 +17,11 @@ This plugin is enabled by default, but if you want to provide your own configura
 
 ```javascript
 require('lasso').configure({
-    plugins: [
-        {
-            plugin: 'lasso-require',
-            config: {
-                transforms: [ // Browserify compatible transforms
-                    'deamdify'
-                ]
-            }
-        }
-    ]
+    require: {
+        transforms: [ // Browserify compatible transforms
+            'deamdify'
+        ]
+    }
 })
 ```
 
@@ -79,17 +74,17 @@ lasso require:./foo require:./bar --name test
 The output written to `static/test.js` will be the following:
 
 ```javascript
-$rmod.def("/foo", function(require, exports, module, __filename, __dirname) { exports.add = function(a, b) {
+$_mod.def("/foo", function(require, exports, module, __filename, __dirname) { exports.add = function(a, b) {
     return a + b;
 } });
-$rmod.def("/bar", function(require, exports, module, __filename, __dirname) { var foo = require('./foo');
+$_mod.def("/bar", function(require, exports, module, __filename, __dirname) { var foo = require('./foo');
 
 exports.sayHello = function() {
     console.log('Hello World! 2+2=' + foo.add(2, 2));
 }; });
 ```
 
-__NOTE:__ `$rmod` is a global introduced by the [client-side Node.js module loader](https://github.com/raptorjs/raptor-modules/blob/master/client/lib/raptor-modules-client.js). It should never be used directly!. The code that declares `$rmod` is not shown in the output above for brevity.
+__NOTE:__ `$_mod` is a global introduced by the [client-side Node.js module loader](https://github.com/raptorjs/raptor-modules/blob/master/client/lib/raptor-modules-client.js). It should never be used directly!. The code that declares `$_mod` is not shown in the output above for brevity.
 
 ## require-run
 
@@ -126,17 +121,17 @@ lasso --main main.js --name test
 The output written to `static/test.js` will be the following:
 
 ```javascript
-$rmod.def("/foo", function(require, exports, module, __filename, __dirname) { exports.add = function(a, b) {
+$_mod.def("/foo", function(require, exports, module, __filename, __dirname) { exports.add = function(a, b) {
     return a + b;
 } });
 
-$rmod.def("/bar", function(require, exports, module, __filename, __dirname) { var foo = require('./foo');
+$_mod.def("/bar", function(require, exports, module, __filename, __dirname) { var foo = require('./foo');
 
 exports.sayHello = function() {
     console.log('Hello World! 2+2=' + foo.add(2, 2));
 }; });
 
-$rmod.run("/main", function(require, exports, module, __filename, __dirname) { require('./bar').sayHello(); });
+$_mod.run("/main", function(require, exports, module, __filename, __dirname) { require('./bar').sayHello(); });
 ```
 
 ## Conditional Remap

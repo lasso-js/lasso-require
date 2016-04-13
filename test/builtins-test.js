@@ -23,6 +23,7 @@ describe('lasso-require/builtins' , function() {
         expect(resolver.resolveRequire('process', fromDir, lassoContext) != null).to.equal(true);
         expect(resolver.resolveRequire('stream', fromDir, lassoContext) != null).to.equal(true);
         expect(resolver.resolveRequire('util', fromDir, lassoContext) != null).to.equal(true);
+        expect(resolver.resolveRequire('lasso-loader', fromDir, lassoContext) != null).to.equal(true);
         expect(resolver.resolveRequire('raptor-loader', fromDir, lassoContext) != null).to.equal(true);
         expect(resolver.resolveRequire('string_decoder', fromDir, lassoContext) != null).to.equal(true);
     });

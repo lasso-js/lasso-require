@@ -1,47 +1,47 @@
 {
     "requires": [
         {
-            "path": "raptor-loader",
+            "path": "lasso-loader",
             "range": [
                 19,
-                43
+                42
             ],
             "argRange": [
                 27,
-                42
+                41
             ]
         },
         {
             "path": "foo",
             "range": [
-                152,
-                167
+                151,
+                166
             ],
             "argRange": [
-                160,
-                165
+                159,
+                164
             ]
         },
         {
             "path": "bar",
             "range": [
-                189,
-                204
+                188,
+                203
             ],
             "argRange": [
-                197,
-                202
+                196,
+                201
             ]
         },
         {
-            "path": "raptor-loader",
+            "path": "lasso-loader",
             "range": [
-                475,
-                505
+                473,
+                502
             ],
             "argRange": [
-                483,
-                498
+                481,
+                495
             ]
         }
     ],
@@ -52,12 +52,12 @@
                 {
                     "path": "baz",
                     "range": [
-                        273,
-                        288
+                        272,
+                        287
                     ],
                     "argRange": [
-                        281,
-                        286
+                        280,
+                        285
                     ]
                 }
             ],
@@ -69,8 +69,8 @@
                 }
             ],
             "firstArgRange": [
-                229,
-                247
+                228,
+                246
             ],
             "hasInlineDependencies": true
         },
@@ -79,12 +79,12 @@
                 {
                     "path": "cat",
                     "range": [
-                        357,
-                        372
+                        355,
+                        370
                     ],
                     "argRange": [
-                        365,
-                        370
+                        363,
+                        368
                     ]
                 }
             ],
@@ -95,8 +95,8 @@
                 }
             ],
             "firstArgRange": [
-                329,
-                382
+                327,
+                380
             ],
             "hasInlineDependencies": false
         },
@@ -107,8 +107,8 @@
                 "require: address"
             ],
             "firstArgRange": [
-                523,
-                620
+                520,
+                617
             ],
             "hasInlineDependencies": true
         }

@@ -1,4 +1,4 @@
-require('raptor-loader').async(function() {
+require('lasso-loader').async(function() {
     var bar = require('./bar');
     bar.sayHello();
 });

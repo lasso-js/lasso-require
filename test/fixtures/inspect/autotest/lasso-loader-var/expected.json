@@ -1,14 +1,14 @@
 {
     "requires": [
         {
-            "path": "raptor-loader",
+            "path": "lasso-loader",
             "range": [
                 19,
-                43
+                42
             ],
             "argRange": [
                 27,
-                42
+                41
             ]
         }
     ],
@@ -19,12 +19,12 @@
                 {
                     "path": "baz",
                     "range": [
-                        147,
-                        162
+                        146,
+                        161
                     ],
                     "argRange": [
-                        155,
-                        160
+                        154,
+                        159
                     ]
                 }
             ],
@@ -36,8 +36,8 @@
                 }
             ],
             "firstArgRange": [
-                103,
-                121
+                102,
+                120
             ],
             "hasInlineDependencies": true
         },
@@ -46,12 +46,12 @@
                 {
                     "path": "cat",
                     "range": [
-                        219,
-                        234
+                        218,
+                        233
                     ],
                     "argRange": [
-                        227,
-                        232
+                        226,
+                        231
                     ]
                 }
             ],
@@ -62,8 +62,8 @@
                 }
             ],
             "firstArgRange": [
-                191,
-                244
+                190,
+                243
             ],
             "hasInlineDependencies": false
         }

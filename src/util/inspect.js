@@ -39,6 +39,11 @@ function isRequireFor(node, moduleName) {
         node.arguments[0].value === moduleName;
 }
 
+function isRequireForAsyncLoader(node) {
+    return isRequireFor(node, 'lasso-loader') ||
+        isRequireFor(node, 'raptor-loader') /* legacy */;
+}
+
 function isAsyncNode(node, scope) {
     if (!node.arguments || !node.arguments.length) {
         return false;
@@ -48,7 +53,7 @@ function isAsyncNode(node, scope) {
         node.callee.type === 'MemberExpression' &&
         node.callee.property.type === 'Identifier' &&
         node.callee.property.name === 'async' &&
-        isRequireFor(node.callee.object, 'raptor-loader')) {
+        isRequireForAsyncLoader(node.callee.object)) {
         return true;
     }
 
@@ -57,7 +62,7 @@ function isAsyncNode(node, scope) {
         node.callee.property.type === 'Identifier' &&
         node.callee.property.name === 'async' &&
         node.callee.object.type === 'Identifier' &&
-        scope[node.callee.object.name] === 'raptor-loader') {
+        (scope[node.callee.object.name] === 'lasso-loader')) {
         return true;
     }
 
@@ -86,8 +91,8 @@ function parseAsyncNode(node, scope) {
         // We only care if about the async calls if the first argument is an array
         if (firstArg.type !== 'ArrayExpression') {
             // call is something like:
-            //    require('raptor-loader').async('somePackageId', callback)
-            //    require('raptor-loader').async(someVariable, callback)
+            //    require('lasso-loader').async('somePackageId', callback)
+            //    require('lasso-loader').async(someVariable, callback)
             return;
         }
 
@@ -204,8 +209,8 @@ module.exports = function inspect(src, options) {
 
             if (node.type === 'VariableDeclaration') {
                 node.declarations.forEach(function(varDecl) {
-                    if (varDecl.init && isRequireFor(varDecl.init, 'raptor-loader')) {
-                        scope[varDecl.id.name] = 'raptor-loader';
+                    if (varDecl.init && isRequireForAsyncLoader(varDecl.init)) {
+                        scope[varDecl.id.name] = 'lasso-loader';
                     } else {
                         scope[varDecl.id.name] = true;
                     }
@@ -247,7 +252,7 @@ module.exports = function inspect(src, options) {
                 if (asyncScopeStack.length) {
                     // We are in the scope of an async callback function so this
                     // is a dependency that will be lazily loaded
-                    if (requirePath !== 'raptor-loader') {
+                    if (requirePath !== 'lasso-loader' && requirePath !== 'raptor-loader') {
                         var lastAsyncInfo = asyncScopeStack[asyncScopeStack.length-1];
 
                         lastAsyncInfo.requires.push({
