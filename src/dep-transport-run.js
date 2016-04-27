@@ -14,7 +14,7 @@ exports.create = function(config, lasso) {
         },
 
         getDir: function() {
-            return nodePath.dirname(this._file);
+            return this.path ? nodePath.dirname(this.path) : undefined;
         },
 
         read: function(lassoContext) {
