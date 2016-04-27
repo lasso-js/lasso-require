@@ -79,7 +79,8 @@ function create(config, lasso) {
             deduper.addDependency(remapKey, {
                 type: 'commonjs-remap',
                 from: fromPath,
-                to: toPath
+                to: toPath,
+                fromFile: from
             });
         }
     }
@@ -106,7 +107,8 @@ function create(config, lasso) {
                     type: 'commonjs-installed',
                     parentPath: clientParentPath,
                     childName: childName,
-                    childVersion: childVersion
+                    childVersion: childVersion,
+                    parentDir: parentPath
                 });
             }
 

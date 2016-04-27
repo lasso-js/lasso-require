@@ -5,7 +5,8 @@ exports.create = function(config, lasso) {
     return {
         properties: {
             'from': 'string',
-            'to': 'string'
+            'to': 'string',
+            'fromFile': 'string'
         },
 
         init(lassoContext) {
@@ -13,7 +14,7 @@ exports.create = function(config, lasso) {
         },
 
         getDir: function() {
-            return nodePath.dirname(this._sourceFile);
+            return this.fromFile ? nodePath.dirname(this.fromFile) : undefined;
         },
 
         read: function(context) {

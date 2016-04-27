@@ -6,7 +6,8 @@ exports.create = function(config, lasso) {
         properties: {
             'parentPath': 'string',
             'childName': 'string',
-            'childVersion': 'string'
+            'childVersion': 'string',
+            'parentDir': 'string'
         },
 
         init(lassoContext) {
@@ -14,7 +15,7 @@ exports.create = function(config, lasso) {
         },
 
         getDir: function() {
-            return nodePath.dirname(this._sourceFile);
+            return this.parentDir;
         },
 
         read: function(context) {
