@@ -6,7 +6,8 @@
         "type": "commonjs-installed",
         "parentPath": "/autotest$0",
         "childName": "@foo/bar",
-        "childVersion": "1.0.0"
+        "childVersion": "1.0.0",
+        "parentDir": "/test/fixtures/dep-require/autotest/require-installed-scoped"
     },
     {
         "type": "commonjs-main",

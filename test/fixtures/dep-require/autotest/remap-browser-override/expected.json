@@ -5,7 +5,8 @@
     {
         "type": "commonjs-remap",
         "from": "/autotest$0/foo",
-        "to": "/autotest$0/foo-browser"
+        "to": "/autotest$0/foo-browser",
+        "fromFile": "/test/fixtures/dep-require/autotest/remap-browser-override/foo.js"
     },
     {
         "type": "commonjs-ready",

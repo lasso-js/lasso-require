@@ -6,7 +6,8 @@
         "type": "commonjs-installed",
         "parentPath": "/autotest$0",
         "childName": "jquery",
-        "childVersion": "1.2.0"
+        "childVersion": "1.2.0",
+        "parentDir": "/test/fixtures/dep-require/autotest/globals-jquery"
     },
     {
         "type": "commonjs-main",

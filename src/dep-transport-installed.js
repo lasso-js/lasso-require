@@ -1,5 +1,4 @@
 var transport = require('lasso-modules-client/transport');
-var nodePath = require('path');
 
 exports.create = function(config, lasso) {
     return {

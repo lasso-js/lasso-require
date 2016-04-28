@@ -11,7 +11,8 @@
             "type": "commonjs-installed",
             "parentPath": "/autotest$0",
             "childName": "lasso-loader",
-            "childVersion": "2.0.0"
+            "childVersion": "2.0.0",
+            "parentDir": "/test/fixtures/dep-require/autotest/async"
         },
         {
             "type": "commonjs-main",
