@@ -373,7 +373,7 @@ function create(config, lasso) {
                 // This module has been remapped to a void/empty object
                 // because it is a server-side only module. Nothing
                 // else to do.
-                return [dependencies];
+                return dependencies;
             }
 
             var run = this.run === true;
@@ -381,12 +381,11 @@ function create(config, lasso) {
 
             if (resolved.type) {
                 // This is not really a require dependency since a type was provided
-                return [
-                    {
-                        type: resolved.type,
-                        path: resolved.path
-                    }
-                ];
+                dependencies.push({
+                    type: resolved.type,
+                    path: resolved.path
+                });
+                return dependencies;
             }
 
             requireHandler = this.getRequireHandler(lassoContext);
@@ -394,7 +393,8 @@ function create(config, lasso) {
             if (!requireHandler) {
                 // This is not really a dependency that compiles down to a CommonJS module
                 // so just add it to the dependency graph
-                return [resolved.path];
+                dependencies.push(resolved.path);
+                return dependencies;
             }
 
             var dirname = nodePath.dirname(resolved.path);
