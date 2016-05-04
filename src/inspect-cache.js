@@ -28,8 +28,10 @@ exports.inspectCached = function(path, createReadStream, getLastModified, lassoC
 
         function handleRequire(require) {
             var resolved = resolver.resolveRequireCached(require.path, fromDir, lassoContext);
+            var pathRelative = nodePath.relative(process.cwd(), path);
+            var fromRelative = nodePath.relative(process.cwd(), fromDir);
             if (!resolved) {
-                throw new Error('Module not found: ' + require.path + ' (from "' + fromDir + '" and referenced in ' + path + ')');
+                throw new Error('Module not found: ' + require.path + ' (from "' + fromRelative + '" and referenced in "' + pathRelative + '")');
             }
 
             // Clone the require

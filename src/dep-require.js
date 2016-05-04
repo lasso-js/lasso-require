@@ -226,12 +226,12 @@ function create(config, lasso) {
                 } else if (this.path) {
                     let from = this.from || this.getParentManifestDir();
                     let path = this.path;
-
                     let fromFile = this.getParentManifestPath();
+                    let fromFileRelPath = fromFile ? nodePath.relative(process.cwd(), fromFile) : '(unknown)';
                     this.resolved = resolver.resolveRequireCached(path, from, lassoContext);
 
                     if (!this.resolved) {
-                        throw new Error('Module not found: ' + path + ' (from "' + from + '" and referenced in ' + fromFile + ')');
+                        throw new Error('Module not found: ' + path + ' (from "' + from + '" and referenced in "' + fromFileRelPath + '")');
                     }
 
                     this.meta = this.resolved.meta;
