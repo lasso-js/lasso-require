@@ -63,7 +63,7 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "version": "2.2.4",
+  "version": "2.2.5",
   "bugs": {
     "url": "https://github.com/lasso-js/lasso-require/issues"
   },
