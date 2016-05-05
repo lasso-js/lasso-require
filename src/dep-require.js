@@ -224,7 +224,7 @@ function create(config, lasso) {
                         clientPath
                     };
                 } else if (this.path) {
-                    let from = this.from || this.getParentManifestDir();
+                    let from = this.from = this.from || this.getParentManifestDir();
                     let path = this.path;
                     let fromFile = this.getParentManifestPath();
                     let fromFileRelPath = fromFile ? nodePath.relative(process.cwd(), fromFile) : '(unknown)';
