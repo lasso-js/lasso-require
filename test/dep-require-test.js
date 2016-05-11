@@ -6,7 +6,7 @@ var chai = require('chai');
 chai.config.includeStack = true;
 require('chai').should();
 var MockLassoContext = require('./mock/MockLassoContext');
-var relativizePaths = require('./util/relativizePaths');
+var normalizeOutput = require('./util/normalizeOutput');
 var moduleSearchPath = require('./util/module-search-path');
 
 var rootDir = nodePath.join(__dirname, '..');
@@ -39,7 +39,7 @@ describe('lasso-require/dependency-require' , function() {
                     return dependency.getDependencies(lassoContext);
                 })
                 .then((dependencies) => {
-                    dependencies = relativizePaths(dependencies, rootDir);
+                    dependencies = normalizeOutput(dependencies, rootDir);
                     if (patchedSearchPath) {
                         patchedSearchPath.restore();
                     }

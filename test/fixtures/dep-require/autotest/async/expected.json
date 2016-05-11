@@ -8,16 +8,9 @@
             "inline": "end"
         },
         {
-            "type": "commonjs-installed",
-            "parentPath": "/autotest$0",
-            "childName": "lasso-loader",
-            "childVersion": "2.0.0",
-            "parentDir": "/test/fixtures/dep-require/autotest/async"
-        },
-        {
-            "type": "commonjs-main",
-            "dir": "/lasso-loader$2.0.0",
-            "main": "src/index",
+            "type": "commonjs-builtin",
+            "name": "lasso-loader",
+            "target": "/lasso-loader$x.x.x/src/index",
             "_sourceFile": "/node_modules/lasso-loader/src/index.js"
         },
         {
@@ -28,18 +21,12 @@
                 "path": "/node_modules/lasso-loader/src/index.js",
                 "meta": [
                     {
-                        "type": "installed",
-                        "packageName": "lasso-loader",
-                        "searchPath": "/node_modules",
-                        "fromDir": "/test/fixtures/dep-require/autotest/async"
-                    },
-                    {
-                        "type": "main",
-                        "dir": "/node_modules/lasso-loader",
-                        "main": "/node_modules/lasso-loader/src/index.js"
+                        "type": "builtin",
+                        "name": "lasso-loader",
+                        "target": "/node_modules/lasso-loader/src/index.js"
                     }
                 ],
-                "clientPath": "/lasso-loader$2.0.0/src/index"
+                "clientPath": "/lasso-loader$x.x.x/src/index"
             }
         },
         {
@@ -62,18 +49,12 @@
                             "path": "/node_modules/lasso-loader/src/index.js",
                             "meta": [
                                 {
-                                    "type": "installed",
-                                    "packageName": "lasso-loader",
-                                    "searchPath": "/node_modules",
-                                    "fromDir": "/test/fixtures/dep-require/autotest/async"
-                                },
-                                {
-                                    "type": "main",
-                                    "dir": "/node_modules/lasso-loader",
-                                    "main": "/node_modules/lasso-loader/src/index.js"
+                                    "type": "builtin",
+                                    "name": "lasso-loader",
+                                    "target": "/node_modules/lasso-loader/src/index.js"
                                 }
                             ],
-                            "clientPath": "/lasso-loader$2.0.0/src/index"
+                            "clientPath": "/lasso-loader$x.x.x/src/index"
                         }
                     }
                 ],
@@ -128,18 +109,12 @@
                             "path": "/node_modules/lasso-loader/src/index.js",
                             "meta": [
                                 {
-                                    "type": "installed",
-                                    "packageName": "lasso-loader",
-                                    "searchPath": "/node_modules",
-                                    "fromDir": "/test/fixtures/dep-require/autotest/async"
-                                },
-                                {
-                                    "type": "main",
-                                    "dir": "/node_modules/lasso-loader",
-                                    "main": "/node_modules/lasso-loader/src/index.js"
+                                    "type": "builtin",
+                                    "name": "lasso-loader",
+                                    "target": "/node_modules/lasso-loader/src/index.js"
                                 }
                             ],
-                            "clientPath": "/lasso-loader$2.0.0/src/index"
+                            "clientPath": "/lasso-loader$x.x.x/src/index"
                         }
                     },
                     {
