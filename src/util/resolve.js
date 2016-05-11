@@ -43,9 +43,11 @@ exports.createResolver = function(builtins, getClientPath) {
 
         var resolvedInfo = lassoResolveFrom(fromDir, targetModule, resolveOptions);
 
+        var isBuiltin = resolvedInfo && builtins && builtins[targetModule] === resolvedInfo.path;
+
         var clientPath;
 
-        if (resolvedInfo) {
+        if (resolvedInfo && !isBuiltin) {
             clientPath = getClientPath(resolvedInfo.path);
         } else {
             if (targetModule.charAt(0) === '.') {
