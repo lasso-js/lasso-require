@@ -9,8 +9,8 @@ var moduleSearchPath = require('./util/module-search-path');
 
 describe('lasso-require/dep-transport-define' , function() {
     require('./autotest').scanDir(
-        nodePath.join(__dirname, 'fixtures/dep-transport-define/autotest'),
-        function (dir, done) {
+        nodePath.join(__dirname, 'autotests/dep-transport-define'),
+        function (dir, helpers, done) {
             var main = require(nodePath.join(dir, 'test.js'));
             var dependencyProps = main.createDependency(dir);
 
@@ -38,7 +38,7 @@ describe('lasso-require/dep-transport-define' , function() {
                     if (dependencies.dependencies) {
                         dependencies = dependencies.dependencies;
                     }
-                    
+
                     for (var i=0; i<dependencies.length; i++) {
                         var d = dependencies[i];
                         if (d.type === 'commonjs-def') {
@@ -53,7 +53,8 @@ describe('lasso-require/dep-transport-define' , function() {
                         patchedSearchPath.restore();
                     }
 
-                    done(null, src);
+                    helpers.compare(src, '.js');
+                    done();
                 })
                 .catch((err) => {
                     if (patchedSearchPath) {
@@ -61,9 +62,6 @@ describe('lasso-require/dep-transport-define' , function() {
                     }
                     done(err);
                 });
-        },
-        {
-            ext: '.js'
         });
 
 });

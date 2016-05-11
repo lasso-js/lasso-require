@@ -5,15 +5,15 @@
     {
         "type": "commonjs-installed",
         "parentPath": "/autotest$0",
-        "childName": "installed-bar",
-        "childVersion": "1.2.0",
-        "parentDir": "/test/fixtures/dep-require/autotest/require-installed"
+        "childName": "@foo/bar",
+        "childVersion": "1.0.0",
+        "parentDir": "/test/autotests/dep-require/require-installed-scoped"
     },
     {
         "type": "commonjs-main",
-        "dir": "/installed-bar$1.2.0",
+        "dir": "/@foo/bar$1.0.0",
         "main": "",
-        "_sourceFile": "/test/fixtures/dep-require/autotest/require-installed/node_modules/installed-bar/index.js"
+        "_sourceFile": "/test/autotests/dep-require/require-installed-scoped/node_modules/@foo/bar/index.js"
     },
     {
         "type": "commonjs-ready",
@@ -21,8 +21,8 @@
     },
     {
         "type": "commonjs-def",
-        "path": "/installed-bar$1.2.0/index",
-        "file": "/test/fixtures/dep-require/autotest/require-installed/node_modules/installed-bar/index.js",
+        "path": "/@foo/bar$1.0.0/index",
+        "file": "/test/autotests/dep-require/require-installed-scoped/node_modules/@foo/bar/index.js",
         "inspected": {
             "requires": [],
             "foundGlobals": {},

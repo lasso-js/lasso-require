@@ -24,6 +24,7 @@ function normalizeOutput(o, dir, options) {
         } else if (typeof o === 'string') {
             o = o.split(dir).join('');
             o = o.split(parentDir).join('');
+            o = o.split(process.cwd()).join('');
             o = o.replace(/lasso-loader\$[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/g, 'lasso-loader$x.x.x');
 
             if (replaceVersions) {

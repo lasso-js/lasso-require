@@ -9,16 +9,14 @@ var inspect = require('../src/util/inspect');
 
 describe('lasso-require/util/inspect' , function() {
     require('./autotest').scanDir(
-        nodePath.join(__dirname, 'fixtures/inspect/autotest'),
-        function (dir, done) {
+        nodePath.join(__dirname, 'autotests/inspect'),
+        function (dir, helpers, done) {
 
             var inputPath = nodePath.join(dir, 'input.js');
             var inputSrc = fs.readFileSync(inputPath, { encoding: 'utf8' });
             var inspected = inspect(inputSrc, { allowShortcircuit: false });
-            return done(null, inspected);
-        },
-        {
-            ext: '.json'
+            helpers.compare(inspected, '.json');
+            return done();
         });
 
 });

@@ -13,8 +13,8 @@ var rootDir = nodePath.join(__dirname, '..');
 
 describe('lasso-require/dependency-require' , function() {
     require('./autotest').scanDir(
-        nodePath.join(__dirname, 'fixtures/dep-require/autotest'),
-        function (dir, done) {
+        nodePath.join(__dirname, 'autotests/dep-require'),
+        function (dir, helpers, done) {
 
             var main = require(nodePath.join(dir, 'test.js'));
 
@@ -44,7 +44,8 @@ describe('lasso-require/dependency-require' , function() {
                         patchedSearchPath.restore();
                     }
 
-                    done(null, dependencies);
+                    helpers.compare(dependencies, '.json');
+                    done();
                 })
                 .catch((err) => {
                     if (patchedSearchPath) {
@@ -52,9 +53,6 @@ describe('lasso-require/dependency-require' , function() {
                     }
                     done(err);
                 });
-        },
-        {
-            ext: '.json'
         });
 
 });

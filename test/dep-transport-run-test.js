@@ -7,8 +7,8 @@ var MockLassoContext = require('./mock/MockLassoContext');
 
 describe('lasso-require/dep-transport-run' , function() {
     require('./autotest').scanDir(
-        nodePath.join(__dirname, 'fixtures/dep-transport-run/autotest'),
-        function (dir, done) {
+        nodePath.join(__dirname, 'autotests/dep-transport-run'),
+        function (dir, helpers, done) {
             var main = require(nodePath.join(dir, 'test.js'));
             var dependencyProps = main.createDependency(dir);
 
@@ -28,11 +28,9 @@ describe('lasso-require/dep-transport-run' , function() {
                     return dependency.read(lassoContext);
                 })
                 .then((src) => {
-                    done(null, src);
+                    helpers.compare(src, '.js');
+                    done();
                 })
                 .catch(done);
-        },
-        {
-            ext: '.js'
         });
 });
