@@ -10,6 +10,7 @@ var depTransportRemap = require('./dep-transport-remap');
 var depTransportReady = require('./dep-transport-ready');
 var depTransportBuiltin = require('./dep-transport-builtin');
 var depTransportSearchPath = require('./dep-transport-search-path');
+var depLoaderMetadata = require('./dep-transport-loader-metadata');
 var depRuntime = require('./dep-runtime');
 var buildPluginConfig = require('./build-plugin-config');
 var extend = require('raptor-util').extend;
@@ -124,6 +125,7 @@ module.exports = exports = function plugin(lasso, userConfig) {
     lasso.dependencies.registerJavaScriptType('commonjs-search-path', depTransportSearchPath.create(config, lasso));
     lasso.dependencies.registerJavaScriptType('commonjs-runtime', depRuntime.create(config, lasso));
     lasso.dependencies.registerJavaScriptType('commonjs-builtin', depTransportBuiltin.create(config, lasso));
+    lasso.dependencies.registerJavaScriptType('loader-metadata', depLoaderMetadata.create(config, lasso));
 
     lasso.dependencies.registerPackageType('require', depRequire.create(config, lasso));
     lasso.dependencies.registerPackageType('require-remap', depRequireRemap.create(config, lasso));
