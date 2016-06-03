@@ -2,29 +2,21 @@ var transport = require('lasso-modules-client/transport');
 
 exports.create = function(config, lasso) {
     return {
-        properties: {
-            'key': 'string',
-            'packageName': 'string',
-            'bundle': 'string'
-        },
+        properties: {},
 
         init(lassoContext) {
 
         },
 
-        getKey: function() {
-            return this._key;
-        },
+        read: function(lassoContext) {
+            var loaderMetadata = lassoContext && lassoContext.loaderMetadata;
+            if (!loaderMetadata) {
+                return null;
+            }
 
-        toString: function() {
-            return '[' + this._key + ']';
-        },
-
-        read: function(context) {
             return transport.codeGenerators.loaderMetadata(
-                this.packageName,
-                this.bundle,
-                context,
+                loaderMetadata,
+                lassoContext,
                 {
                     modulesRuntimeGlobal: config.modulesRuntimeGlobal
                 });
@@ -39,7 +31,7 @@ exports.create = function(config, lasso) {
         },
 
         calculateKey: function() {
-            return this._key;
+            return 'loader-metadata';
         },
 
         getLastModified: function(lassoContext, callback) {
