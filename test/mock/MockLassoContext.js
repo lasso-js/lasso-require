@@ -114,6 +114,10 @@ class MockLassoContext {
         this.nextId = 0;
     }
 
+    get isMockLassoContext() {
+        return true;
+    }
+
     /**
      * Converts a "reader" function to a function that *always* returns a stream.
      * The actual reader function may return a promise, a String, a stream or it may use a callback.
