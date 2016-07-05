@@ -2,7 +2,6 @@
 
 var fs = require('fs');
 var nodePath = require('path');
-var nextId = 0;
 var lassoCachingFS = require('lasso-caching-fs');
 
 var Readable = require('stream').Readable;
@@ -111,6 +110,8 @@ class MockLassoContext {
                 return mockCaches[name] || MOCK_CACHE;
             }
         };
+
+        this.nextId = 0;
     }
 
     /**
@@ -186,7 +187,7 @@ class MockLassoContext {
     }
 
     uniqueId() {
-        return nextId++;
+        return this.nextId++;
     }
 
     getFileLastModified(path) {

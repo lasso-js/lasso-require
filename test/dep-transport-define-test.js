@@ -6,6 +6,7 @@ chai.config.includeStack = true;
 require('chai').should();
 var MockLassoContext = require('./mock/MockLassoContext');
 var moduleSearchPath = require('./util/module-search-path');
+var normalizeOutput = require('./util/normalizeOutput');
 
 describe('lasso-require/dep-transport-define' , function() {
     require('./autotest').scanDir(
@@ -52,6 +53,7 @@ describe('lasso-require/dep-transport-define' , function() {
                     if (patchedSearchPath) {
                         patchedSearchPath.restore();
                     }
+                    src = normalizeOutput(src, dir);
 
                     helpers.compare(src, '.js');
                     done();
