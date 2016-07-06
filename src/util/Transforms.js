@@ -92,7 +92,7 @@ class Transforms {
 
                 if (transform) {
                     if (typeof transform === 'string') {
-                        let transformPath = require.resolve(curTransform);
+                        let transformPath = require.resolve(transform);
                         transform = require(transformPath);
                         transformId = transform.id || transformPath;
                     }
