@@ -6,7 +6,9 @@ exports.create = function(config, lasso) {
         },
 
         init() {
-
+            if (!this.slot) {
+                delete this.slot;
+            }
         },
 
         getDir: function() {
