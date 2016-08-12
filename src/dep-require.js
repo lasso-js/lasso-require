@@ -54,7 +54,8 @@ function create(config, lasso) {
 
     var readyDependency = lasso.dependencies.createDependency({
         type: 'commonjs-ready',
-        inline: 'end'
+        inline: 'end',
+        slot: config.lastSlot
     }, __dirname);
 
     var runtimeDependency = lasso.dependencies.createDependency({
