@@ -232,7 +232,7 @@ module.exports = function inspect(src, options) {
 
             var requirePath;
 
-            if (isRequire(node) || isRequireResolve(node)) {
+            if (!scope.require && (isRequire(node) || isRequireResolve(node))) {
                 requirePath = node.arguments[0].value;
 
                 var range;
