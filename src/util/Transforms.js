@@ -7,6 +7,7 @@ var PassThrough = require('stream').PassThrough;
 var inspect = require('util').inspect;
 var util = require('util');
 var stream = require('stream');
+const resolveFrom = require('resolve-from');
 
 class TransformAdaptorStream extends stream.Transform {
     constructor(transform, lassoContext) {
@@ -61,8 +62,26 @@ class TransformAdaptorStream extends stream.Transform {
     }
 }
 
+function resolvePath(path, projectRoot) {
+    var resolvedPath;
+
+    if (projectRoot) {
+        resolvedPath = resolveFrom(projectRoot, path);
+        if (resolvedPath) {
+            return resolvedPath;
+        }
+    } else {
+        resolvedPath = resolveFrom(process.cwd(), path);
+        if (resolvedPath) {
+            return resolvedPath;
+        }
+    }
+
+    return require.resolve(path);
+}
+
 class Transforms {
-    constructor(transforms) {
+    constructor(transforms, projectRoot) {
         this._transforms = new Array(transforms.length);
 
         let shasum = crypto.createHash('sha1');
@@ -92,7 +111,7 @@ class Transforms {
 
                 if (transform) {
                     if (typeof transform === 'string') {
-                        let transformPath = require.resolve(transform);
+                        let transformPath = resolvePath(transform, projectRoot);
                         transform = require(transformPath);
                         transformId = transform.id || transformPath;
                     }

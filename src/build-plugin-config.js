@@ -58,7 +58,7 @@ function buildPluginConfig(userConfig, defaultProjectRoot) {
 
     var babelPaths = babelConfig.paths;
     delete babelConfig.paths;
-    
+
     var babelIgnoreFilter = babelPaths && ignore().add(babelPaths
         .map(function(path) { // add the root dir first
             return nodePath.join(config.rootDir, path);
@@ -106,7 +106,7 @@ function buildPluginConfig(userConfig, defaultProjectRoot) {
     var transforms;
     if (config.transforms) {
         if (config.transforms.length > 0) {
-            config.transforms = transforms = new Transforms(config.transforms);
+            config.transforms = transforms = new Transforms(config.transforms, defaultProjectRoot);
         } else {
             config.transforms = undefined;
         }

@@ -47,6 +47,7 @@
     "raptor-polyfill": "^1.0.2",
     "raptor-promises": "^1.0.3",
     "raptor-util": "^1.0.7",
+    "resolve-from": "^2.0.0",
     "stream-browserify": "^1.0.0",
     "string_decoder": "^0.10.31",
     "through": "^2.3.4",
