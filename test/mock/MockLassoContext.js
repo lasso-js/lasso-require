@@ -8,6 +8,8 @@ var Readable = require('stream').Readable;
 var util = require('util');
 var fingerprintStream = require('./fingerprint-stream');
 var MockMemoryCache = require('./MockMemoryCache');
+var LassoManifest = require('./LassoManifest');
+var manifestLoader = require('./manifest-loader');
 
 function noop() {}
 
@@ -212,6 +214,14 @@ class MockLassoContext {
 
     createFingerprintStream() {
         return fingerprintStream.create();
+    }
+
+    readPackageFile(path) {
+        var rawManifest = manifestLoader.load(path);
+        return new LassoManifest({
+            manifest: rawManifest,
+            dependencyRegistry: this.dependencyRegistry
+        });
     }
 }
 

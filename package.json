@@ -38,7 +38,7 @@
     "lasso-loader": "^3.0.0",
     "lasso-modules-client": "^2.0.0",
     "lasso-package-root": "^1.0.0",
-    "lasso-resolve-from": "^1.0.0",
+    "lasso-resolve-from": "^1.2.0",
     "mkdirp": "^0.5.0",
     "path-browserify": "0.0.0",
     "process": "^0.6.0",
