@@ -29,7 +29,6 @@ exports.createResolver = function(builtins, getClientPath) {
         targetModule = _normalizePath(parsedRequire.path);
 
         var dependencyType = parsedRequire.type;
-        var conditionalRemaps = lassoContext ? getRequireRemapFromDir(fromDir, lassoContext) : null;
 
         var resolveOptions = {
             includeMeta: true
@@ -37,9 +36,9 @@ exports.createResolver = function(builtins, getClientPath) {
 
         resolveOptions.extensions = lassoContext.dependencyRegistry.getRequireExtensionNames();
 
-        if (conditionalRemaps) {
-            resolveOptions.remaps = conditionalRemaps;
-        }
+        resolveOptions.remaps = function(dir) {
+            return lassoContext && getRequireRemapFromDir(dir, lassoContext);
+        };
 
         var resolvedInfo = lassoResolveFrom(fromDir, targetModule, resolveOptions);
 
