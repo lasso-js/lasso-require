@@ -49,19 +49,18 @@ function isAsyncNode(node, scope) {
         return false;
     }
 
-    if (node.type === 'CallExpression' &&
-        node.callee.type === 'MemberExpression' &&
-        node.callee.property.type === 'Identifier' &&
-        node.callee.property.name === 'async' &&
-        isRequireForAsyncLoader(node.callee.object)) {
+    if (node.type !== 'CallExpression' ||
+        node.callee.type !== 'MemberExpression' ||
+        node.callee.property.type !== 'Identifier' ||
+        node.callee.property.name !== 'async') {
+        return false;
+    }
+
+    if (isRequireForAsyncLoader(node.callee.object)) {
         return true;
     }
 
-    if (node.type === 'CallExpression' &&
-        node.callee.type === 'MemberExpression' &&
-        node.callee.property.type === 'Identifier' &&
-        node.callee.property.name === 'async' &&
-        node.callee.object.type === 'Identifier' &&
+    if (node.callee.object.type === 'Identifier' &&
         (scope[node.callee.object.name] === 'lasso-loader')) {
         return true;
     }
@@ -89,17 +88,22 @@ function parseAsyncNode(node, scope) {
         var firstArg = args[0];
 
         // We only care if about the async calls if the first argument is an array
-        if (firstArg.type !== 'ArrayExpression') {
+        if (firstArg.type === 'ArrayExpression') {
             // call is something like:
-            //    require('lasso-loader').async('somePackageId', callback)
-            //    require('lasso-loader').async(someVariable, callback)
-            return;
+            //     require('lasso-loader').async(['./dep1.js', './dep2.js'], callback)
+            var elems = firstArg.elements;
+            for (var i = 0; i < elems.length; i++) {
+                dependencies.push(elems[i].value);
+            }
         }
+        // else {
+        //     call is something like:
+        //        require('lasso-loader').async('somePackageId', callback)
+        //        require('lasso-loader').async(someVariable, callback)
+        // }
 
-        var elems = firstArg.elements;
-        for (var i = 0; i < elems.length; i++) {
-            dependencies.push(elems[i].value);
-        }
+
+
     }
 
     var callbackNode = args[numArguments - 1];
