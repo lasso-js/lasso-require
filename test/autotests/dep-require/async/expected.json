@@ -89,6 +89,7 @@
                             30,
                             96
                         ],
+                        "hasFunctionBody": true,
                         "hasInlineDependencies": false,
                         "name": "_0"
                     }
@@ -165,6 +166,7 @@
                         30,
                         96
                     ],
+                    "hasFunctionBody": true,
                     "hasInlineDependencies": false,
                     "name": "_0"
                 }

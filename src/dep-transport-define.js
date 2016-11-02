@@ -77,20 +77,42 @@ function transformRequires(code, inspected, asyncBlocks, lassoContext) {
 
     function transformAsyncCall(asyncBlock) {
         var name = asyncBlock.name;
-        ok(name, '"asyncBlock.name" expected');
 
         var firstArgRange = asyncBlock.firstArgRange;
 
-        if (asyncBlock.hasInlineDependencies) {
+
+
+        if (asyncBlock.packageIdProvided) {
+            // If `name` is not provided then it means that there was no
+            // function body so there is no auto-generated async meta name.
+            if (name) {
+                var packageIdExpression = code.substring(asyncBlock.firstArgRange[0], asyncBlock.firstArgRange[1]);
+
+                // This path is taken when when async is called no arguments:
+                // For example:
+                // require('lasso-loader').async(blah, function() {...});
+                stringTransformer.comment(firstArgRange);
+                stringTransformer.insert(firstArgRange[0],
+                    '[' + JSON.stringify(name) + ',' + packageIdExpression + ']');
+            }
+        } else if (asyncBlock.hasInlineDependencies) {
+            ok(name, '"asyncBlock.name" required');
+            // This path is taken when when async is called with
+            // array of dependencies.
+            // For example:
+            // require('lasso-loader').async(['./a.js', './b.js'], function() {...});
             stringTransformer.comment(firstArgRange);
             stringTransformer.insert(firstArgRange[0], JSON.stringify(name));
         } else {
+            ok(name, '"asyncBlock.name" required');
+            // This path is taken when when async is called no arguments:
+            // For example:
+            // require('lasso-loader').async(function() {...});
             stringTransformer.insert(firstArgRange[0], JSON.stringify(name) + ', ');
         }
     }
 
     if (asyncBlocks && asyncBlocks.length) {
-
         asyncBlocks.forEach(transformAsyncCall);
     }
 

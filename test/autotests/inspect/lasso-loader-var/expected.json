@@ -39,6 +39,7 @@
                 102,
                 120
             ],
+            "hasFunctionBody": true,
             "hasInlineDependencies": true
         },
         {
@@ -65,6 +66,7 @@
                 190,
                 243
             ],
+            "hasFunctionBody": true,
             "hasInlineDependencies": false
         }
     ]

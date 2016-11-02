@@ -72,6 +72,7 @@
                 228,
                 246
             ],
+            "hasFunctionBody": true,
             "hasInlineDependencies": true
         },
         {
@@ -98,6 +99,7 @@
                 327,
                 380
             ],
+            "hasFunctionBody": true,
             "hasInlineDependencies": false
         },
         {
@@ -110,6 +112,7 @@
                 520,
                 617
             ],
+            "hasFunctionBody": false,
             "hasInlineDependencies": true
         }
     ]

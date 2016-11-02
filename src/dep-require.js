@@ -32,6 +32,15 @@ function buildAsyncInfo(path, asyncBlocks, lassoContext) {
         var asyncMeta = {};
 
         asyncBlocks.forEach(function(asyncBlock) {
+            if (!asyncBlock.hasInlineDependencies &&
+                !asyncBlock.hasFunctionBody) {
+                // only generate a unique package name if the async
+                // function call was provided a `function` as the
+                // last argument or if an array of dependencies were
+                // inlined.
+                return;
+            }
+
             var uniqueId = lassoContext.uniqueId();
             var name = asyncBlock.name = '_' + uniqueId;
             asyncMeta[name] = asyncBlock.dependencies;

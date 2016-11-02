@@ -76,37 +76,38 @@ function parseAsyncNode(node, scope) {
 
     var args = node.arguments;
     var numArguments = args.length;
-    if (numArguments < 1) {
+    if ((numArguments < 1) || (numArguments > 2)) {
         return;
     }
 
     var dependencies = [];
     var hasInlineDependencies = false;
+    var packageIdProvided;
+    var firstArg = args[0];
 
-    if (numArguments > 1) {
-        hasInlineDependencies = true;
-        var firstArg = args[0];
-
-        // We only care if about the async calls if the first argument is an array
+    // We only care if about the async calls if the first argument is an array
+    if (numArguments === 2) {
         if (firstArg.type === 'ArrayExpression') {
+            hasInlineDependencies = true;
             // call is something like:
             //     require('lasso-loader').async(['./dep1.js', './dep2.js'], callback)
             var elems = firstArg.elements;
             for (var i = 0; i < elems.length; i++) {
                 dependencies.push(elems[i].value);
             }
+        } else {
+            // call is something like:
+            //    require('lasso-loader').async('somePackageId', callback)
+            //    require('lasso-loader').async(someVariable, callback)
+            packageIdProvided = true;
         }
-        // else {
-        //     call is something like:
-        //        require('lasso-loader').async('somePackageId', callback)
-        //        require('lasso-loader').async(someVariable, callback)
-        // }
-
-
-
     }
 
     var callbackNode = args[numArguments - 1];
+
+    var hasFunctionBody =
+        (callbackNode.type === 'FunctionExpression') ||
+        (callbackNode.type === 'FunctionDeclaration');
 
     return {
         node: node,
@@ -114,8 +115,24 @@ function parseAsyncNode(node, scope) {
         dependencies: dependencies,
         args: args,
         callbackNode: callbackNode,
+
+        // require('lasso-loader').async(packageId, function() {}) is used
+        // then `packageIdProvided` will be `true`
+        packageIdProvided: packageIdProvided,
+
+        // Store the range of the first arg in case we need to replace
+        // or add to it.
         firstArgRange: args[0].range,
+
+        // If the first argument to require('lasso-loader').async([...], callback) is
+        // is used then `hasInlineDependencies` will be `true`
         hasInlineDependencies: hasInlineDependencies,
+
+        // If the last argument to require('lasso-loader').async(...)
+        // is a `FunctionDeclaration` or `FunctionExpression` then
+        // `hasFunctionBody` will be `true`.
+        hasFunctionBody: hasFunctionBody,
+
         toString: function() {
             return '[async: ' + this.name + ', dependencies=' + JSON.stringify(dependencies) + ']';
         }
