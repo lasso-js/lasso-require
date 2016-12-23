@@ -17,6 +17,7 @@ var defaultBuiltins = {
     'process':        resolveBuiltin('process'),
     'stream':         resolveBuiltin('stream-browserify'),
     'util':           resolveBuiltin('util'),
+    'url':            resolveBuiltin('url'),
     'lasso-loader':  resolveBuiltin('lasso-loader'),
     'raptor-loader':  resolveBuiltin('lasso-loader'),
     'string_decoder': resolveBuiltin('string_decoder')
