@@ -139,6 +139,10 @@ exports.create = function(config, lasso) {
             return nodePath.dirname(this.file);
         },
 
+        getSourceFile: function() {
+            return this.file;
+        },
+
         read: function(lassoContext) {
             var requireCreateReadStream = this.requireCreateReadStream;
             var requireInspected = this.inspected;
