@@ -13,13 +13,13 @@ var defaultBuiltins = {
     'assert':         resolveBuiltin('assert'),
     'buffer':         resolveBuiltin('buffer'),
     'events':         resolveBuiltin('events'),
+    'lasso-loader':  resolveBuiltin('lasso-loader'),
     'path':           resolveBuiltin('path-browserify'),
     'process':        resolveBuiltin('process'),
-    'stream':         resolveBuiltin('stream-browserify'),
-    'util':           resolveBuiltin('util'),
-    'lasso-loader':  resolveBuiltin('lasso-loader'),
     'raptor-loader':  resolveBuiltin('lasso-loader'),
-    'string_decoder': resolveBuiltin('string_decoder')
+    'stream':         resolveBuiltin('stream-browserify'),
+    'string_decoder': resolveBuiltin('string_decoder'),
+    'util':           resolveBuiltin('util'),
 };
 
 exports.getBuiltins = function(additionalBuiltins) {
