@@ -19,6 +19,7 @@ var defaultBuiltins = {
     'raptor-loader':  resolveBuiltin('lasso-loader'),
     'stream':         resolveBuiltin('stream-browserify'),
     'string_decoder': resolveBuiltin('string_decoder'),
+    'url':           resolveBuiltin('url'),
     'util':           resolveBuiltin('util'),
 };
 
