@@ -348,7 +348,8 @@ function create(config, lasso) {
                 createReadStream: transformedReader,
                 getLastModified: requireHandler.getLastModified,
                 getDefaultBundleName: requireHandler.getDefaultBundleName,
-                object: requireHandler.object === true
+                object: requireHandler.object === true,
+                getDependencies: requireHandler.getDependencies
             };
         },
 
@@ -410,6 +411,20 @@ function create(config, lasso) {
             var dirname = nodePath.dirname(resolved.path);
 
             return Promise.resolve()
+                .then(() => {
+                    if (requireHandler.getDependencies) {
+                        // A require extension can provide its own `getDependencies` method to provide
+                        // additional dependencies beyond what will automatically be discovered using
+                        // static code analysis on the CommonJS code associated with the dependency.
+                        return requireHandler.getDependencies().then((additionalDependencies) => {
+                            if (additionalDependencies && additionalDependencies.length) {
+                                additionalDependencies.forEach((dep) => {
+                                    dependencies.push(dep);
+                                });
+                            }
+                        });
+                    }
+                })
                 .then(() => {
                     // Fixes https://github.com/lasso-js/lasso-require/issues/21
                     // Static JavaScript objects should not need to be inspected
