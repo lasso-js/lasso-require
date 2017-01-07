@@ -35,13 +35,13 @@ describe('lasso-require/util/inspect' , function() {
             return Promise.resolve(10);
         }
 
-        inspectCache.inspectCached(path, createReadStream, getLastModified, lassoContext, mockPluginConfig)
+        inspectCache.inspectCached(path, {createReadStream, getLastModified}, lassoContext, mockPluginConfig)
             .then((inspectResult) => {
                 expect(readCount).to.equal(1);
                 expect(inspectResult.fromCache).to.equal(undefined);
 
                 // Inspect the same file... should come from the cache
-                return inspectCache.inspectCached(path, createReadStream, getLastModified, lassoContext, mockPluginConfig);
+                return inspectCache.inspectCached(path, {createReadStream, getLastModified}, lassoContext, mockPluginConfig);
             })
             .then((inspectResult) => {
                 expect(inspectResult.fromCache).to.equal(true);
@@ -75,13 +75,13 @@ describe('lasso-require/util/inspect' , function() {
             return Promise.resolve(-1);
         }
 
-        inspectCache.inspectCached(path, createReadStream, getLastModified, lassoContext, mockPluginConfig)
+        inspectCache.inspectCached(path, {createReadStream, getLastModified}, lassoContext, mockPluginConfig)
             .then((inspectResult) => {
                 expect(readCount).to.equal(1);
                 expect(inspectResult.fromCache).to.equal(undefined);
 
                 // Inspect the same file... should come from the cache
-                return inspectCache.inspectCached(path, createReadStream, getLastModified, lassoContext, mockPluginConfig);
+                return inspectCache.inspectCached(path, {createReadStream, getLastModified}, lassoContext, mockPluginConfig);
             })
             .then((inspectResult) => {
                 expect(inspectResult.fromCache).to.equal(true);

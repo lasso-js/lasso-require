@@ -8,6 +8,7 @@ var Readable = require('stream').Readable;
 var util = require('util');
 var fingerprintStream = require('./fingerprint-stream');
 var MockMemoryCache = require('./MockMemoryCache');
+var MockRequireHandler = require('./MockRequireHandler');
 var LassoManifest = require('./LassoManifest');
 var manifestLoader = require('./manifest-loader');
 
@@ -90,12 +91,24 @@ class MockLassoContext {
                 return {
                     object: requireExt.object === true,
 
+                    init() {
+                        return Promise.resolve();
+                    },
+
+                    getDependencies() {
+                        return Promise.resolve([]);
+                    },
+
                     createReadStream: requireExt.createReadStream(path, lassoContext),
 
                     getLastModified: function() {
                         return Promise.resolve(-1);
                     }
                 };
+            },
+
+            createRequireHandler: function(path, lassoContext, userOptions) {
+                return new MockRequireHandler(userOptions, lassoContext, path);
             },
 
             getRequireExtensionNames() {

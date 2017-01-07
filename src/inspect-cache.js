@@ -5,18 +5,18 @@ var inspect = require('./util/inspect');
 var lassoPackageRoot = require('lasso-package-root');
 var nodePath = require('path');
 var extend = require('raptor-util/extend');
-exports.inspectCached = function(path, createReadStream, getLastModified, lassoContext, config) {
+exports.inspectCached = function(path, requireHandler, lassoContext, config) {
     var debugEnabled = logger.isDebugEnabled();
 
     ok(path, '"path" is required');
-    ok(createReadStream, '"createReadStream" is required');
-    ok(getLastModified, '"getLastModified" is required');
+    ok(requireHandler, '"requireHandler" is required');
+
     ok(lassoContext, '"lassoContext" is required');
     ok(config, '"config" is required');
 
     ok(typeof path === 'string', '"path" should be a string');
-    ok(typeof createReadStream === 'function', '"createReadStream" should be a function');
-    ok(typeof getLastModified === 'function', '"getLastModified" should be a function');
+    ok(typeof requireHandler.createReadStream === 'function', '"requireHandler.createReadStream" should be a function');
+    ok(typeof requireHandler.getLastModified === 'function', '"requireHandler.getLastModified" should be a function');
     ok(typeof lassoContext === 'object', '"lassoContext" should be an object');
     ok(typeof config === 'object', '"config" should be an object');
 
@@ -75,7 +75,7 @@ exports.inspectCached = function(path, createReadStream, getLastModified, lassoC
         }
 
         // Otherwise, let's read in the stream into a string value and invoke the callback when it is done.
-        var stream = createReadStream();
+        var stream = requireHandler.createReadStream();
         return streamToString(stream)
             .then((_src) => {
                 src = _src;
@@ -138,7 +138,7 @@ exports.inspectCached = function(path, createReadStream, getLastModified, lassoC
                         });
                     };
                 } else {
-                    inspectResult.createReadStream = createReadStream;
+                    inspectResult.createReadStream = requireHandler.createReadStream.bind(requireHandler);
                 }
 
                 return inspectResult;
@@ -154,7 +154,7 @@ exports.inspectCached = function(path, createReadStream, getLastModified, lassoC
             src = '';
             var fingerprint = null;
 
-            var stream = createReadStream();
+            var stream = requireHandler.createReadStream();
             var fingerprintStream = lassoContext.createFingerprintStream();
 
             fingerprintStream
@@ -188,7 +188,7 @@ exports.inspectCached = function(path, createReadStream, getLastModified, lassoC
         return cacheKey;
     }
 
-    return getLastModified()
+    return requireHandler.getLastModified()
         .then((_lastModified) => {
             lastModified = _lastModified;
 

@@ -12,12 +12,6 @@ var normalizeMain = require('lasso-modules-client/transport').normalizeMain;
 var lassoCachingFS = require('lasso-caching-fs');
 var lassoPackageRoot = require('lasso-package-root');
 
-const NEGATIVE_ONE_PROMISE = Promise.resolve(-1);
-
-var getLastModified_noCache = () => {
-    return NEGATIVE_ONE_PROMISE;
-};
-
 function buildAsyncInfo(path, asyncBlocks, lassoContext) {
     if (asyncBlocks.length === 0) {
         return null;
@@ -289,39 +283,13 @@ function create(config, lasso) {
             if (!requireHandler) {
                 var virtualModule = this.virtualModule;
                 if (virtualModule) {
-                    let createReadStream = function() {
-                        return lassoContext.createReadStream((callback) => {
-                            if (virtualModule.createReadStream) {
-                                return virtualModule.createReadStream(lassoContext);
-                            } else {
-                                return virtualModule.read(lassoContext, callback);
-                            }
-                        });
-                    };
-
-                    requireHandler = {
-                        createReadStream: createReadStream,
-                        getLastModified: virtualModule.getLastModified || getLastModified_noCache,
-
-                        // A virtual module can provide a `getDefaultBundleName`
-                        // function that will be associated with the module
-                        // definition and modudle run dependencies.
-                        // This allows virtual require modules to be put
-                        // into a bundle.
-                        getDefaultBundleName: virtualModule.getDefaultBundleName,
-
-                        object: virtualModule.object
-                    };
+                    var virtualPath = resolved.path || virtualModule.path || '';
+                    requireHandler = lassoContext.dependencyRegistry.createRequireHandler(virtualPath, lassoContext, virtualModule);
+                    requireHandler.includePathArg = false;
                 }
             }
 
             if (!requireHandler) {
-                // Use the file extension to get the information for the require
-                var extension = nodePath.extname(resolved.path);
-                if (extension) {
-                    extension = extension.substring(1); // Remove the leading dot
-                }
-
                 requireHandler = lassoContext.dependencyRegistry.getRequireHandler(resolved.path, lassoContext);
 
                 if (!requireHandler) {
@@ -329,28 +297,19 @@ function create(config, lasso) {
                 }
             }
 
-
             var transforms = config.transforms;
-
-            var transformedReader;
-            var createReadStream = requireHandler.createReadStream;
-
             if (transforms) {
-                transformedReader = function () {
-                    var inStream = createReadStream();
+                let defaultCreateReadStream = requireHandler.createReadStream.bind(requireHandler);
+                let transformedRequireHandler = Object.create(requireHandler);
+
+                transformedRequireHandler.createReadStream = function createdTransformedReadStream() {
+                    var inStream = defaultCreateReadStream();
                     return transforms.apply(resolved.path, inStream, lassoContext);
                 };
+                return transformedRequireHandler;
             } else {
-                transformedReader = createReadStream;
+                return requireHandler;
             }
-
-            return {
-                createReadStream: transformedReader,
-                getLastModified: requireHandler.getLastModified,
-                getDefaultBundleName: requireHandler.getDefaultBundleName,
-                object: requireHandler.object === true,
-                getDependencies: requireHandler.getDependencies
-            };
         },
 
         getDependencies: function(lassoContext) {
@@ -410,7 +369,7 @@ function create(config, lasso) {
 
             var dirname = nodePath.dirname(resolved.path);
 
-            return Promise.resolve()
+            return requireHandler.init()
                 .then(() => {
                     if (requireHandler.getDependencies) {
                         // A require extension can provide its own `getDependencies` method to provide
@@ -434,7 +393,7 @@ function create(config, lasso) {
                         return requireHandler.getLastModified()
                             .then((lastModified) => {
                                 return {
-                                    createReadStream: requireHandler.createReadStream,
+                                    createReadStream: requireHandler.createReadStream.bind(requireHandler),
                                     lastModified: lastModified
                                 };
                             });
@@ -442,8 +401,7 @@ function create(config, lasso) {
 
                     return inspectCache.inspectCached(
                         resolved.path,
-                        requireHandler.createReadStream,
-                        requireHandler.getLastModified,
+                        requireHandler,
                         lassoContext,
                         config);
                 })
@@ -559,7 +517,7 @@ function create(config, lasso) {
                             // A `virtualModule` object provided a
                             // `getDefaultBundleName` that we will use to
                             // create the define dependency.
-                            defDependency.getDefaultBundleName = requireHandler.getDefaultBundleName;
+                            defDependency.getDefaultBundleName = requireHandler.getDefaultBundleName.bind(requireHandler);
                         }
 
                         if (additionalVars) {
@@ -601,7 +559,7 @@ function create(config, lasso) {
                                 // A `virtualModule` object provided a
                                 // `getDefaultBundleName` that we will use to
                                 // create the run dependency.
-                                runDependency.getDefaultBundleName = requireHandler.getDefaultBundleName;
+                                runDependency.getDefaultBundleName = requireHandler.getDefaultBundleName.bind(requireHandler);
                             }
 
                             if (wait === false) {
