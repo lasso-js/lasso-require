@@ -213,12 +213,12 @@ function create(config, lasso) {
                 var virtualModule = this.virtualModule;
 
                 if (virtualModule) {
-                    let path = virtualModule.path;
+                    let path = virtualModule.path || this.path;
                     ok(path, '"path" is required for a virtual module');
 
                     this.path = path;
                     if (!this.from) {
-                        this.from = nodePath.dirname(virtualModule.path);
+                        this.from = nodePath.dirname(path);
                     }
 
                     var clientPath = virtualModule.clientPath || getClientPath(path);
