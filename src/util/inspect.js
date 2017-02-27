@@ -68,7 +68,6 @@ function isAsyncNode(node, scope) {
     return false;
 }
 
-
 function parseAsyncNode(node, scope) {
     if (!isAsyncNode(node, scope)) {
         return;
@@ -256,17 +255,7 @@ module.exports = function inspect(src, options) {
             if (!scope.require && (isRequire(node) || isRequireResolve(node))) {
                 requirePath = node.arguments[0].value;
 
-                var range;
-
-                if (parentNode.type === 'ExpressionStatement') {
-                    range = parentNode.range;
-                } else if (parentNode.type === 'VariableDeclarator') {
-                    range = parentNode.init && parentNode.init.range;
-                } else if (parentNode.type === 'MemberExpression') {
-                    range = parentNode.range;
-                } else if (parentNode.type === 'AssignmentExpression') {
-                    range = parentNode.right.range;
-                }
+                var range = node.range;
 
                 var firstArgRange = node.arguments[0].range;
 

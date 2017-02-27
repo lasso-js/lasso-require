@@ -59,7 +59,7 @@ function transformRequires(code, inspected, asyncBlocks, lassoContext) {
         if (require.resolved.voidRemap) {
             if (require.range) {
                 stringTransformer.comment(require.range);
-                stringTransformer.insert(require.range[0], '{}');
+                stringTransformer.insert(require.range[0], '({})');
             }
             return;
         }
@@ -69,6 +69,7 @@ function transformRequires(code, inspected, asyncBlocks, lassoContext) {
         if (!resolved.isDir && (resolved.type || !lassoContext.dependencyRegistry.getRequireHandler(resolved.path, lassoContext))) {
             if (require.range) {
                 stringTransformer.comment(require.range);
+                stringTransformer.insert(require.range[0], 'void 0');
             }
         } else {
             preresolvePath(require, stringTransformer);
