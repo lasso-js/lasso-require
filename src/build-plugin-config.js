@@ -143,6 +143,8 @@ function buildPluginConfig(userConfig, defaultProjectRoot) {
             prefix.replace(/^-+/, '').replace(/-+$/, '');
     }
 
+    config.extensions = userConfig.extensions || ['.js'];
+
     return config;
 }
 
