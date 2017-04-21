@@ -14,8 +14,6 @@ var _normalizePath = nodePath.sep === '/' ?
         return path.replace(/[\\]/g, '/');
     };
 
-var resolveCache = {};
-
 exports.createResolver = function(builtins, getClientPath) {
     function resolveRequire(targetModule, fromDir, lassoContext) {
         ok(targetModule, '"targetModule" is required');
@@ -95,11 +93,13 @@ exports.createResolver = function(builtins, getClientPath) {
 
     function resolveRequireCached(targetModule, fromDir, lassoContext) {
         var key = targetModule + '@' + fromDir;
+        var cache = lassoContext.cache.getSyncCache('resolveRequire');
 
-        var result = resolveCache[key];
+        var result = cache.getSync(key);
+
         if (result === undefined) {
             result = resolveRequire(targetModule, fromDir, lassoContext);
-            resolveCache[key] = result || null;
+            cache.putSync(key, result || null);
         }
 
         return result || undefined;
