@@ -18,6 +18,7 @@ This plugin is enabled by default, but if you want to provide your own configura
 ```javascript
 require('lasso').configure({
     require: {
+        extensions: ['.js'], // Defaults to ['.js']
         transforms: [ // Browserify compatible transforms
             'deamdify'
         ]

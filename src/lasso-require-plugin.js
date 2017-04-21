@@ -52,15 +52,19 @@ module.exports = exports = function plugin(lasso, userConfig) {
         });
     });
 
-    lasso.dependencies.registerRequireExtension('js', {
-            read: function(path) {
-                return fs.createReadStream(path, {encoding: 'utf8'});
-            },
+    function registerExtension(ext) {
+        lasso.dependencies.registerRequireExtension(ext, {
+                read: function(path) {
+                    return fs.createReadStream(path, {encoding: 'utf8'});
+                },
 
-            getLastModified: function(path, lassoContext, callback) {
-                lassoContext.getFileLastModified(path, callback);
-            }
-        });
+                getLastModified: function(path, lassoContext, callback) {
+                    lassoContext.getFileLastModified(path, callback);
+                }
+            });
+    }
+
+    config.extensions.forEach(registerExtension);
 
     // Extension for babel
     function babelTransformFile(path, callback) {
