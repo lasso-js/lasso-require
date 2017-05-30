@@ -20,7 +20,7 @@
                     "path": "baz",
                     "range": [
                         146,
-                        161
+                        160
                     ],
                     "argRange": [
                         154,
@@ -39,8 +39,8 @@
                 102,
                 120
             ],
-            "hasFunctionBody": true,
-            "hasInlineDependencies": true
+            "hasInlineDependencies": true,
+            "hasFunctionBody": true
         },
         {
             "requires": [
@@ -48,7 +48,7 @@
                     "path": "cat",
                     "range": [
                         218,
-                        233
+                        232
                     ],
                     "argRange": [
                         226,
@@ -66,8 +66,8 @@
                 190,
                 243
             ],
-            "hasFunctionBody": true,
-            "hasInlineDependencies": false
+            "hasInlineDependencies": false,
+            "hasFunctionBody": true
         }
     ]
 }

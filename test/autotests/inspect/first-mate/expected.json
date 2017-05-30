@@ -37,7 +37,7 @@
             "path": "oniguruma",
             "range": [
                 251,
-                282
+                271
             ],
             "argRange": [
                 259,
@@ -48,7 +48,7 @@
             "path": "event-kit",
             "range": [
                 297,
-                325
+                317
             ],
             "argRange": [
                 305,
@@ -114,7 +114,7 @@
             "path": "emissary",
             "range": [
                 11391,
-                11418
+                11410
             ],
             "argRange": [
                 11399,

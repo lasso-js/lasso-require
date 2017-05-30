@@ -26,7 +26,7 @@
                     "path": "./bar",
                     "range": [
                         0,
-                        17
+                        16
                     ],
                     "argRange": [
                         8,
@@ -47,7 +47,7 @@
                     "path": "./bar",
                     "range": [
                         0,
-                        17
+                        16
                     ],
                     "argRange": [
                         8,

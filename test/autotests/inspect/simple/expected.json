@@ -4,7 +4,7 @@
             "path": "foo",
             "range": [
                 0,
-                15
+                14
             ],
             "argRange": [
                 8,
@@ -13,6 +13,10 @@
         },
         {
             "path": "bar",
+            "range": [
+                21,
+                35
+            ],
             "argRange": [
                 29,
                 34
@@ -22,7 +26,7 @@
             "path": "baz",
             "range": [
                 43,
-                58
+                57
             ],
             "argRange": [
                 51,

@@ -61,6 +61,20 @@ var MOCK_CACHE = {
     }
 };
 
+class SyncCache {
+    constructor() {
+        this._store = {};
+    }
+
+    getSync(key) {
+        return this._store[key];
+    }
+
+    putSync(key, value) {
+        this._store[key] = value;
+    }
+}
+
 class MockLassoContext {
     constructor() {
         this.data = {};
@@ -119,10 +133,15 @@ class MockLassoContext {
         };
 
         var mockCaches = this.mockCaches = {};
+        var syncCaches = {};
 
         this.cache = {
             getCache(name) {
                 return mockCaches[name] || MOCK_CACHE;
+            },
+
+            getSyncCache(name) {
+                return syncCaches[name] || (syncCaches[name] = new SyncCache());
             }
         };
 

@@ -15,7 +15,7 @@
             "path": "foo",
             "range": [
                 151,
-                166
+                165
             ],
             "argRange": [
                 159,
@@ -26,7 +26,7 @@
             "path": "bar",
             "range": [
                 188,
-                203
+                202
             ],
             "argRange": [
                 196,
@@ -37,7 +37,7 @@
             "path": "lasso-loader",
             "range": [
                 473,
-                502
+                496
             ],
             "argRange": [
                 481,
@@ -53,7 +53,7 @@
                     "path": "baz",
                     "range": [
                         272,
-                        287
+                        286
                     ],
                     "argRange": [
                         280,
@@ -72,8 +72,8 @@
                 228,
                 246
             ],
-            "hasFunctionBody": true,
-            "hasInlineDependencies": true
+            "hasInlineDependencies": true,
+            "hasFunctionBody": true
         },
         {
             "requires": [
@@ -81,7 +81,7 @@
                     "path": "cat",
                     "range": [
                         355,
-                        370
+                        369
                     ],
                     "argRange": [
                         363,
@@ -99,8 +99,8 @@
                 327,
                 380
             ],
-            "hasFunctionBody": true,
-            "hasInlineDependencies": false
+            "hasInlineDependencies": false,
+            "hasFunctionBody": true
         },
         {
             "requires": [],
@@ -112,8 +112,8 @@
                 520,
                 617
             ],
-            "hasFunctionBody": false,
-            "hasInlineDependencies": true
+            "hasInlineDependencies": true,
+            "hasFunctionBody": false
         }
     ]
 }
