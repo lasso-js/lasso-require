@@ -91,7 +91,7 @@
                         ],
                         "hasInlineDependencies": false,
                         "hasFunctionBody": true,
-                        "name": "6f7ee9"
+                        "name": "_96206f"
                     }
                 ],
                 "lastModified": -1,
@@ -168,14 +168,14 @@
                     ],
                     "hasInlineDependencies": false,
                     "hasFunctionBody": true,
-                    "name": "6f7ee9"
+                    "name": "_96206f"
                 }
             ],
             "requireLastModified": -1
         }
     ],
     "async": {
-        "6f7ee9": [
+        "_96206f": [
             {
                 "type": "require",
                 "path": "./bar"
