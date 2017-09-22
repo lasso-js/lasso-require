@@ -22,8 +22,6 @@ function buildAsyncInfo(path, asyncBlocks, lassoContext) {
 
     var key = 'require-async|' + normalizeFSPath(path);
 
-    console.log('KEY:', key);
-    
     var asyncInfo = lassoContext.data[key];
 
     if (!asyncInfo) {
