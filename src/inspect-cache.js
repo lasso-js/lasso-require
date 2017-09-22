@@ -2,7 +2,8 @@ var ok = require('assert').ok;
 var logger = require('raptor-logging').logger(module);
 var streamToString = require('./util/streamToString');
 var inspect = require('./util/inspect');
-var lassoPackageRoot = require('lasso-package-root');
+var normalizeFSPath = require('./util/normalizeFSPath');
+
 var nodePath = require('path');
 var extend = require('raptor-util/extend');
 exports.inspectCached = function(path, requireHandler, lassoContext, config) {
@@ -175,19 +176,6 @@ exports.inspectCached = function(path, requireHandler, lassoContext, config) {
         });
     }
 
-    function buildCacheKeyFromPath() {
-        // We will use the path associated with the require as the cache key and
-        // since we have a valid last modified time that is going to be good enough.
-        var cacheKey = path;
-
-        var projectRootDir = config.rootDir || lassoPackageRoot.getRootDir(path);
-        if (path.startsWith(projectRootDir)) {
-            cacheKey = '$APP_ROOT' + cacheKey.substring(projectRootDir.length);
-        }
-
-        return cacheKey;
-    }
-
     return requireHandler.getLastModified()
         .then((_lastModified) => {
             lastModified = _lastModified;
@@ -197,7 +185,7 @@ exports.inspectCached = function(path, requireHandler, lassoContext, config) {
             }
 
             if (lastModified) {
-                return buildCacheKeyFromPath();
+                return normalizeFSPath(path);
             } else {
                 return buildCacheKeyFromFingerprint();
             }

@@ -11,6 +11,8 @@ var Deduper = require('./util/Deduper');
 var normalizeMain = require('lasso-modules-client/transport').normalizeMain;
 var lassoCachingFS = require('lasso-caching-fs');
 var lassoPackageRoot = require('lasso-package-root');
+var normalizeFSPath = require('./util/normalizeFSPath');
+
 const crypto = require('crypto');
 
 function buildAsyncInfo(path, asyncBlocks, lassoContext) {
@@ -18,8 +20,10 @@ function buildAsyncInfo(path, asyncBlocks, lassoContext) {
         return null;
     }
 
-    var key = 'require-async|' + path;
+    var key = 'require-async|' + normalizeFSPath(path);
 
+    console.log('KEY:', key);
+    
     var asyncInfo = lassoContext.data[key];
 
     if (!asyncInfo) {
@@ -39,7 +43,7 @@ function buildAsyncInfo(path, asyncBlocks, lassoContext) {
             }
 
             var hash = '_' + crypto.createHash('sha1')
-                .update(path)
+                .update(key)
                 .update(String(i))
                 .digest('hex')
                 .substring(0, 6);
