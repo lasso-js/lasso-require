@@ -97,7 +97,7 @@ function buildPluginConfig(userConfig, defaultProjectRoot) {
             delete babelConfig.extensions;
 
             if (!babelConfig.presets) {
-                babelConfig.presets = [require('babel-preset-es2015')];
+                babelConfig.presets = [require('babel-preset-env')];
             }
         }
         return babelConfig;
